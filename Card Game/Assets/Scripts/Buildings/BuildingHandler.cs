@@ -8,10 +8,25 @@ public class BuildingHandler : InteractableObject
     private BuildingSO _buildingSO;
     private SelectedCard _selectedCard;
 
+    private UnitData _unitData;
+    public UnitData UnitData
+    {
+        get => _unitData;
+        private set => _unitData = value;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        _selectedCard = SelectedCard.Instance; 
+    }
+
     public void Initialize(BuildingSO buildingSO)
     {
         _buildingSO = buildingSO;
         _image.sprite = buildingSO.Sprite;
+        _unitData = new(buildingSO.UnitSO.UnitData);
     }
     protected override void OnObjectClicked()
     {

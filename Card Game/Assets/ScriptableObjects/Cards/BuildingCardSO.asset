@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29c975e3c1350534191d8342b0a2e2cb, type: 3}
-  m_Name: CardSO
+  m_Name: BuildingCardSO
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   Name: Debug Building Card
   Type: 0

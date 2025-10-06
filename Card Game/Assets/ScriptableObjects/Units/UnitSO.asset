@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957203b1c1722de43a611e7c18a46b26, type: 3}
+  m_Name: UnitSO
+  m_EditorClassIdentifier: Assembly-CSharp::UnitSO
+  UnitData:
+    UnitSprite: {fileID: 4723107735738678597, guid: 1018b0ba13578bf459bd254ae1a2be99, type: 3}
+    UnitAmount: 5
+    UnitHealth: 10
+    UnitDamage: 7
+    UnitSpeed: 10
+    SpawnPosionIndex: 1

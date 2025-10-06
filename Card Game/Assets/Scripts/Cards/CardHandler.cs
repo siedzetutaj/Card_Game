@@ -50,14 +50,14 @@ public class CardHandler : InteractableObject
     protected override void OnObjectMouseExit()
     {
     }
-    public virtual void OnCardPlayed(GameObject groundTile)
+    public virtual void OnCardPlayed(GameObject interactiveObject)
     {
 
         foreach (var resourceTypeCost in _cardSO.Cost)
         {
             _resourceManager.FindResource(resourceTypeCost.Type).Amount -= resourceTypeCost.Cost;
         }
-        _cardSO.OnCardPlayed(groundTile);
+        _cardSO.OnCardPlayed(interactiveObject);
         Destroy(gameObject);
     }
     public virtual void DisableHighlight()

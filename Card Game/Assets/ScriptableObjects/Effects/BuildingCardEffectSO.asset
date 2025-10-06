@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4652657781d5be4fa940b08c3e9b329, type: 3}
-  m_Name: BuildingCardEffect
+  m_Name: BuildingCardEffectSO
   m_EditorClassIdentifier: Assembly-CSharp::BuildingCardEffect
   BuildingSO: {fileID: 11400000, guid: 8b5f6f6db4b42ca4da279332a497874f, type: 2}
   BuildingPrefab: {fileID: 2775292021146187962, guid: 8259cefc090bc9142b44fda252ed9600, type: 3}

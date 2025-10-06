@@ -12,11 +12,11 @@ public class CardSO : ScriptableObject
     public Sprite Sprite;
     //W edytorze dorobiæ wyszukiwarkê efektów po typie karty
     public List<CardEffectSO> Effects = new();
-    public virtual void OnCardPlayed(GameObject groundTile)
+    public virtual void OnCardPlayed(GameObject interactiveObject)
     {
         foreach (var effect in Effects)
         {
-            effect.ApplyEffect(groundTile);
+            effect.ApplyEffect(interactiveObject);
         }
     }
 }

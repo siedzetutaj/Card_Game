@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "BuildingCardEffect", menuName = "Scriptable Objects/BuildingCardEffect")]
+[CreateAssetMenu(fileName = "BuildingCardEffect", menuName = "Scriptable Objects/Effects/BuildingCardEffect")]
 public class BuildingCardEffectSO : CardEffectSO
 {
     public BuildingSO BuildingSO;
@@ -11,11 +11,6 @@ public class BuildingCardEffectSO : CardEffectSO
     public override void ApplyEffect(GameObject groundTile)
     {
         GameObject building = Instantiate(BuildingPrefab, groundTile.transform);
-        building.GetComponent<Image>().sprite = BuildingSO.Sprite;    
-        
-        
-        /*TODO:
-         * migracja danych z so do budynku
-         */
+        building.GetComponent<BuildingHandler>().Initialize(BuildingSO);  
     }
 }

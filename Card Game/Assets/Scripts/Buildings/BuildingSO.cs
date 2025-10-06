@@ -5,8 +5,9 @@ public class BuildingSO : ScriptableObject
 {
     public Sprite Sprite;
 
+    public UnitSO UnitSO;
+
     /*TODO:
-     * na razie tylko dane do tworzenia jednostek
      * potem trzeba wykminic jak dorobic inne efekty budynkow
      * 
      */

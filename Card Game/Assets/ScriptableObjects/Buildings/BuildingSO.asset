@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BuildingSO
   m_EditorClassIdentifier: Assembly-CSharp::BuildingSO
   Sprite: {fileID: 5161529598402763516, guid: 81a2e883a8bcd704ba66409e00ec6ca9, type: 3}
+  UnitSO: {fileID: 11400000, guid: 4e491874b50700b4ba8f3386d0560ac2, type: 2}

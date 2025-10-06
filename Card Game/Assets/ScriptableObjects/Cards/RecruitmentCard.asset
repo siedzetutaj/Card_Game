@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c975e3c1350534191d8342b0a2e2cb, type: 3}
+  m_Name: RecruitmentCard
+  m_EditorClassIdentifier: Assembly-CSharp::CardSO
+  Name: REcruitemnt
+  Type: 2
+  Cost:
+  - Type: 1
+    Cost: 5
+  - Type: 0
+    Cost: 5
+  Description: Recrutis units from buidling
+  Sprite: {fileID: 302641331129538988, guid: 5f19f67e94a2e2f4ba57d2b338387c11, type: 3}
+  Effects:
+  - {fileID: 11400000, guid: 62f97e71b718e1c448344495ce9e3ad9, type: 2}

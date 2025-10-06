@@ -2,5 +2,5 @@ using UnityEngine;
 
 public abstract class CardEffectSO : ScriptableObject
 {
-    public abstract void ApplyEffect(GameObject groundTile);
+    public abstract void ApplyEffect(GameObject interactiveObject);
 }
