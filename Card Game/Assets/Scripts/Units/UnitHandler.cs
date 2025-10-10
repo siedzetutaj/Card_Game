@@ -1,29 +1,33 @@
+using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitHandler : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-    private UnitData _unitData;
-    private UnitHandler _targetUnit;
-    
-    private bool _canAttack = true;
-    private float _waitBetweenAttack = 1f;
+    [SerializeField] protected SpriteRenderer _spriteRenderer;
+    protected UnitData _unitData;
+    protected UnitHandler _targetUnit;
 
-    private bool _isPlayerUnit;
+    protected bool _canAttack = true;
+    protected float _waitBetweenAttack = 1f;
 
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
-    public void Inititalize(UnitData unitData, bool isPlayerUnit)
+    protected bool _isPlayerUnit;
+    protected UnitsManager _unitsManager;
+
+    protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    public void Inititalize(UnitData unitData, bool isPlayerUnit, UnitsManager unitsManager)
     {
         _unitData = new UnitData(unitData);
         _spriteRenderer.sprite = unitData.UnitSprite;
         _waitBetweenAttack =  unitData.UnitAttackSpeed;
         _isPlayerUnit = isPlayerUnit;
+        _unitsManager = unitsManager;
         transform.position = new Vector3(transform.position.x + Random.Range(-20,20),
             transform.position.y + Random.Range(-20, 20), 0);
     }
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         if(_targetUnit == null)
             FindTarget();
@@ -37,7 +41,7 @@ public class UnitHandler : MonoBehaviour
         }
     }
 
-    private void Movement()
+    protected void Movement()
     {
         Vector3 targetTransform = _targetUnit.transform.position;  
         Vector3 direction = (targetTransform - this.transform.position);
@@ -48,20 +52,17 @@ public class UnitHandler : MonoBehaviour
         }
         transform.position += direction.normalized * _unitData.UnitSpeed * Time.fixedDeltaTime;
     }
-    private void FindTarget()
+    protected virtual void FindTarget()
     {
-        if (_isPlayerUnit)
-            _targetUnit = FindBestTarget(_gameLogicManager.EnemieUnits);
-        else
-            _targetUnit = FindBestTarget(_gameLogicManager.PlayerUnits);
+
     }
-    private UnitHandler FindBestTarget(UnitsManager unitsManager)
+    protected UnitHandler FindBestTarget(List<UnitHandler> units)
     {
-        if(!unitsManager) return null;
+        if (units.Count <= 0) return null;
         UnitHandler best = null;
         float bestSqrDist = float.MaxValue;
 
-        foreach (UnitHandler unit in unitsManager.Units)
+        foreach (UnitHandler unit in units)
         {
             if (unit == null) continue;
             float sqrDist = (unit.gameObject.transform.position - transform.position).sqrMagnitude;
@@ -73,7 +74,7 @@ public class UnitHandler : MonoBehaviour
         }
         return best;
     }
-    private void RangeCheck()
+    protected void RangeCheck()
     {
         Vector2 distance = Vector2.Distance(transform.position, _targetUnit.transform.position) * Vector2.one;
         if (distance.magnitude > _unitData.UnitAttackRange)
@@ -81,7 +82,7 @@ public class UnitHandler : MonoBehaviour
         else
             _canAttack = true;
     }
-    private void Attack()
+    protected void Attack()
     {
         _targetUnit.OnDecreaseHP(_unitData.UnitDamage, this);
         StartCoroutine(WaitCoroutine());
@@ -92,9 +93,14 @@ public class UnitHandler : MonoBehaviour
         if (_unitData.UnitHealth <= 0) 
             OnDeath(attacker);
     }
-    private void OnDeath(UnitHandler attacker)
+    protected void OnDeath(UnitHandler attacker)
     {
         attacker.OnKill();
+        DestroyUnit();
+    }
+    public void DestroyUnit()
+    {
+        _unitsManager.OnUnitDeath(this);
         Destroy(gameObject);
     }
     public bool IsAlly(bool isPlayerUnit)

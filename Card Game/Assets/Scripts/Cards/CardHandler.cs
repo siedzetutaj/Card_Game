@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,31 +7,31 @@ using UnityEngine.UI;
 public class CardHandler : InteractableObject
 {
     public CardType CardType;
-
     private ResourceManager _resourceManager;
 
-    [SerializeField] private CardSO _cardSO;
+    public CardData CardData;
 
     [SerializeField] private GameObject _highlight;
     [SerializeField] private TextMeshProUGUI _cardNameTmp;
     [SerializeField] private TextMeshProUGUI _cardDescriptionTmp;
     [SerializeField] private Image _cardImage;
-    protected override void OnEnable()
+    
+    public void Initialize(CardData cardData)
     {
-        base.OnEnable();
+        CardData = cardData;
         _resourceManager = ResourceManager.Instance;
         _highlight.SetActive(false);
 
-        _cardNameTmp.text = _cardSO.Name;
-        _cardDescriptionTmp.text = _cardSO.Description;
-        _cardImage.sprite = _cardSO.Sprite;
-        CardType = _cardSO.Type;
+        _cardNameTmp.text = CardData.Name;
+        _cardDescriptionTmp.text = CardData.Description;
+        _cardImage.sprite = CardData.Sprite;
+        CardType = CardData.Type;
     }
     protected override void OnObjectClicked()
     {
         bool isEnoughtResources = true;
 
-        foreach (var resourceTypeCost in _cardSO.Cost)
+        foreach (var resourceTypeCost in CardData.Cost)
         {
             if (!_resourceManager.FindResource(resourceTypeCost.Type).IsEnoughtResources(resourceTypeCost.Cost))
             {
@@ -53,11 +54,16 @@ public class CardHandler : InteractableObject
     public virtual void OnCardPlayed(GameObject interactiveObject)
     {
 
-        foreach (var resourceTypeCost in _cardSO.Cost)
+        foreach (var resourceTypeCost in CardData.Cost)
         {
             _resourceManager.FindResource(resourceTypeCost.Type).Amount -= resourceTypeCost.Cost;
         }
-        _cardSO.OnCardPlayed(interactiveObject);
+        CardData.OnCardPlayed(interactiveObject);
+
+        DeckManager.Instance.DiscardCard(this);
+    }
+    public virtual void DestroyCard()
+    {
         Destroy(gameObject);
     }
     public virtual void DisableHighlight()
