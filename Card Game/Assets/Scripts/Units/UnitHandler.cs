@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System.Collections;
 using UnityEngine;
 
@@ -6,66 +7,107 @@ public class UnitHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private UnitData _unitData;
     private UnitHandler _targetUnit;
+    
     private bool _canAttack = true;
     private float _waitBetweenAttack = 1f;
-    public void Inititalize(UnitData unitData)
+
+    private bool _isPlayerUnit;
+
+    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    public void Inititalize(UnitData unitData, bool isPlayerUnit)
     {
         _unitData = new UnitData(unitData);
         _spriteRenderer.sprite = unitData.UnitSprite;
-        _waitBetweenAttack = 1f / unitData.UnitAttackSpeed;
+        _waitBetweenAttack =  unitData.UnitAttackSpeed;
+        _isPlayerUnit = isPlayerUnit;
+        transform.position = new Vector3(transform.position.x + Random.Range(-20,20),
+            transform.position.y + Random.Range(-20, 20), 0);
     }
     private void FixedUpdate()
     {
-        FindTarget();
-        Movement();
-        RangeCheck();
-        Attack();
+        if(_targetUnit == null)
+            FindTarget();
+        else
+        {
+            RangeCheck();
+            if(!_canAttack)
+                Movement();
+            else
+                Attack();
+        }
     }
 
     private void Movement()
     {
-        //TODO:
-        Debug.Log("Movement");
+        Vector3 targetTransform = _targetUnit.transform.position;  
+        Vector3 direction = (targetTransform - this.transform.position);
+        if (direction.sqrMagnitude <= 0.005f)
+        {
+            transform.position = targetTransform;
+            return;
+        }
+        transform.position += direction.normalized * _unitData.UnitSpeed * Time.fixedDeltaTime;
     }
     private void FindTarget()
     {
+        if (_isPlayerUnit)
+            _targetUnit = FindBestTarget(_gameLogicManager.EnemieUnits);
+        else
+            _targetUnit = FindBestTarget(_gameLogicManager.PlayerUnits);
+    }
+    private UnitHandler FindBestTarget(UnitsManager unitsManager)
+    {
+        if(!unitsManager) return null;
+        UnitHandler best = null;
+        float bestSqrDist = float.MaxValue;
 
+        foreach (UnitHandler unit in unitsManager.Units)
+        {
+            if (unit == null) continue;
+            float sqrDist = (unit.gameObject.transform.position - transform.position).sqrMagnitude;
+            if (sqrDist < bestSqrDist)
+            {
+                bestSqrDist = sqrDist;
+                best = unit;
+            }
+        }
+        return best;
     }
     private void RangeCheck()
     {
-        if(_targetUnit == null) return;
-        
         Vector2 distance = Vector2.Distance(transform.position, _targetUnit.transform.position) * Vector2.one;
-        Debug.Log(distance);
-
-        if(distance.magnitude > _unitData.UnitAttackRange)
-            _targetUnit = null;
+        if (distance.magnitude > _unitData.UnitAttackRange)
+            _canAttack = false;
+        else
+            _canAttack = true;
     }
     private void Attack()
     {
-        if(!_canAttack) return;
-        if (_targetUnit == null) return;
-
-        _targetUnit.OnDecreaseHP(_unitData.UnitAttackSpeed);
+        _targetUnit.OnDecreaseHP(_unitData.UnitDamage, this);
         StartCoroutine(WaitCoroutine());
     }
-    public void OnDecreaseHP(int damage)
+    public void OnDecreaseHP(int damage, UnitHandler attacker)
     {
         _unitData.UnitHealth -= damage;
         if (_unitData.UnitHealth <= 0) 
-            OnDeath();
+            OnDeath(attacker);
     }
-    private void OnDeath()
+    private void OnDeath(UnitHandler attacker)
     {
-        //TODO:
-        Debug.Log("Death");
+        attacker.OnKill();
+        Destroy(gameObject);
     }
-
+    public bool IsAlly(bool isPlayerUnit)
+    {
+        return isPlayerUnit == _isPlayerUnit;
+    }
+    public void OnKill()
+    {
+        _targetUnit = null;
+    }
     IEnumerator WaitCoroutine()
     {
         _canAttack = false;
-        yield return null;
-        //animator.ResetTrigger("attack");
         yield return new WaitForSeconds(_waitBetweenAttack);
         _canAttack = true;
     }

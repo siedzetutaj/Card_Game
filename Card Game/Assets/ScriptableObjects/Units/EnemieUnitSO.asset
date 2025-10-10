@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 957203b1c1722de43a611e7c18a46b26, type: 3}
-  m_Name: UnitSO
+  m_Name: EnemieUnitSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   UnitData:
     UnitSprite: {fileID: 4723107735738678597, guid: 1018b0ba13578bf459bd254ae1a2be99, type: 3}
-    UnitAmount: 5
+    UnitAmount: 10
     UnitHealth: 10
-    UnitDamage: 7
-    UnitAttackSpeed: 3
-    UnitAttackRange: 2
-    UnitSpeed: 10
-    SpawnPosionIndex: 1
+    UnitDamage: 3
+    UnitAttackSpeed: 2
+    UnitAttackRange: 1
+    UnitSpeed: 40
+    SpawnPosionIndex: 0

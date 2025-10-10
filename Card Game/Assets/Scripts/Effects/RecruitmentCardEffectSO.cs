@@ -11,6 +11,7 @@ public class RecruitmentCardEffectSO : CardEffectSO
         Transform spawnPoint = UnitsSpawnPoints.Instance.FindSpawnPoint(unitData.SpawnPosionIndex);
 
         GameObject unitsManager = Instantiate(_unitsManagerPrefab, spawnPoint);
-        unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint);
+        unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint, true);
+        GameLogicManager.Instance.PlayerUnits = unitsManager.GetComponent<UnitsManager>();
     }
 }
