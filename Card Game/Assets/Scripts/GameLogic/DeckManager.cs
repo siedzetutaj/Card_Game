@@ -6,12 +6,17 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
 {
 
     private int _turn = 0;
+    private int _moneyAmount = 3;
+    private ResourceManager _resourceManager => ResourceManager.Instance;
+    private HandController _handController => HandController.Instance;
+    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+
+
     [SerializeField] private List<CardData> _cardsInDeck = new();
     [SerializeField] private List<CardData> _cardsInDrawPile = new();
     [SerializeField] private List<CardData> _cardsInDiscardPile = new();
     [SerializeField] private List<CardHandler> _cardsInHand = new();
  
-    private HandController _handController;
 
     [SerializeField] private GameObject CardPrefab; 
     [SerializeField] private List<CardSO> StartingDeck;
@@ -22,13 +27,13 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         {
             _cardsInDeck.Add(new CardData(cardSO));
         }
-
-        _handController = HandController.Instance;
     }
     public void OnFirstTurn()
     {
-        if(_turn == 0)
+
+        if (_turn == 0)
         {
+            _resourceManager.FindResource(ResourceType.money)?.SetAmount(_moneyAmount);
             _cardsInDrawPile = new List<CardData>(_cardsInDeck);
             _cardsInDiscardPile.Clear();
             _cardsInHand.Clear();
@@ -42,11 +47,14 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
     }
     public void NextTurn()
     {
-        for(int i = _cardsInHand.Count - 1; i >= 0; i--)
+        _resourceManager.FindResource(ResourceType.money)?.SetAmount(_moneyAmount);
+
+        for (int i = _cardsInHand.Count - 1; i >= 0; i--)
         {
             DiscardCard(_cardsInHand[i]);
         }
         DrawCards();
+        _turn++;
     }
     public void AddCardToDeck(CardData cardData)
     {
@@ -103,6 +111,11 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
             _cardsInDiscardPile.Add(cardHandler.CardData);
             _handController.RemoveCard(cardHandler);
             cardHandler.DestroyCard();
+        }
+
+        if(_cardsInHand.Count == 0)
+        {
+            _gameLogicManager.EndTurn();
         }
     }   
 }

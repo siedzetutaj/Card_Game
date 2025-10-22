@@ -14,7 +14,6 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     public bool hasFightEnded = false;
     public void EndTurn()
     {
-        //TODO: Powinno usunac karty z reki
         hasFightEnded = false;
         Debug.Log("End Turn");
         SpawnEnemies();
