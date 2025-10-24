@@ -34,7 +34,7 @@ public class UnitsManager : MonoBehaviour
             gameLogicManager.PlayerUnitsManagers.Remove(this);
 
             if(gameLogicManager.PlayerUnitsManagers.Count == 0)
-                gameLogicManager.OnFightEnd();
+                gameLogicManager.OnFightEnd(true);
 
             Destroy(gameObject);   
         }

@@ -31,10 +31,10 @@ public class BuildingHandler : InteractableObject
     protected override void OnObjectClicked()
     {
 
-        bool canCardBeplaced = (_selectedCard.Card != null &&
+        bool canCardBePlayed = (_selectedCard.Card != null &&
             _selectedCard.Card.CardType == CardType.Recruitment);
 
-        if (canCardBeplaced)
+        if (canCardBePlayed)
         {
             CardHandler card = SelectedCard.Instance.Card;
             card.OnCardPlayed(gameObject);

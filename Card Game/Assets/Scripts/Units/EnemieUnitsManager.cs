@@ -8,7 +8,7 @@ public class EnemieUnitsManager : UnitsManager
         Units.Remove(unit);
         if (Units.Count == 0)
         {
-            GameLogicManager.Instance.OnFightEnd();
+            GameLogicManager.Instance.OnFightEnd(false);
         }
     }
 }

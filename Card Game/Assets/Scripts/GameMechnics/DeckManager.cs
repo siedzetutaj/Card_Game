@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 public class DeckManager : MonoBehaviourSingleton<DeckManager>
 {
@@ -66,7 +67,6 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         _cardsInDeck.Add(cardData);
 
     }
-
     public void RemoveCardFromDeck(CardData cardData)
     {
         if (!_cardsInDeck.Contains(cardData))
@@ -112,10 +112,29 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
             _handController.RemoveCard(cardHandler);
             cardHandler.DestroyCard();
         }
-
-        if(_cardsInHand.Count == 0)
+    }  
+    public void DiscardAllCardsInHand()
+    {
+        while (_cardsInHand.Count > 0)
         {
-            _gameLogicManager.EndTurn();
+            DiscardCard(_cardsInHand[0]);
         }
-    }   
+    }
+    public void DiscardCardsInHand(int number)
+    {
+        if(_cardsInHand.Count == 0)
+            return;
+        
+        for(int i = 0; i < number; i++)
+        {
+            int randomIndex = Random.Range(0, _cardsInHand.Count);
+            CardHandler CardToDiscard = _cardsInHand[randomIndex];
+            DiscardCard(CardToDiscard);
+        }
+
+    }
+    public bool IsHandEmpty()
+    {
+        return _cardsInHand.Count == 0;
+    }
 }
