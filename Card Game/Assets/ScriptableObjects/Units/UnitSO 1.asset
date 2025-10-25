@@ -17,5 +17,7 @@ MonoBehaviour:
     UnitAmount: 5
     UnitHealth: 10
     UnitDamage: 7
-    UnitSpeed: 10
+    UnitAttackSpeed: 0
+    UnitAttackRange: 0
+    UnitSpeed: 30
     SpawnPosionIndex: 0

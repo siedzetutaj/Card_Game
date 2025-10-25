@@ -19,5 +19,5 @@ MonoBehaviour:
     UnitDamage: 3
     UnitAttackSpeed: 2
     UnitAttackRange: 1
-    UnitSpeed: 40
+    UnitSpeed: 60
     SpawnPosionIndex: 0

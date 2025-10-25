@@ -1,25 +1,29 @@
 using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
     public List<Transform> SpawnPoints;
 
-    public List<UnitsManager> EnemieUnitsManagers = new();
+    public List<EnemieUnitsManager> EnemieUnitsManagers = new();
     public List<UnitsManager> PlayerUnitsManagers = new();
     public List<UnitHandler> EnemieUnits = new();
     public List<UnitHandler> PlayerUnits = new();
     
-    public UnitSO UnitSO;
     public bool hasFightEnded = false;
 
+    [SerializeField] private int _turn = 0;
+    private int _moneyAmount = 3;
+
     private DeckManager _deckManager => DeckManager.Instance;
+    private EnemieAttackProjection _enemieAttackProjection => EnemieAttackProjection.Instance;
     #region Units
     public void SpawnEnemieUnits()
     {
         foreach(var enemieUnitsManager in EnemieUnitsManagers)
         {
-            enemieUnitsManager.Initialize(UnitSO.UnitData,
+            enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
                 SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)], false);
         }
     }
@@ -63,7 +67,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
             DestroyAllUnits();
             ClearLists();
             SetHealth(isPlayerUnit);
-            DeckManager.Instance.NextTurn();
+            NextTurnSetup();
         }
     }
     private void SetHealth(bool isPlayerUnit)
@@ -85,6 +89,45 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         Debug.Log("End Turn");
         SpawnEnemieUnits();
         UnifyUnits();
+    }
+    public void FirstTurn()
+    {
+        if (_turn == 0)
+        {
+            _turn++;
+            _deckManager.OnFirstTurn(_moneyAmount);
+            TempEnemieScaling();
+            EnemieAttackProjectionSetup();
+        }
+        else
+            NextTurnSetup();
+
+    }
+    private void NextTurnSetup()
+    {
+        _turn++;
+        TempEnemieScaling();
+        _deckManager.NextTurn(_moneyAmount);
+        EnemieAttackProjectionSetup();
+    }
+    private void TempEnemieScaling()
+    {
+        foreach (var enemieUnitsManager in EnemieUnitsManagers)
+        {
+            float scaleFactor = 1.2f;
+            enemieUnitsManager.UnitData.UnitAmount =
+                 Mathf.RoundToInt
+                 (enemieUnitsManager.UnitData.UnitAmount * scaleFactor);
+        }
+    }
+    private void EnemieAttackProjectionSetup()
+    {
+        _enemieAttackProjection.ClearAttackProjections();
+        foreach (var enemieUnitsManager in EnemieUnitsManagers)
+        {
+            _enemieAttackProjection.SetAttackProjection(enemieUnitsManager.UnitData.UnitSprite,
+                enemieUnitsManager.UnitData.UnitAmount);
+        }
     }
     #endregion
     public void EnemieDefeated()

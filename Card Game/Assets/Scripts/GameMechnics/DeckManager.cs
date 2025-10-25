@@ -1,13 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 
 public class DeckManager : MonoBehaviourSingleton<DeckManager>
 {
 
-    private int _turn = 0;
-    private int _moneyAmount = 3;
     private ResourceManager _resourceManager => ResourceManager.Instance;
     private HandController _handController => HandController.Instance;
     private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
@@ -29,33 +25,23 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
             _cardsInDeck.Add(new CardData(cardSO));
         }
     }
-    public void OnFirstTurn()
+    public void OnFirstTurn(int moneyAmount)
     {
-
-        if (_turn == 0)
-        {
-            _resourceManager.FindResource(ResourceType.money)?.SetAmount(_moneyAmount);
-            _cardsInDrawPile = new List<CardData>(_cardsInDeck);
-            _cardsInDiscardPile.Clear();
-            _cardsInHand.Clear();
-            DrawCards();
-        }
-        else 
-        {
-            NextTurn();
-        }
-            _turn++;
+        _resourceManager.FindResource(ResourceType.money)?.SetAmount(moneyAmount);
+        _cardsInDrawPile = new List<CardData>(_cardsInDeck);
+        _cardsInDiscardPile.Clear();
+        _cardsInHand.Clear();
+        DrawCards();
     }
-    public void NextTurn()
+    public void NextTurn(int moneyAmount)
     {
-        _resourceManager.FindResource(ResourceType.money)?.SetAmount(_moneyAmount);
+        _resourceManager.FindResource(ResourceType.money)?.SetAmount(moneyAmount);
 
         for (int i = _cardsInHand.Count - 1; i >= 0; i--)
         {
             DiscardCard(_cardsInHand[i]);
         }
         DrawCards();
-        _turn++;
     }
     public void AddCardToDeck(CardData cardData)
     {
