@@ -1550,8 +1550,8 @@ MonoBehaviour:
   PlayerUnitsManagers: []
   EnemieUnits: []
   PlayerUnits: []
-  UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
   hasFightEnded: 0
+  _turn: 0
 --- !u!114 &512810697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1566,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemieUnitsManager
   _unitPrefab: {fileID: 7757552997381450624, guid: 83ff9ab054fe1b4469589b9a2fe35ac1, type: 3}
   Units: []
+  UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
+  UnitData:
+    UnitSprite: {fileID: 0}
+    UnitAmount: 0
+    UnitHealth: 0
+    UnitDamage: 0
+    UnitAttackSpeed: 0
+    UnitAttackRange: 0
+    UnitSpeed: 0
+    SpawnPosionIndex: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,9 +2105,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1227103267}
-        m_TargetAssemblyTypeName: DeckManager, Assembly-CSharp
-        m_MethodName: OnFirstTurn
+      - m_Target: {fileID: 512810696}
+        m_TargetAssemblyTypeName: GameLogicManager, Assembly-CSharp
+        m_MethodName: FirstTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3483,6 +3493,7 @@ GameObject:
   - component: {fileID: 1293279122}
   - component: {fileID: 1293279121}
   - component: {fileID: 1293279120}
+  - component: {fileID: 1293279123}
   m_Layer: 5
   m_Name: AttackProjection
   m_TagString: Untagged
@@ -3573,6 +3584,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293279118}
   m_CullTransparentMesh: 1
+--- !u!114 &1293279123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293279118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5641974134b63fd4f855f52a047645a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemieAttackProjection
+  EnemieAttackInfoPrefab: {fileID: 2300714830433635013, guid: c10fd3a53fe2e614fbde799b1d2222ec, type: 3}
 --- !u!224 &1331561187 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5518424779951200676, guid: f481deda72d9fda458354ebe26ae74bf, type: 3}
