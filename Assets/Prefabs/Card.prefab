@@ -247,7 +247,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 250, y: 130}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5544493517990026753
 CanvasRenderer:
@@ -467,7 +467,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6faf27af0ab054faad783cf971f901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardHandler
-  _cardSO: {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
+  CardType: 0
+  CardData:
+    Name: 
+    Type: 0
+    Cost: []
+    Description: 
+    Sprite: {fileID: 0}
+    Effects: []
   _highlight: {fileID: 2215643981882453227}
   _cardNameTmp: {fileID: 7225615685921837195}
   _cardDescriptionTmp: {fileID: 2805159750341662912}
