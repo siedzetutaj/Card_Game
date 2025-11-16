@@ -20,6 +20,6 @@ MonoBehaviour:
   - Type: 0
     Cost: 1
   Description: Recrutis units from buidling
-  Sprite: {fileID: 302641331129538988, guid: 5f19f67e94a2e2f4ba57d2b338387c11, type: 3}
+  Sprite: {fileID: 221524225039350300, guid: f84c06efa9991bd49b5553f54f400348, type: 3}
   Effects:
   - {fileID: 11400000, guid: 62f97e71b718e1c448344495ce9e3ad9, type: 2}
