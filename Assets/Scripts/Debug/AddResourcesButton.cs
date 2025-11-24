@@ -21,5 +21,12 @@ public class AddResourcesButton : MonoBehaviour
             population.SetAmount(population.GetAmount() + 10);
         }
 
+        var food = _resourceManager.FindResource(ResourceType.food) as ResourceWithLimitHandler;
+        if (food != null)
+        {
+            food.Limit = 10;
+            food.SetAmount(10);
+        }
+
     }
 }
