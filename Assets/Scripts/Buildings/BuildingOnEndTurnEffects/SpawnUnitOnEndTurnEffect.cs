@@ -9,16 +9,23 @@ public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
     public override void ApplyOnEndTurnEffect(BuildingHandler buildingHandler)
     {
         var food = ResourceManager.Instance.FindResource(ResourceType.food);
-        food.SetAmount(food.GetAmount() - buildingHandler.UnitData.UnitFoodCost);
-        SpawnUnits(buildingHandler);
+        int foodCost = buildingHandler.UnitData.UnitFoodCost;
+        if (food.Amount > foodCost)
+        {
+            food.SetAmount(food.GetAmount() - foodCost);
+            SpawnUnits(buildingHandler);
+        }
     }
     private void SpawnUnits(BuildingHandler buildingHandler)
     {
         UnitData unitData = buildingHandler.UnitData;
 
-        Transform spawnPoint = buildingHandler.transform;
+        Vector3 buildingPos = buildingHandler.transform.position;
+        Vector3 spawnPoint = new Vector3(buildingPos.x, buildingPos.y, 0);
 
-        GameObject unitsManager = Instantiate(_unitsManagerPrefab, spawnPoint);
+        Transform parentTransform = PlayerUnitsManagers.Instance.transform;
+        GameObject unitsManager = Instantiate(_unitsManagerPrefab, parentTransform);
+        
         unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint, true);
 
         GameLogicManager.Instance.PlayerUnitsManagers.Add(unitsManager.GetComponent<UnitsManager>());

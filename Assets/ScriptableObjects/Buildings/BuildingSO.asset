@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingSO
   Sprite: {fileID: 677503446813500721, guid: 908cf18dc89ff5a41b6c8a12502e270f, type: 3}
   UnitSO: {fileID: 11400000, guid: 4e491874b50700b4ba8f3386d0560ac2, type: 2}
+  OnEndTurnEffects:
+  - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}

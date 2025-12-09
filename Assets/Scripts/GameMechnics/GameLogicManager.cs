@@ -26,7 +26,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         foreach(var enemieUnitsManager in EnemieUnitsManagers)
         {
             enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
-                SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)], false);
+                SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)].position, false);
         }
     }
     private void UnifyUnits()
@@ -72,9 +72,9 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
             NextTurnSetup();
         }
     }
-    private void SetHealth(bool isPlayerUnit)
+    private void SetHealth(bool isWin)
     {
-        if(isPlayerUnit)
+        if(isWin)
             ResourceManager.Instance.FindResource(ResourceType.population).Amount--;
         else
             EnemieManager.Instance.HealthPoints--;
@@ -92,6 +92,11 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         Debug.Log("End Turn");
         SpawnEnemieUnits();
         UnifyUnits();
+        
+        if(PlayerUnits.Count == 0)
+            OnFightEnd(false);
+        else if (EnemieUnits.Count == 0)
+            OnFightEnd(true);
     }
     public void FirstTurn()
     {
