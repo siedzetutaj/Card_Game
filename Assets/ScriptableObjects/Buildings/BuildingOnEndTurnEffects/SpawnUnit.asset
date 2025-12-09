@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a087d99f4caff97438d1064b3cacfbc2, type: 3}
   m_Name: SpawnUnit
   m_EditorClassIdentifier: Assembly-CSharp::SpawnUnitOnEndTurnEffect
-  UnitSO: {fileID: 11400000, guid: 4e491874b50700b4ba8f3386d0560ac2, type: 2}
-  Amount: 5
-  FoodCost: 1
+  _unitsManagerPrefab: {fileID: 1267755960122152951, guid: 53296200a666e9741a73d74619cecbdc, type: 3}

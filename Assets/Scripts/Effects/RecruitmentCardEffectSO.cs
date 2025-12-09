@@ -6,12 +6,13 @@ public class RecruitmentCardEffectSO : CardEffectSO
     [SerializeField] private GameObject _unitsManagerPrefab;
     public override void ApplyEffect(GameObject building)
     {
-        UnitData unitData = building.GetComponent<BuildingHandler>().UnitData;
+        Debug.Log("Legacy");
+        //UnitData unitData = building.GetComponent<BuildingHandler>().UnitData;
 
-        Transform spawnPoint = UnitsSpawnPoints.Instance.FindSpawnPoint(unitData.SpawnPosionIndex);
+        //Transform spawnPoint = UnitsSpawnPoints.Instance.FindSpawnPoint(unitData.SpawnPosionIndex);
 
-        GameObject unitsManager = Instantiate(_unitsManagerPrefab, spawnPoint);
-        unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint, true);
-        GameLogicManager.Instance.PlayerUnitsManagers.Add(unitsManager.GetComponent<UnitsManager>());
+        //GameObject unitsManager = Instantiate(_unitsManagerPrefab, spawnPoint);
+        //unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint, true);
+        //GameLogicManager.Instance.PlayerUnitsManagers.Add(unitsManager.GetComponent<UnitsManager>());
     }
 }

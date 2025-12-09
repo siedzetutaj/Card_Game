@@ -96,8 +96,9 @@ MonoBehaviour:
   CardPrefab: {fileID: 2245718946013293043, guid: 0e8feb25010995a478faa0a1e7be58c0, type: 3}
   StartingDeck:
   - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
-  - {fileID: 11400000, guid: 98b2fa4fb6ea2d24d9695ce226abf52b, type: 2}
-  - {fileID: 11400000, guid: 98b2fa4fb6ea2d24d9695ce226abf52b, type: 2}
+  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
+  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
+  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
 --- !u!1 &5384495323005139874
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +281,7 @@ MonoBehaviour:
   UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
   UnitData:
     UnitSprite: {fileID: 0}
+    UnitFoodCost: 0
     UnitAmount: 0
     UnitHealth: 0
     UnitDamage: 0
