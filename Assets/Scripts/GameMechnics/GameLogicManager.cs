@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
 
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
+    public Action OnEndTurn;
+
     public List<Transform> SpawnPoints;
 
     public List<EnemieUnitsManager> EnemieUnitsManagers = new();
@@ -24,7 +26,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         foreach(var enemieUnitsManager in EnemieUnitsManagers)
         {
             enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
-                SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)], false);
+                SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)], false);
         }
     }
     private void UnifyUnits()
@@ -84,6 +86,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     }
     public void EndTurn()
     {
+        OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
         hasFightEnded = false;
         Debug.Log("End Turn");
