@@ -71,8 +71,11 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
                 _cardsInDrawPile = new List<CardData>(_cardsInDiscardPile);
                 _cardsInDiscardPile.Clear();
             }
-            if (_cardsInDrawPile.Count == 0) Debug.Log("No Cards");
-
+            if (_cardsInDrawPile.Count == 0)
+            { 
+                Debug.Log("No Cards");
+                break; 
+            }
             int randomIndex = Random.Range(0, _cardsInDrawPile.Count);
             CardData drawnCard = _cardsInDrawPile[randomIndex];
             _cardsInDrawPile.RemoveAt(randomIndex);

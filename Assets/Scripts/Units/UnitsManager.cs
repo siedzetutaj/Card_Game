@@ -9,10 +9,10 @@ public class UnitsManager : MonoBehaviour
     private UnitData _unitData;
     public List<UnitHandler> Units = new();
 
-    public void Initialize(UnitData unitData, Transform spawnPoint, bool isPlayerUnit)
+    public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
     {
         _unitData = new UnitData(unitData);
-
+        transform.position = spawnPoint;
         CreateUnits(isPlayerUnit);
     }
     private void CreateUnits(bool isPlayerUnit)
