@@ -1,26 +1,28 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "SpawnUnit", menuName = "Scriptable Objects/BuildingOnEndTurn/SpawnUnit")]
+[CreateAssetMenu(fileName = "SpawnUnit", menuName = "Scriptable Objects/Buildings/OnEndTurn/SpawnUnit")]
 public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
 {
     [SerializeField] private GameObject _unitsManagerPrefab;
 
     public override void ApplyOnEndTurnEffect(BuildingHandler buildingHandler)
     {
+        SpawnBuildingHandler spawnBuildingHandler = buildingHandler as SpawnBuildingHandler;
+
         var food = ResourceManager.Instance.FindResource(ResourceType.food);
-        int foodCost = buildingHandler.UnitData.UnitFoodCost;
-        if (food.Amount > foodCost)
+        int foodCost = spawnBuildingHandler.UnitData.UnitFoodCost;
+        if (food.Amount >= foodCost)
         {
             food.SetAmount(food.GetAmount() - foodCost);
-            SpawnUnits(buildingHandler);
+            SpawnUnits(spawnBuildingHandler);
         }
     }
-    private void SpawnUnits(BuildingHandler buildingHandler)
+    private void SpawnUnits(SpawnBuildingHandler spawnBuildingHandler)
     {
-        UnitData unitData = buildingHandler.UnitData;
+        UnitData unitData = spawnBuildingHandler.UnitData;
 
-        Vector3 buildingPos = buildingHandler.transform.position;
+        Vector3 buildingPos = spawnBuildingHandler.transform.position;
         Vector3 spawnPoint = new Vector3(buildingPos.x, buildingPos.y, 0);
 
         Transform parentTransform = PlayerUnitsManagers.Instance.transform;

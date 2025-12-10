@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29c975e3c1350534191d8342b0a2e2cb, type: 3}
-  m_Name: BuildingCardSO
+  m_Name: SpawnBuildingCardSO
   m_EditorClassIdentifier: Assembly-CSharp::CardSO
   Name: Debug Building Card
   Type: 0
@@ -25,6 +25,6 @@ MonoBehaviour:
     the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
     and more recently with desktop publishing software like Aldus PageMaker including
     versions of Lorem Ipsum.
-  Sprite: {fileID: 21300000, guid: 901dfa678a2637d4aa245982cca75ead, type: 3}
+  Sprite: {fileID: 677503446813500721, guid: 908cf18dc89ff5a41b6c8a12502e270f, type: 3}
   Effects:
   - {fileID: 11400000, guid: a1c64d0fdc2e8ba41a77312f1b4efebc, type: 2}

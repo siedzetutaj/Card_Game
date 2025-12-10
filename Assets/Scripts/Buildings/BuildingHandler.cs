@@ -10,33 +10,28 @@ public class BuildingHandler : InteractableObject
     private SelectedCard _selectedCard;
 
     private List<BuildingOnEndTurnEffectSO> _onEndTurnEffects = new();
+    private List<BuildingOnEndFightEffectSO> _onEndFightEffects = new();
 
-    private UnitData _unitData;
-    public UnitData UnitData
-    {
-        get => _unitData;
-        private set => _unitData = value;
-    }
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
         _selectedCard = SelectedCard.Instance; 
-        GameLogicManager.Instance.OnEndTurn += ApplyOnEndturnEffects;
+        GameLogicManager.Instance.OnEndTurn += ApplyOnEndTurnEffects;
     }
     protected override void OnDisable()
     {
         base.OnDisable();
-        GameLogicManager.Instance.OnEndTurn -= ApplyOnEndturnEffects;
+        GameLogicManager.Instance.OnEndTurn -= ApplyOnEndTurnEffects;
     }
 
-    public void Initialize(BuildingSO buildingSO)
+    public virtual void Initialize(BuildingSO buildingSO)
     {
         _buildingSO = buildingSO;
         _image.sprite = buildingSO.Sprite;
-        _unitData = new (buildingSO.UnitSO.UnitData);
         _onEndTurnEffects = new (buildingSO.OnEndTurnEffects);
+        _onEndFightEffects = new (buildingSO.OnEndFightEffects);
     }
     protected override void OnObjectClicked()
     {
@@ -50,11 +45,18 @@ public class BuildingHandler : InteractableObject
             card.OnCardPlayed(gameObject);
         }
     }
-    protected virtual void ApplyOnEndturnEffects()
+    protected virtual void ApplyOnEndTurnEffects()
     {
         foreach (var effect in _onEndTurnEffects)
         {
             effect.ApplyOnEndTurnEffect(this);
+        }
+    }
+    protected virtual void ApplyOnEndFightEffects()
+    {
+        foreach (var effect in _onEndFightEffects)
+        {
+            effect.ApplyOnEndFightEffect(this);
         }
     }
 }
