@@ -61,14 +61,14 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     }
     #endregion
     #region TurnManagement
-    public void OnFightEnd(bool isPlayerUnit)
+    public void OnFightEnd(bool hasPlayerLost)
     {
         if (!hasFightEnded)
         {
             hasFightEnded = true;
             DestroyAllUnits();
             ClearLists();
-            SetHealth(isPlayerUnit);
+            SetHealth(hasPlayerLost);
             NextTurnSetup();
         }
     }
@@ -94,9 +94,9 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         UnifyUnits();
         
         if(PlayerUnits.Count == 0)
-            OnFightEnd(false);
-        else if (EnemieUnits.Count == 0)
             OnFightEnd(true);
+        else if (EnemieUnits.Count == 0)
+            OnFightEnd(false);
     }
     public void FirstTurn()
     {
