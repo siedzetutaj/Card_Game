@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5213272286298686074}
   - component: {fileID: 1518759267219015283}
   - component: {fileID: 3416668592925590475}
-  - component: {fileID: 6218492578504785518}
+  - component: {fileID: -4112982446698972238}
   m_Layer: 5
-  m_Name: Building
+  m_Name: SpawnBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,16 +27,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2775292021146187962}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -40}
-  m_LocalScale: {x: 1.125, y: 1.3499999, z: 0.9}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2, y: -1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5213272286298686074
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73873a1a6916624dbb9f3f96b46d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
---- !u!114 &6218492578504785518
+--- !u!114 &-4112982446698972238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2775292021146187962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea4c9948b6122246bf26e71399d4911, type: 3}
+  m_Script: {fileID: 11500000, guid: 65343fb7c47f12243ae7cb453cd9c0f5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingHandler
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnBuildingHandler
   _image: {fileID: 1518759267219015283}

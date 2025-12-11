@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using NUnit.Framework.Internal;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +23,7 @@ public class UnitHandler : MonoBehaviour
         _isPlayerUnit = isPlayerUnit;
         _unitsManager = unitsManager;
         transform.position = new Vector3(transform.position.x + Random.Range(-20,20),
-            transform.position.y + Random.Range(-20, 20), 0);
+            transform.position.y + Random.Range(-20, 20), -200);
     }
     protected void FixedUpdate()
     {

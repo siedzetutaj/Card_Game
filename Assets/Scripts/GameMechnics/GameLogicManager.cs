@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
 
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
+    public Action OnEndTurn;
+
     public List<Transform> SpawnPoints;
 
     public List<EnemieUnitsManager> EnemieUnitsManagers = new();
@@ -24,7 +26,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         foreach(var enemieUnitsManager in EnemieUnitsManagers)
         {
             enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
-                SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)], false);
+                SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)].position, false);
         }
     }
     private void UnifyUnits()
@@ -59,20 +61,20 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     }
     #endregion
     #region TurnManagement
-    public void OnFightEnd(bool isPlayerUnit)
+    public void OnFightEnd(bool hasPlayerLost)
     {
         if (!hasFightEnded)
         {
             hasFightEnded = true;
             DestroyAllUnits();
             ClearLists();
-            SetHealth(isPlayerUnit);
+            SetHealth(hasPlayerLost);
             NextTurnSetup();
         }
     }
-    private void SetHealth(bool isPlayerUnit)
+    private void SetHealth(bool isWin)
     {
-        if(isPlayerUnit)
+        if(isWin)
             ResourceManager.Instance.FindResource(ResourceType.population).Amount--;
         else
             EnemieManager.Instance.HealthPoints--;
@@ -84,11 +86,17 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     }
     public void EndTurn()
     {
+        OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
         hasFightEnded = false;
         Debug.Log("End Turn");
         SpawnEnemieUnits();
         UnifyUnits();
+        
+        if(PlayerUnits.Count == 0)
+            OnFightEnd(true);
+        else if (EnemieUnits.Count == 0)
+            OnFightEnd(false);
     }
     public void FirstTurn()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitData
 {
     public Sprite UnitSprite;
+    public int UnitFoodCost;
     public int UnitAmount;
     public int UnitHealth;
     public int UnitDamage;
@@ -16,6 +17,7 @@ public class UnitData
     public UnitData(UnitData unitData)
     {
         UnitSprite = unitData.UnitSprite;
+        UnitFoodCost = unitData.UnitFoodCost;
         UnitAmount = unitData.UnitAmount;
         UnitHealth = unitData.UnitHealth;
         UnitDamage = unitData.UnitDamage;

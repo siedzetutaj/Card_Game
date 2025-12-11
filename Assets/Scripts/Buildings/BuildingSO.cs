@@ -1,14 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingSO", menuName = "Scriptable Objects/BuildingSO")]
+[CreateAssetMenu(fileName = "BaseBuildingSO", menuName = "Scriptable Objects/Buildings/Type/Base")]
 public class BuildingSO : ScriptableObject
 {
+    [Header("Base")]
     public Sprite Sprite;
-
-    public UnitSO UnitSO;
-
-    /*TODO:
-     * potem trzeba wykminic jak dorobic inne efekty budynkow
-     * 
-     */
+    public List<BuildingOnEndTurnEffectSO> OnEndTurnEffects = new();
+    public List<BuildingOnEndFightEffectSO> OnEndFightEffects = new();
 }
