@@ -17,7 +17,7 @@ MonoBehaviour:
     UnitFoodCost: 1
     UnitAmount: 4
     UnitHealth: 10
-    UnitDamage: 19
+    UnitDamage: 29
     UnitAttackSpeed: 3
     UnitAttackRange: 2
     UnitSpeed: 30
