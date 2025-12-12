@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   UnitData:
     UnitSprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
-    UnitAmount: 10
+    UnitFoodCost: 0
+    UnitAmount: 5
     UnitHealth: 10
     UnitDamage: 3
     UnitAttackSpeed: 2
