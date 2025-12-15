@@ -12,8 +12,8 @@ public class UnitData
     public int UnitAttackSpeed;
     public int UnitAttackRange;
     public int UnitSpeed;
-    [Range(0,1)]
-    public int SpawnPosionIndex;
+    //[Range(0,1)]
+   // public int SpawnPosionIndex;
     public UnitData(UnitData unitData)
     {
         UnitSprite = unitData.UnitSprite;
@@ -24,6 +24,6 @@ public class UnitData
         UnitAttackSpeed = unitData.UnitAttackSpeed;
         UnitAttackRange = unitData.UnitAttackRange;
         UnitSpeed = unitData.UnitSpeed;
-        SpawnPosionIndex = unitData.SpawnPosionIndex;
+       // SpawnPosionIndex = unitData.SpawnPosionIndex;
     }
 }
