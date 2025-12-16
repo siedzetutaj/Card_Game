@@ -1,4 +1,5 @@
 
+using System.ComponentModel;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,6 +13,7 @@ public class UnitData
     public int UnitAttackSpeed;
     public int UnitAttackRange;
     public int UnitSpeed;
+    public int TargetAmount;
     //[Range(0,1)]
    // public int SpawnPosionIndex;
     public UnitData(UnitData unitData)
@@ -24,6 +26,7 @@ public class UnitData
         UnitAttackSpeed = unitData.UnitAttackSpeed;
         UnitAttackRange = unitData.UnitAttackRange;
         UnitSpeed = unitData.UnitSpeed;
+        TargetAmount = unitData.TargetAmount;
        // SpawnPosionIndex = unitData.SpawnPosionIndex;
     }
 }

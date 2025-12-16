@@ -16,4 +16,4 @@ MonoBehaviour:
   OnEndTurnEffects:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
   OnEndFightEffects: []
-  UnitSO: {fileID: 11400000, guid: 2170640b77b0eb141914b875b5a9ace9, type: 2}
+  UnitSO: {fileID: 11400000, guid: 4e491874b50700b4ba8f3386d0560ac2, type: 2}
