@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class BuildingHandler : InteractableObject
 {
     [SerializeField] private Image _image;
-    
-    private BuildingSO _buildingSO;
+
+    protected BuildingSO _buildingSO;
     private SelectedCard _selectedCard;
 
     private List<BuildingOnEndTurnEffectSO> _onEndTurnEffects = new();
@@ -19,11 +19,14 @@ public class BuildingHandler : InteractableObject
 
         _selectedCard = SelectedCard.Instance; 
         GameLogicManager.Instance.OnEndTurn += ApplyOnEndTurnEffects;
+        GameLogicManager.Instance.OnEndFight += ApplyOnEndFightEffects;
     }
     protected override void OnDisable()
     {
         base.OnDisable();
         GameLogicManager.Instance.OnEndTurn -= ApplyOnEndTurnEffects;
+        GameLogicManager.Instance.OnEndFight -= ApplyOnEndFightEffects;
+
     }
 
     public virtual void Initialize(BuildingSO buildingSO)

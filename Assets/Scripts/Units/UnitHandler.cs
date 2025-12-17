@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitHandler : MonoBehaviour
+public class UnitHandler : MonoBehaviour, IAttacker
 {
     public int TargetAmount;
     
@@ -98,7 +98,6 @@ public class UnitHandler : MonoBehaviour
 
         if (best != null)
             best.TargetAmount++;
-        Debug.Log($"Best target selected with score: {bestScore}");
         return best;
     }
     protected void RangeCheck()
@@ -117,13 +116,13 @@ public class UnitHandler : MonoBehaviour
         _targetUnit.OnDecreaseHP(_unitData.UnitDamage, this);
         StartCoroutine(WaitCoroutine());
     }
-    public void OnDecreaseHP(int damage, UnitHandler attacker)
+    public void OnDecreaseHP(int damage, IAttacker attacker)
     {
         _unitData.UnitHealth -= damage;
         if (_unitData.UnitHealth <= 0) 
             OnDeath(attacker);
     }
-    protected void OnDeath(UnitHandler attacker)
+    protected void OnDeath(IAttacker attacker)
     {
         if(_targetUnit != null)
             _targetUnit.TargetAmount--;

@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
     public Action OnEndTurn;
+    public Action OnEndFight;
+    public Action OnAllUnitsDead;
 
     public List<Transform> SpawnPoints;
 
@@ -20,6 +22,15 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 
     private DeckManager _deckManager => DeckManager.Instance;
     private EnemieAttackProjection _enemieAttackProjection => EnemieAttackProjection.Instance;
+    //temp solution
+    private void Update()
+    {
+        if (hasFightEnded && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers[0].Units.Count == 0) 
+        {
+            OnDeathOfAllUnits();
+        }
+    }
+
     #region Units
     public void SpawnEnemieUnits()
     {
@@ -66,11 +77,21 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         if (!hasFightEnded)
         {
             hasFightEnded = true;
-            DestroyAllUnits();
-            ClearLists();
+            //DestroyAllUnits();
+            //ClearLists();
             SetHealth(hasPlayerLost);
-            NextTurnSetup();
+            OnEndFight?.Invoke();
+            //NextTurnSetup();
         }
+    }
+    public void OnDeathOfAllUnits()
+    {
+        hasFightEnded = false;
+        OnAllUnitsDead?.Invoke();
+        //DestroyAllUnits();
+        ClearLists();
+        OnEndFight?.Invoke();
+        NextTurnSetup();
     }
     private void SetHealth(bool isWin)
     {
