@@ -10,6 +10,7 @@ public class UnitData
     public int UnitAmount;
     public int UnitHealth;
     public int UnitDamage;
+    [Description("the lower the faster")]
     public int UnitAttackSpeed;
     public int UnitAttackRange;
     public int UnitSpeed;
