@@ -16,9 +16,9 @@ MonoBehaviour:
     UnitSprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
     UnitFoodCost: 0
     UnitAmount: 5
-    UnitHealth: 10
-    UnitDamage: 3
-    UnitAttackSpeed: 2
+    UnitHealth: 20
+    UnitDamage: 4
+    UnitAttackSpeed: 0.3
     UnitAttackRange: 1
     UnitSpeed: 60
     TargetAmount: 1

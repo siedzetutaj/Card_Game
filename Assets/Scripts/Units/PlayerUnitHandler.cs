@@ -1,14 +1,25 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerUnitHandler : UnitHandler
 {
     protected override void FixedUpdate()
     {
-        Retarget(_gameLogicManager.EnemieUnits);
+        Retarget();
         base.FixedUpdate();
     }
-    protected override void FindTarget()
+    protected void Retarget()
     {
-        _targetUnit = FindBestTarget(_gameLogicManager.EnemieUnits);
+        if (_gameLogicManager.CurrentPhase == CombatPhase.Units)
+        {
+            _currentTarget = FindBestTarget(
+                _gameLogicManager.EnemieUnits.Cast<ITargetable>().ToList());
+        }
+        else
+        {
+            //_currentTarget = FindBestTarget(
+            //    _gameLogicManager.PlayerBuildings.Cast<ITargetable>().ToList());
+            Debug.Log("No Enemie Buildings");
+        }
     }
 }
