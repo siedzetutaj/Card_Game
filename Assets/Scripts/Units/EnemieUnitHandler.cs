@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,11 +6,20 @@ public class EnemieUnitHandler : UnitHandler
 {
     protected override void FixedUpdate()
     {
-        Retarget(_gameLogicManager.PlayerUnits);
+        Retarget();
         base.FixedUpdate();
     }
-    protected override void FindTarget()
+    protected void Retarget()
     {
-        _targetUnit = FindBestTarget(_gameLogicManager.PlayerUnits);
+        if (_gameLogicManager.CurrentPhase == CombatPhase.Units)
+        {
+            _currentTarget = FindBestTarget(
+                _gameLogicManager.PlayerUnits.Cast<ITargetable>().ToList());
+        }
+        else if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
+        {
+            _currentTarget = FindBestTarget(
+                _gameLogicManager.PlayerBuildings.Cast<ITargetable>().ToList());
+        }
     }
 }

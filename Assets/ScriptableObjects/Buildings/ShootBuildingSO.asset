@@ -17,5 +17,5 @@ MonoBehaviour:
   OnEndFightEffects:
   - {fileID: 11400000, guid: 145d0afb873c01a4f923255e8b750e16, type: 2}
   Damage: 10
-  Range: 30
+  Range: 6000
   AttackSpeed: 1

@@ -20,5 +20,5 @@ MonoBehaviour:
     UnitDamage: 4
     UnitAttackSpeed: 2
     UnitAttackRange: 2
-    UnitSpeed: 5
+    UnitSpeed: 20
     TargetAmount: 1

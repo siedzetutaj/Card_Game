@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitHandler : MonoBehaviour, IAttacker
+public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
 {
-    public int TargetAmount;
-    
-    private float _retargetCooldown = 2f;
-    private float _retargetTimer;
-
+    public Transform TargetTransform => transform;
+    public bool IsAlive => _unitData.UnitHealth > 0;
+    protected ITargetable _currentTarget;
+    public int TargetAmount
+    {
+        get => _targetAmount;
+        set => _targetAmount = value;
+    }
 
     [SerializeField] protected SpriteRenderer _spriteRenderer;
     protected UnitData _unitData;
-    protected UnitHandler _targetUnit;
 
+    protected bool _isInRange = false;
     protected bool _canAttack = true;
-    protected float _waitBetweenAttack = 1f;
+    protected float _waitBetweenAttack;
 
     protected bool _isPlayerUnit;
     protected UnitsManager _unitsManager;
     protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
     
+    protected int _targetAmount;
     public void Inititalize(UnitData unitData, bool isPlayerUnit, UnitsManager unitsManager)
     {
         _unitData = new UnitData(unitData);
@@ -30,33 +34,31 @@ public class UnitHandler : MonoBehaviour, IAttacker
         _unitsManager = unitsManager;
         transform.position = new Vector3(transform.position.x + Random.Range(-20, 20),
         transform.position.y + Random.Range(-20, 20), -200);
-        TargetAmount = -unitData.TargetAmount;
+        _targetAmount = -unitData.TargetAmount;
     }
     protected virtual void FixedUpdate()
     {
-        _retargetTimer -= Time.fixedDeltaTime;
-
-        if (_targetUnit == null) return;
+        if (_currentTarget == null) return;
 
         RangeCheck();
 
-        if (!_canAttack)
+        if (!_isInRange)
             Movement();
         else
             Attack();
     }
-    protected virtual void Retarget(List<UnitHandler> units)
-    {
-        if (_targetUnit == null || _retargetTimer <= 0f)
-        {
-            _targetUnit = FindBestTarget(units);
-            _retargetTimer = _retargetCooldown;
-            return;
-        }
-    }
+    //protected virtual void Retarget(List<UnitHandler> units)
+    //{
+    //    if (_targetUnit == null || _retargetTimer <= 0f)
+    //    {
+    //        _targetUnit = FindBestTarget(units);
+    //        _retargetTimer = _retargetCooldown;
+    //        return;
+    //    }
+    //}
     protected void Movement()
     {
-        Vector3 targetTransform = _targetUnit.transform.position;  
+        Vector3 targetTransform = _currentTarget.TargetTransform.position;  
         Vector3 direction = (targetTransform - this.transform.position);
         if (direction.sqrMagnitude <= 0.005f)
         {
@@ -69,63 +71,60 @@ public class UnitHandler : MonoBehaviour, IAttacker
     {
 
     }
-    protected UnitHandler FindBestTarget(List<UnitHandler> units)
+    protected ITargetable FindBestTarget(List<ITargetable> targets)
     {
-        if (units.Count == 0) return null;
-        if (_targetUnit != null) _targetUnit.TargetAmount--;
-
-        UnitHandler best = null;
-        float bestScore = float.MinValue;
-
-        foreach (UnitHandler unit in units)
+        if (targets.Count == 0) return null;
+        if (_currentTarget != null) _currentTarget.TargetAmount--;
+        ITargetable best = null; float bestScore = float.MinValue;
+        foreach (ITargetable target in targets)
         {
-            if (unit == null) continue;
+            if (target == null) continue;
 
-            float sqrDist = (unit.transform.position - transform.position).magnitude;
-
-            float distanceScore = 1f / (sqrDist + 1f) * 100;   // closer = higher score
-            float targetPenalty = unit.TargetAmount * 0.1f; // more targets = worse
-            float randomness = Random.Range(0f, 0.02f);   // natural variation
-
+            float sqrDist = (target.TargetTransform.position - transform.position).magnitude;
+            float distanceScore = 1f / (sqrDist + 1f) * 100; // closer = higher score 
+            float targetPenalty = target.TargetAmount * 0.1f; // more targets = worse 
+            
+            float randomness = Random.Range(0f, 0.02f); // natural variation 
             float score = distanceScore - targetPenalty + randomness;
-
-            if (score > bestScore)
-            {
-                bestScore = score;
-                best = unit;
+           
+            if (score > bestScore) 
+            { 
+                bestScore = score; 
+                best = target; 
             }
         }
 
-        if (best != null)
-            best.TargetAmount++;
+        if (best != null) 
+            best.TargetAmount++; 
         return best;
     }
+
     protected void RangeCheck()
     {
-        Vector2 distance = Vector2.Distance(transform.position, _targetUnit.transform.position) * Vector2.one;
+        Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
         if (distance.magnitude > _unitData.UnitAttackRange)
-            _canAttack = false;
+            _isInRange = false;
         else
-            _canAttack = true;
+            _isInRange = true;
     }
     protected void Attack()
     {
-        if (!_canAttack) return;
+        if (!_canAttack || _currentTarget == null) return;
 
         _canAttack = false;
-        _targetUnit.OnDecreaseHP(_unitData.UnitDamage, this);
+        _currentTarget.TakeDamage(_unitData.UnitDamage, this);
         StartCoroutine(WaitCoroutine());
     }
-    public void OnDecreaseHP(int damage, IAttacker attacker)
+    public void TakeDamage(int damage, IAttacker attacker)
     {
         _unitData.UnitHealth -= damage;
-        if (_unitData.UnitHealth <= 0) 
+        if (_unitData.UnitHealth <= 0)
             OnDeath(attacker);
     }
-    protected void OnDeath(IAttacker attacker)
+    public void OnDeath(IAttacker attacker)
     {
-        if(_targetUnit != null)
-            _targetUnit.TargetAmount--;
+        if(_currentTarget != null)
+            _currentTarget.TargetAmount--;
         
         attacker.OnKill();
         DestroyUnit();
@@ -141,7 +140,7 @@ public class UnitHandler : MonoBehaviour, IAttacker
     }
     public void OnKill()
     {
-        _targetUnit = null;
+        _currentTarget = null;
     }
     IEnumerator WaitCoroutine()
     {

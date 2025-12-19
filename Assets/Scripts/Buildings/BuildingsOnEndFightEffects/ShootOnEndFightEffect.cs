@@ -10,6 +10,5 @@ public class ShootOnEndFightEffect : BuildingOnEndFightEffectSO
     public override void ApplyOnEndFightEffect(BuildingHandler buildingHandler)
     {
         ShootBuildingHandler shootBuildingHandler = buildingHandler as ShootBuildingHandler;
-        shootBuildingHandler.onEndTurn = true;
     }
 }

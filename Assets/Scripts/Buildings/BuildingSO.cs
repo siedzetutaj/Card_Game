@@ -6,6 +6,8 @@ public class BuildingSO : ScriptableObject
 {
     [Header("Base")]
     public Sprite Sprite;
+    public int health;
+
     public List<BuildingOnEndTurnEffectSO> OnEndTurnEffects = new();
     public List<BuildingOnEndFightEffectSO> OnEndFightEffects = new();
 }

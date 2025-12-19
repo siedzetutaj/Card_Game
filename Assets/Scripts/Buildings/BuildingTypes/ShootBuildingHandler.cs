@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShootBuildingHandler : BuildingHandler, IAttacker
@@ -8,13 +9,12 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     public int _range;
     public float _attackSpeed;
 
-    private UnitHandler _targetUnit;
+    private ITargetable _currentTarget;
     private bool _canAttack = true;
 
     private float _retargetTimer;
     private float _retargetCooldown = 2f;
 
-    public bool onEndTurn = false;  
     private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
     public override void Initialize(BuildingSO buildingSO)
     {
@@ -28,56 +28,45 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private void FixedUpdate()
     {
-        if (onEndTurn)
+        if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
         {
-            Retarget(_gameLogicManager.EnemieUnits);
-            _retargetTimer -= Time.fixedDeltaTime;
+            Retarget();
 
-            if (_targetUnit == null) return;
+            if (_currentTarget == null) return;
 
             if (_canAttack)
                 Attack();
         }
     }
 
-    private void Retarget(List<UnitHandler> units)
+    private void Retarget()
     {
-        if (_targetUnit == null || _retargetTimer <= 0f)
+        if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _targetUnit = FindBestTarget(units);
+            _currentTarget = FindBestTarget(_gameLogicManager.EnemieUnits.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;
             return;
         }
     }
-    private UnitHandler FindBestTarget(List<UnitHandler> units)
+    protected virtual ITargetable FindBestTarget(List<ITargetable> targets)
     {
-        if (units.Count == 0) return null;
-        if (_targetUnit != null) _targetUnit.TargetAmount--;
-
-        UnitHandler best = null;
+        ITargetable best = null;
         float bestScore = float.MinValue;
 
-        foreach (UnitHandler unit in units)
+        foreach (var target in targets)
         {
-            if (unit == null) continue;
+            if (!target.IsAlive) continue;
 
-            float sqrDist = (unit.transform.position - transform.position).magnitude;
-
-            float distanceScore = 1f / (sqrDist + 1f) * 100;   // closer = higher score
-            float targetPenalty = unit.TargetAmount * 0.1f; // more targets = worse
-            float randomness = Random.Range(0f, 0.02f);   // natural variation
-
-            float score = distanceScore - targetPenalty + randomness;
+            float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
+            float score = 1f / (dist + 1f);
 
             if (score > bestScore)
             {
                 bestScore = score;
-                best = unit;
+                best = target;
             }
         }
 
-        if (best != null)
-            best.TargetAmount++;
         return best;
     }
     protected void Attack()
@@ -85,7 +74,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         if (!_canAttack) return;
 
         _canAttack = false;
-        _targetUnit.OnDecreaseHP(_damage, this);
+        _currentTarget.TakeDamage(_damage, this);
         StartCoroutine(WaitCoroutine());
     }
 
@@ -98,6 +87,6 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     public void OnKill()
     {
-        _targetUnit = null;
+        _currentTarget = null;
     }
 }
