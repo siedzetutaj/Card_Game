@@ -5,21 +5,39 @@ using UnityEngine;
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
     public Action OnEndTurn;
+    public Action OnEndFight;
+    public Action OnAllUnitsDead;
 
     public List<Transform> SpawnPoints;
 
     public List<EnemieUnitsManager> EnemieUnitsManagers = new();
     public List<UnitsManager> PlayerUnitsManagers = new();
+
     public List<UnitHandler> EnemieUnits = new();
     public List<UnitHandler> PlayerUnits = new();
-    
+
+    public List<BuildingHandler> PlayerBuildings = new();
+
     public bool hasFightEnded = false;
+
+    public CombatPhase CurrentPhase { get; private set; } = CombatPhase.None;
 
     [SerializeField] private int _turn = 0;
     private int _moneyAmount = 3;
 
     private DeckManager _deckManager => DeckManager.Instance;
     private EnemieAttackProjection _enemieAttackProjection => EnemieAttackProjection.Instance;
+    //temp solution
+    private void Update()
+    {
+        CheckCombatPhase();
+
+        if (hasFightEnded && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers[0].Units.Count == 0) 
+        {
+            OnDeathOfAllUnits();
+        }
+    }
+
     #region Units
     public void SpawnEnemieUnits()
     {
@@ -66,11 +84,21 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         if (!hasFightEnded)
         {
             hasFightEnded = true;
-            DestroyAllUnits();
-            ClearLists();
+            //DestroyAllUnits();
+            //ClearLists();
             SetHealth(hasPlayerLost);
-            NextTurnSetup();
+            OnEndFight?.Invoke();
+            //NextTurnSetup();
         }
+    }
+    public void OnDeathOfAllUnits()
+    {
+        hasFightEnded = false;
+        OnAllUnitsDead?.Invoke();
+        //DestroyAllUnits();
+        ClearLists();
+        OnEndFight?.Invoke();
+        NextTurnSetup();
     }
     private void SetHealth(bool isWin)
     {
@@ -89,6 +117,8 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
         hasFightEnded = false;
+        CurrentPhase = CombatPhase.Units;
+
         Debug.Log("End Turn");
         SpawnEnemieUnits();
         UnifyUnits();
@@ -137,11 +167,23 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
                 enemieUnitsManager.UnitData.UnitAmount);
         }
     }
-    #endregion
     public void EnemieDefeated()
     {
         Debug.Log("Enemie Defeated");
     }
+    public void CheckCombatPhase()
+    {
+        EnemieUnits.RemoveAll(x => x == null);
+        PlayerUnits.RemoveAll(x => x == null);
+        PlayerBuildings.RemoveAll(x => x == null);
+
+        if (CurrentPhase == CombatPhase.Units &&
+            (PlayerUnits.Count == 0 || EnemieUnits.Count == 0))
+        {
+            CurrentPhase = CombatPhase.Buildings;
+        }
+    }
+    #endregion
     #region Utilities
     private void ClearLists()
     {
@@ -150,4 +192,10 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         PlayerUnitsManagers.Clear();
     }
     #endregion
+}
+public enum CombatPhase
+{
+    Units,
+    Buildings,
+    None
 }
