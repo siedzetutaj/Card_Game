@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SpawnBuildingSO
   m_EditorClassIdentifier: Assembly-CSharp::SpawnBuildingSO
   Sprite: {fileID: 677503446813500721, guid: 908cf18dc89ff5a41b6c8a12502e270f, type: 3}
+  health: 60
   OnEndTurnEffects:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
   OnEndFightEffects: []
