@@ -62,7 +62,7 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         }
         _cardsInDeck.Remove(cardData);
     }
-    public void DrawCards(int amount = 3)
+    public void DrawCards(int amount = 5)
     {
         for(int i = 0; i < amount; i++)
         {

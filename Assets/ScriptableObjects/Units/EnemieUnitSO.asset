@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemieUnitSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   UnitData:
-    UnitSprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
+    UnitSprite: {fileID: -4702544020559098553, guid: 4a6a14e1108bb1443936d3d700018ef4, type: 3}
     UnitFoodCost: 0
     UnitAmount: 30
     UnitHealth: 20

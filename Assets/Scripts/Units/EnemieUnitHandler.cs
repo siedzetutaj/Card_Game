@@ -19,7 +19,7 @@ public class EnemieUnitHandler : UnitHandler
         else if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
         {
             _currentTarget = FindBestTarget(
-                _gameLogicManager.PlayerBuildings.Cast<ITargetable>().ToList());
+                _gameLogicManager.PlayerBuildingsToTarget.Cast<ITargetable>().ToList());
         }
     }
 }

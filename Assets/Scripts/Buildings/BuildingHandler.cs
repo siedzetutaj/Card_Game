@@ -42,7 +42,6 @@ public class BuildingHandler : InteractableObject, ITargetable
         _gameLogicManager.OnEndFight -= ApplyOnEndFightEffects;
 
     }
-
     public virtual void Initialize(BuildingSO buildingSO)
     {
         _buildingSO = buildingSO;
@@ -50,7 +49,7 @@ public class BuildingHandler : InteractableObject, ITargetable
         _health = buildingSO.health;
         _onEndTurnEffects = new (buildingSO.OnEndTurnEffects);
         _onEndFightEffects = new (buildingSO.OnEndFightEffects);
-        _gameLogicManager.PlayerBuildings.Add(this);
+        _gameLogicManager.PlayerBuildingsToTarget.Add(this);
     }
     protected override void OnObjectClicked()
     {
@@ -78,12 +77,11 @@ public class BuildingHandler : InteractableObject, ITargetable
             effect.ApplyOnEndFightEffect(this);
         }
     }
-
     public void TakeDamage(int damage, IAttacker attacker)
     {
         Debug.Log(_health);
         _health -= damage;
-        if (_health <= 0)
+        if (!IsAlive)
             OnDeath(attacker);
     }
 
