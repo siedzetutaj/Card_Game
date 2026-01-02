@@ -16,7 +16,8 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     public List<UnitHandler> EnemieUnits = new();
     public List<UnitHandler> PlayerUnits = new();
 
-    public List<BuildingHandler> PlayerBuildings = new();
+    public List<ITargetable> PlayerBuildingsToTarget = new();
+    public List<ITargetable> EnemieBuidingsToTarget = new();
 
     public bool hasFightEnded = false;
 
@@ -175,7 +176,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         EnemieUnits.RemoveAll(x => x == null);
         PlayerUnits.RemoveAll(x => x == null);
-        PlayerBuildings.RemoveAll(x => x == null);
+        PlayerBuildingsToTarget.RemoveAll(x => x == null);
 
         if (CurrentPhase == CombatPhase.Units &&
             (PlayerUnits.Count == 0 || EnemieUnits.Count == 0))

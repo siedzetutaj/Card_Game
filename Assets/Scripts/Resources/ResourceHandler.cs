@@ -23,9 +23,15 @@ public class ResourceHandler : MonoBehaviour
         _amount = amount;
         _amountText.text = _amount.ToString();  
     }  
-    public int GetAmount()
+    public void DecreaseAmount(int amount)
     {
-        return _amount;
+        _amount -= amount;
+        _amountText.text = _amount.ToString();
+    }
+    public void IncreaseAmount(int amount)
+    {
+        _amount += amount;
+        _amountText.text = _amount.ToString();
     }
     public bool IsEnoughtResources(int amount)
     {

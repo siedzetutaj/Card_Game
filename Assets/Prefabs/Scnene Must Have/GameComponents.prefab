@@ -96,8 +96,10 @@ MonoBehaviour:
   CardPrefab: {fileID: 2245718946013293043, guid: 0e8feb25010995a478faa0a1e7be58c0, type: 3}
   StartingDeck:
   - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
-  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
   - {fileID: 11400000, guid: 88adc194bd10a964fa144e0d3f27029e, type: 2}
+  - {fileID: 11400000, guid: 88adc194bd10a964fa144e0d3f27029e, type: 2}
+  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
+  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
 --- !u!1 &5384495323005139874
 GameObject:
   m_ObjectHideFlags: 0

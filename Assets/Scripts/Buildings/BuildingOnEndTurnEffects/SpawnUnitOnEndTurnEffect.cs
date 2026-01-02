@@ -14,7 +14,7 @@ public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
         int foodCost = spawnBuildingHandler.UnitData.UnitFoodCost;
         if (food.Amount >= foodCost)
         {
-            food.SetAmount(food.GetAmount() - foodCost);
+            food.DecreaseAmount(foodCost);
             SpawnUnits(spawnBuildingHandler);
         }
     }
