@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5213272286298686074}
   - component: {fileID: 1518759267219015283}
   - component: {fileID: 3416668592925590475}
-  - component: {fileID: -7462162370248454563}
+  - component: {fileID: 7525377176437290451}
   m_Layer: 5
-  m_Name: Base
+  m_Name: EnemieBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73873a1a6916624dbb9f3f96b46d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
---- !u!114 &-7462162370248454563
+--- !u!114 &7525377176437290451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,10 +98,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2775292021146187962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8ce87817f0e4c40ac888e32462de35, type: 3}
+  m_Script: {fileID: 11500000, guid: edf68683c47b20941a4128c366a7e685, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseHandler
+  m_EditorClassIdentifier: Assembly-CSharp::EnemieBaseHandler
   _damage: 9999
   _range: 700
   _attackSpeed: 0.5
-  _isPlayerBuilding: 1
+  _isPlayerBase: 1
+  health: 1000

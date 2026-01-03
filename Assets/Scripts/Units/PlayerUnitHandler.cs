@@ -18,7 +18,7 @@ public class PlayerUnitHandler : UnitHandler
         else
         {
             _currentTarget = FindBestTarget(
-                _gameLogicManager.EnemieBuidingsToTarget.Cast<ITargetable>().ToList());
+                _gameLogicManager.EnemieBuildingsToTarget.Cast<ITargetable>().ToList());
         }
     }
 }
