@@ -60,7 +60,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     {
         Vector3 targetTransform = _currentTarget.TargetTransform.position;  
         Vector3 direction = (targetTransform - this.transform.position);
-        if (direction.sqrMagnitude <= 0.005f)
+        if (direction.sqrMagnitude <= 0.8f)
         {
             transform.position = targetTransform;
             return;

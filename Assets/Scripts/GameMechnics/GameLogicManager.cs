@@ -17,9 +17,9 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     public List<UnitHandler> PlayerUnits = new();
 
     public List<ITargetable> PlayerBuildingsToTarget = new();
-    public List<ITargetable> EnemieBuidingsToTarget = new();
+    public List<ITargetable> EnemieBuildingsToTarget = new();
 
-    public bool hasFightEnded = false;
+    public bool IsFight = false;
 
     public CombatPhase CurrentPhase { get; private set; } = CombatPhase.None;
 
@@ -33,7 +33,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         CheckCombatPhase();
 
-        if (hasFightEnded && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers[0].Units.Count == 0) 
+        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers[0].Units.Count == 0) 
         {
             OnDeathOfAllUnits();
         }
@@ -82,31 +82,23 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     #region TurnManagement
     public void OnFightEnd(bool hasPlayerLost)
     {
-        if (!hasFightEnded)
+        if (!IsFight)
         {
-            hasFightEnded = true;
+            IsFight = true;
             //DestroyAllUnits();
             //ClearLists();
-            SetHealth(hasPlayerLost);
             OnEndFight?.Invoke();
             //NextTurnSetup();
         }
     }
     public void OnDeathOfAllUnits()
     {
-        hasFightEnded = false;
+        IsFight = false;
         OnAllUnitsDead?.Invoke();
         //DestroyAllUnits();
         ClearLists();
         OnEndFight?.Invoke();
         NextTurnSetup();
-    }
-    private void SetHealth(bool isWin)
-    {
-        if(isWin)
-            ResourceManager.Instance.FindResource(ResourceType.population).Amount--;
-        else
-            EnemieManager.Instance.HealthPoints--;
     }
     public void EndTurnCheck()
     {
@@ -117,17 +109,12 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
-        hasFightEnded = false;
+        IsFight = false;
         CurrentPhase = CombatPhase.Units;
 
         Debug.Log("End Turn");
         SpawnEnemieUnits();
         UnifyUnits();
-        
-        if(PlayerUnits.Count == 0)
-            OnFightEnd(true);
-        else if (EnemieUnits.Count == 0)
-            OnFightEnd(false);
     }
     public void FirstTurn()
     {
