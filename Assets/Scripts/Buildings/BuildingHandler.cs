@@ -92,6 +92,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     }
     protected void DestoryBuilding()
     {
+        _gameLogicManager.PlayerBuildingsToTarget.Remove(this);
         Destroy(gameObject);
     }
 }
