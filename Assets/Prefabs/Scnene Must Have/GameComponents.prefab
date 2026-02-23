@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5110297550618893605}
   - component: {fileID: 3150107723301860666}
+  - component: {fileID: 4396743724478612310}
   m_Layer: 0
   m_Name: EnemieManager
   m_TagString: Untagged
@@ -45,6 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemieManager
   _healthPointsText: {fileID: 0}
+--- !u!114 &4396743724478612310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818876723888391826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7950eb8e1276131449825e8ef0c24996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemieAI
+  EnemieData: {fileID: 11400000, guid: 56be956ea46d3104095759caca070ff5, type: 2}
+  SpawnBuildingPrefab: {fileID: 2775292021146187962, guid: 6ca09e72d7542cd4cb960d5ed0d29bf2, type: 3}
+  _groundGenerator: {fileID: 0}
 --- !u!1 &5043696096865158519
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,8 +279,7 @@ MonoBehaviour:
   PlayerUnitsManagers: []
   EnemieUnits: []
   PlayerUnits: []
-  PlayerBuildings: []
-  hasFightEnded: 0
+  IsFight: 0
   _turn: 0
 --- !u!114 &2737076364111746360
 MonoBehaviour:
@@ -281,16 +296,6 @@ MonoBehaviour:
   _unitPrefab: {fileID: 7757552997381450624, guid: 83ff9ab054fe1b4469589b9a2fe35ac1, type: 3}
   Units: []
   UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
-  UnitData:
-    UnitSprite: {fileID: 0}
-    UnitFoodCost: 0
-    UnitAmount: 0
-    UnitHealth: 0
-    UnitDamage: 0
-    UnitAttackSpeed: 0
-    UnitAttackRange: 0
-    UnitSpeed: 0
-    TargetAmount: 0
 --- !u!1 &8599876508897608908
 GameObject:
   m_ObjectHideFlags: 0

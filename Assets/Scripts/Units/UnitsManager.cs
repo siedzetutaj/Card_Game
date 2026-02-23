@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UnitsManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _unitPrefab;
+    [SerializeField] protected GameObject _unitPrefab;
     
-    private UnitData _unitData;
+    protected UnitData _unitData;
     public List<UnitHandler> Units = new();
 
     public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
@@ -15,7 +15,7 @@ public class UnitsManager : MonoBehaviour
         transform.position = spawnPoint;
         CreateUnits(isPlayerUnit);
     }
-    private void CreateUnits(bool isPlayerUnit)
+    protected virtual void CreateUnits(bool isPlayerUnit)
     {
         //TODO: Sekwencyjne ukladanie jednostek w formacje
         for (int i =0; i< _unitData.UnitAmount; i++)

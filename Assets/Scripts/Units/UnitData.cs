@@ -19,6 +19,8 @@ public class UnitData
    // public int SpawnPosionIndex;
     public UnitData(UnitData unitData)
     {
+        if(unitData == null) 
+            return;
         UnitSprite = unitData.UnitSprite;
         UnitFoodCost = unitData.UnitFoodCost;
         UnitAmount = unitData.UnitAmount;

@@ -23,7 +23,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     protected bool _isPlayerUnit;
     protected UnitsManager _unitsManager;
     protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
-    
+
     protected int _targetAmount;
     public void Inititalize(UnitData unitData, bool isPlayerUnit, UnitsManager unitsManager)
     {
@@ -58,7 +58,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     //}
     protected void Movement()
     {
-        Vector3 targetTransform = _currentTarget.TargetTransform.position;  
+        Vector3 targetTransform = _currentTarget.TargetTransform.position;
         Vector3 direction = (targetTransform - this.transform.position);
         if (direction.sqrMagnitude <= 0.8f)
         {
@@ -83,22 +83,21 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
             float sqrDist = (target.TargetTransform.position - transform.position).magnitude;
             float distanceScore = 1f / (sqrDist + 1f) * 100; // closer = higher score 
             float targetPenalty = target.TargetAmount * 0.1f; // more targets = worse 
-            
+
             float randomness = Random.Range(0f, 0.02f); // natural variation 
             float score = distanceScore - targetPenalty + randomness;
-           
-            if (score > bestScore) 
-            { 
-                bestScore = score; 
-                best = target; 
+
+            if (score > bestScore)
+            {
+                bestScore = score;
+                best = target;
             }
         }
 
-        if (best != null) 
-            best.TargetAmount++; 
+        if (best != null)
+            best.TargetAmount++;
         return best;
     }
-
     protected void RangeCheck()
     {
         Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
@@ -123,9 +122,12 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     }
     public void OnDeath(IAttacker attacker)
     {
-        if(_currentTarget != null)
+        if (_currentTarget != null)
             _currentTarget.TargetAmount--;
-        
+        if(_isPlayerUnit)
+            _gameLogicManager.PlayerUnits.Remove(this);
+        else
+            _gameLogicManager.EnemieUnits.Remove(this as EnemieUnitHandler);
         attacker.OnKill();
         DestroyUnit();
     }

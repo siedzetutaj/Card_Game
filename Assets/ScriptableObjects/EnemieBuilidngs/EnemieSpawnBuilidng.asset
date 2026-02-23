@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c22b7a6b51a3641a3d0d547b7c1ea7, type: 3}
+  m_Name: EnemieSpawnBuilidng
+  m_EditorClassIdentifier: Assembly-CSharp::EnemieBuildingSO
+  Sprite: {fileID: 1838123488402684654, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
+  health: 60
+  OnEndTurnEffects:
+  - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
+  OnEndFightEffects: []
+  UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
+  SpawnChance: 50
