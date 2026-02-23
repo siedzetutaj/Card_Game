@@ -586,6 +586,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &2990215644939900364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8041138735099397183, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
+  m_PrefabInstance: {fileID: 5109540872543703539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7de83f97bf89e5459c3d919f912431d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundGenerator
 --- !u!224 &3517993753452802606 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8519351408122029021, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
@@ -705,6 +716,10 @@ PrefabInstance:
       propertyPath: _healthPointsText
       value: 
       objectReference: {fileID: 2935703679840870973}
+    - target: {fileID: 4396743724478612310, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
+      propertyPath: _groundGenerator
+      value: 
+      objectReference: {fileID: 2990215644939900364}
     - target: {fileID: 9030368097811783982, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
       propertyPath: m_Name
       value: GameComponents

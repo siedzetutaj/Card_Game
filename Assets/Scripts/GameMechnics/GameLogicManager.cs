@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     public List<EnemieUnitsManager> EnemieUnitsManagers = new();
     public List<UnitsManager> PlayerUnitsManagers = new();
 
-    public List<UnitHandler> EnemieUnits = new();
+    public List<EnemieUnitHandler> EnemieUnits = new();
     public List<UnitHandler> PlayerUnits = new();
 
     public List<ITargetable> PlayerBuildingsToTarget = new();
@@ -33,26 +34,26 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         CheckCombatPhase();
 
-        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers[0].Units.Count == 0) 
+        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers.Count == 0) 
         {
             OnDeathOfAllUnits();
         }
     }
 
     #region Units
-    public void SpawnEnemieUnits()
-    {
-        foreach(var enemieUnitsManager in EnemieUnitsManagers)
-        {
-            enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
-                SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)].position, false);
-        }
-    }
+    //public void SpawnEnemieUnits()
+    //{
+    //    foreach(var enemieUnitsManager in EnemieUnitsManagers)
+    //    {
+    //        enemieUnitsManager.Initialize(enemieUnitsManager.UnitData,
+    //            SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count - 1)].position, false);
+    //    }
+    //}
     private void UnifyUnits()
     {
         foreach (var enemieUnitsManager in EnemieUnitsManagers)
         {
-            EnemieUnits.AddRange(enemieUnitsManager.Units);
+            EnemieUnits.AddRange(enemieUnitsManager.EnemieUnits);
         }
         foreach (var playerUnitsManager in PlayerUnitsManagers)
         {
@@ -109,12 +110,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
-        IsFight = false;
-        CurrentPhase = CombatPhase.Units;
-
-        Debug.Log("End Turn");
-        SpawnEnemieUnits();
-        UnifyUnits();
+        StartCoroutine(WaitForUnitsToSpawn());
     }
     public void FirstTurn()
     {
@@ -122,8 +118,8 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         {
             _turn++;
             _deckManager.OnFirstTurn(_moneyAmount);
-            TempEnemieScaling();
-            EnemieAttackProjectionSetup();
+            //TempEnemieScaling();
+            //EnemieAttackProjectionSetup();
         }
         else
             NextTurnSetup();
@@ -132,29 +128,29 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     private void NextTurnSetup()
     {
         _turn++;
-        TempEnemieScaling();
+        //TempEnemieScaling();
         _deckManager.NextTurn(_moneyAmount);
-        EnemieAttackProjectionSetup();
+        //EnemieAttackProjectionSetup();
     }
-    private void TempEnemieScaling()
-    {
-        foreach (var enemieUnitsManager in EnemieUnitsManagers)
-        {
-            float scaleFactor = 1.2f;
-            enemieUnitsManager.UnitData.UnitAmount =
-                 Mathf.RoundToInt
-                 (enemieUnitsManager.UnitData.UnitAmount * scaleFactor);
-        }
-    }
-    private void EnemieAttackProjectionSetup()
-    {
-        _enemieAttackProjection.ClearAttackProjections();
-        foreach (var enemieUnitsManager in EnemieUnitsManagers)
-        {
-            _enemieAttackProjection.SetAttackProjection(enemieUnitsManager.UnitData.UnitSprite,
-                enemieUnitsManager.UnitData.UnitAmount);
-        }
-    }
+    //private void TempEnemieScaling()
+    //{
+    //    foreach (var enemieUnitsManager in EnemieUnitsManagers)
+    //    {
+    //        float scaleFactor = 1.2f;
+    //        enemieUnitsManager.UnitData.UnitAmount =
+    //             Mathf.RoundToInt
+    //             (enemieUnitsManager.UnitData.UnitAmount * scaleFactor);
+    //    }
+    //}
+    //private void EnemieAttackProjectionSetup()
+    //{
+    //    _enemieAttackProjection.ClearAttackProjections();
+    //    foreach (var enemieUnitsManager in EnemieUnitsManagers)
+    //    {
+    //        _enemieAttackProjection.SetAttackProjection(enemieUnitsManager.UnitData.UnitSprite,
+    //            enemieUnitsManager.UnitData.UnitAmount);
+    //    }
+    //}
     public void EnemieDefeated()
     {
         Debug.Log("Enemie Defeated");
@@ -164,9 +160,10 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         EnemieUnits.RemoveAll(x => x == null);
         PlayerUnits.RemoveAll(x => x == null);
         PlayerBuildingsToTarget.RemoveAll(x => x == null);
+        EnemieBuildingsToTarget.RemoveAll(x => x == null);
 
         if (CurrentPhase == CombatPhase.Units &&
-            (PlayerUnits.Count == 0 || EnemieUnits.Count == 0))
+            (EnemieUnits.Count == 0 || PlayerUnits.Count == 0))
         {
             CurrentPhase = CombatPhase.Buildings;
         }
@@ -178,8 +175,20 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
         EnemieUnits.Clear();
         PlayerUnits.Clear();
         PlayerUnitsManagers.Clear();
+        EnemieUnitsManagers.Clear();
     }
     #endregion
+    IEnumerator WaitForUnitsToSpawn()
+    {
+
+        yield return null;
+        UnifyUnits();
+        CurrentPhase = CombatPhase.Units;
+        IsFight = true;
+
+        Debug.Log("End Turn");
+        //SpawnEnemieUnits();
+    }
 }
 public enum CombatPhase
 {
