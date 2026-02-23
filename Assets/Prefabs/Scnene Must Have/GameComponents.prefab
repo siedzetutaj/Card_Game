@@ -274,8 +274,7 @@ MonoBehaviour:
   - {fileID: 838559632105159571}
   - {fileID: 8210661977080585374}
   - {fileID: 688987933212323420}
-  EnemieUnitsManagers:
-  - {fileID: 2737076364111746360}
+  EnemieUnitsManagers: []
   PlayerUnitsManagers: []
   EnemieUnits: []
   PlayerUnits: []
@@ -288,7 +287,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8009531503356645008}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8af7205ef5b71a54ca13071d9c7585a9, type: 3}
   m_Name: 
@@ -296,6 +295,7 @@ MonoBehaviour:
   _unitPrefab: {fileID: 7757552997381450624, guid: 83ff9ab054fe1b4469589b9a2fe35ac1, type: 3}
   Units: []
   UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
+  EnemieUnits: []
 --- !u!1 &8599876508897608908
 GameObject:
   m_ObjectHideFlags: 0
