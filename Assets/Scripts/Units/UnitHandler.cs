@@ -16,6 +16,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     [SerializeField] protected SpriteRenderer _spriteRenderer;
     protected UnitData _unitData;
 
+    protected int _unitAttackRange;
     protected bool _isInRange = false;
     protected bool _canAttack = true;
     protected float _waitBetweenAttack;
@@ -32,6 +33,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
         _waitBetweenAttack = unitData.UnitAttackSpeed;
         _isPlayerUnit = isPlayerUnit;
         _unitsManager = unitsManager;
+        _unitAttackRange = unitData.UnitAttackRange;
         transform.position = new Vector3(transform.position.x + Random.Range(-20, 20),
         transform.position.y + Random.Range(-20, 20), -200);
         _targetAmount = -unitData.TargetAmount;
@@ -58,14 +60,39 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     //}
     protected void Movement()
     {
-        Vector3 targetTransform = _currentTarget.TargetTransform.position;
-        Vector3 direction = (targetTransform - this.transform.position);
-        if (direction.sqrMagnitude <= 0.8f)
+        Vector3 targetPos = _currentTarget.TargetTransform.position;
+        Vector3 directionToTarget = (targetPos - transform.position);
+
+        Vector3 separation = CalculateSeparation();
+
+        Vector3 finalDirection = (directionToTarget.normalized + separation * 0.5f).normalized;
+
+        if (directionToTarget.sqrMagnitude <= _unitAttackRange)
         {
-            transform.position = targetTransform;
+            transform.position = targetPos;
             return;
         }
-        transform.position += direction.normalized * _unitData.UnitSpeed * Time.fixedDeltaTime;
+
+        transform.position += finalDirection * _unitData.UnitSpeed * Time.fixedDeltaTime;
+    }
+
+    private Vector3 CalculateSeparation()
+    {
+        Vector3 separationVec = Vector3.zero;
+        float desiredSeparation = 100f; 
+
+        Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, desiredSeparation);
+
+        foreach (var neighbor in neighbors)
+        {
+            if (neighbor.gameObject != this.gameObject)
+            {
+                Vector3 diff = transform.position - neighbor.transform.position;
+                separationVec += diff.normalized / diff.magnitude;
+            }
+        }
+
+        return separationVec;
     }
     protected virtual void FindTarget()
     {

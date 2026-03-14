@@ -5,7 +5,8 @@ public class PlayerUnitHandler : UnitHandler
 {
     protected override void FixedUpdate()
     {
-        Retarget();
+        if (_currentTarget == null || !_currentTarget.IsAlive)
+            Retarget();
         base.FixedUpdate();
     }
     protected void Retarget()
@@ -15,10 +16,11 @@ public class PlayerUnitHandler : UnitHandler
             _currentTarget = FindBestTarget(
                 _gameLogicManager.EnemieUnits.Cast<ITargetable>().ToList());
         }
-        else
+        else if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
         {
             _currentTarget = FindBestTarget(
                 _gameLogicManager.EnemieBuildingsToTarget.Cast<ITargetable>().ToList());
         }
+        Debug.Log($"Player unit retargeted to {_currentTarget}");
     }
 }

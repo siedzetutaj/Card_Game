@@ -6,7 +6,8 @@ public class EnemieUnitHandler : UnitHandler
 {
     protected override void FixedUpdate()
     {
-        Retarget();
+        if(_currentTarget == null || !_currentTarget.IsAlive)  
+            Retarget();
         base.FixedUpdate();
     }
     protected void Retarget()

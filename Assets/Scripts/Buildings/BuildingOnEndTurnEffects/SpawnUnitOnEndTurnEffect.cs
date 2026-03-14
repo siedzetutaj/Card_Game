@@ -32,12 +32,12 @@ public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
         UnitData unitData = spawnBuildingHandler.UnitData;
 
         Vector3 buildingPos = spawnBuildingHandler.transform.position;
-        Vector3 spawnPoint = new Vector3(buildingPos.x, buildingPos.y, 0);
+        Vector3 spawnPoint = new Vector3(buildingPos.x + Random.Range(-10, 10), buildingPos.y + Random.Range(-10, 10), 0);
         if (spawnBuildingHandler.IsPlayerBuilding)
         {
 
             Transform parentTransform = PlayerUnitsManagers.Instance.transform;
-            GameObject unitsManager = Instantiate(_playerUnitsManagerPrefab, parentTransform);
+            GameObject unitsManager = Instantiate(_playerUnitsManagerPrefab, parentTransform);  
 
             UnitsManager manager = unitsManager.GetComponent<UnitsManager>();
             manager.Initialize(unitData, spawnPoint, true);
