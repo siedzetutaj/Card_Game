@@ -15,6 +15,7 @@ public class UnitData
     public int UnitAttackRange;
     public int UnitSpeed;
     public int TargetAmount;
+    public float SpawnAfterSeconds;
     //[Range(0,1)]
    // public int SpawnPosionIndex;
     public UnitData(UnitData unitData)
@@ -30,6 +31,7 @@ public class UnitData
         UnitAttackRange = unitData.UnitAttackRange;
         UnitSpeed = unitData.UnitSpeed;
         TargetAmount = unitData.TargetAmount;
+        SpawnAfterSeconds = unitData.SpawnAfterSeconds;
        // SpawnPosionIndex = unitData.SpawnPosionIndex;
     }
 }

@@ -6,14 +6,16 @@ using UnityEngine;
 public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
 {
     public int _damage = 9999;
-    public int _range = 700;
-    public float _attackSpeed = 0.5f;
+    public int _range;
+    public float _attackSpeed;
 
     protected ITargetable _currentTarget;
     protected bool _canAttack = true;
 
     protected float _retargetTimer;
     protected float _retargetCooldown = 2f;
+    public bool IsUnit => false; 
+    protected bool _isInRange = false;
 
     public Transform TargetTransform => transform;
     public bool IsAlive => true;
@@ -28,17 +30,21 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
     protected ResourceManager _resourceManager => ResourceManager.Instance;
     protected ResourceHandler _populationResourceHandler => _resourceManager.FindResource(ResourceType.population);
 
+
     [SerializeField] protected bool _isPlayerBase = true;
 
     protected void FixedUpdate()
     {
-        if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
+        if (_gameLogicManager.IsFight == true) 
         {
             Retarget();
 
-            if (_currentTarget == null) return;
+            if (_currentTarget == null || _currentTarget.Equals(null)) 
+                return;
+            
+            RangeCheck();
 
-            if (_canAttack)
+            if (_canAttack && _isInRange)
                 Attack();
         }
     }
@@ -54,6 +60,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
         foreach (var target in targets)
         {
             if (!target.IsAlive) continue;
+            if (!target.IsUnit) continue;
 
             float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
             float score = 1f / (dist + 1f);
@@ -67,10 +74,16 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
 
         return best;
     }
+    protected void RangeCheck()
+    {
+        Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
+        if (distance.magnitude > _range)
+            _isInRange = false;
+        else
+            _isInRange = true;
+    }
     protected void Attack()
     {
-        if (!_canAttack) return;
-
         _canAttack = false;
         _currentTarget.TakeDamage(_damage, this);
         StartCoroutine(WaitCoroutine());

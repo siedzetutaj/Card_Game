@@ -6,13 +6,13 @@ public class PlayerBaseHandler : BaseHandler
     public new bool  IsAlive => _populationResourceHandler.Amount > 0;
     private void Start()
     {
-        _gameLogicManager.PlayerBuildingsToTarget.Add(this);
+        _gameLogicManager.PlayerTargets.Add(this);
     }
     protected override void Retarget()
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _currentTarget = FindBestTarget(_gameLogicManager.EnemieUnits.Cast<ITargetable>().ToList());
+            _currentTarget = FindBestTarget(_gameLogicManager.EnemieTargets.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;
             return;
         }

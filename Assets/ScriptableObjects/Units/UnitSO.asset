@@ -19,6 +19,7 @@ MonoBehaviour:
     UnitHealth: 12
     UnitDamage: 5
     UnitAttackSpeed: 2
-    UnitAttackRange: 10
+    UnitAttackRange: 40
     UnitSpeed: 160
     TargetAmount: 1
+    SpawnAfterSeconds: 2

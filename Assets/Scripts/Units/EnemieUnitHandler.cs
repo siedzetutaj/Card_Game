@@ -1,5 +1,4 @@
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemieUnitHandler : UnitHandler
@@ -12,15 +11,8 @@ public class EnemieUnitHandler : UnitHandler
     }
     protected void Retarget()
     {
-        if (_gameLogicManager.CurrentPhase == CombatPhase.Units)
-        {
-            _currentTarget = FindBestTarget(
-                _gameLogicManager.PlayerUnits.Cast<ITargetable>().ToList());
-        }
-        else if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
-        {
-            _currentTarget = FindBestTarget(
-                _gameLogicManager.PlayerBuildingsToTarget.Cast<ITargetable>().ToList());
-        }
+        _currentTarget = FindBestTarget(
+            _gameLogicManager.PlayerTargets.Cast<ITargetable>().ToList());
+
     }
 }

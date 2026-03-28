@@ -102,6 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBaseHandler
   _damage: 9999
-  _range: 700
-  _attackSpeed: 0.5
+  _range: 100
+  _attackSpeed: 3
   _isPlayerBase: 1

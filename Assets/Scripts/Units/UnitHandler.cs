@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
@@ -7,6 +8,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     public Transform TargetTransform => transform;
     public bool IsAlive => _unitData.UnitHealth > 0;
     protected ITargetable _currentTarget;
+    public bool IsUnit => true;
     public int TargetAmount
     {
         get => _targetAmount;
@@ -24,6 +26,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     protected bool _isPlayerUnit;
     protected UnitsManager _unitsManager;
     protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+
 
     protected int _targetAmount;
     public void Inititalize(UnitData unitData, bool isPlayerUnit, UnitsManager unitsManager)
@@ -94,10 +97,6 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
 
         return separationVec;
     }
-    protected virtual void FindTarget()
-    {
-
-    }
     protected ITargetable FindBestTarget(List<ITargetable> targets)
     {
         if (targets.Count == 0) return null;
@@ -120,7 +119,15 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
                 best = target;
             }
         }
+        if (best != null)
+        {
+            best.TargetAmount++;
 
+            if (best is UnitHandler bestUnit && bestUnit._currentTarget == null)
+            {
+                bestUnit._currentTarget = this;
+            }
+        }
         if (best != null)
             best.TargetAmount++;
         return best;
@@ -152,9 +159,9 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
         if (_currentTarget != null)
             _currentTarget.TargetAmount--;
         if(_isPlayerUnit)
-            _gameLogicManager.PlayerUnits.Remove(this);
+            _gameLogicManager.PlayerTargets.Remove(this);
         else
-            _gameLogicManager.EnemieUnits.Remove(this as EnemieUnitHandler);
+            _gameLogicManager.EnemieTargets.Remove(this as EnemieUnitHandler);
         attacker.OnKill();
         DestroyUnit();
     }
@@ -170,6 +177,15 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     public void OnKill()
     {
         _currentTarget = null;
+    }
+    public void Retaliation(ITargetable targetToRetaliate)
+    {
+        if (targetToRetaliate != null && !_isInRange)
+        {
+            _currentTarget.TargetAmount--;
+            _currentTarget = targetToRetaliate;
+            _currentTarget.TargetAmount++;
+        }
     }
     IEnumerator WaitCoroutine()
     {

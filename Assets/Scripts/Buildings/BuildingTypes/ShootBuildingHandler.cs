@@ -14,6 +14,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private float _retargetTimer;
     private float _retargetCooldown = 2f;
+    private bool _isInRange;
 
     private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
     public override void Initialize(BuildingSO buildingSO)
@@ -28,13 +29,16 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private void FixedUpdate()
     {
-        if (_gameLogicManager.CurrentPhase == CombatPhase.Buildings)
+        if (_gameLogicManager.IsFight == true)
         {
             Retarget();
 
-            if (_currentTarget == null) return;
+            if (_currentTarget == null || _currentTarget.Equals(null)) 
+                return;
+            
+            RangeCheck();
 
-            if (_canAttack)
+            if (_canAttack && _isInRange)
                 Attack();
         }
     }
@@ -43,10 +47,18 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _currentTarget = FindBestTarget(_gameLogicManager.EnemieUnits.Cast<ITargetable>().ToList());
+            _currentTarget = FindBestTarget(_gameLogicManager.EnemieTargets.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;
             return;
         }
+    }
+    protected void RangeCheck()
+    {
+        Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
+        if (distance.magnitude > _range)
+            _isInRange = false;
+        else
+            _isInRange = true;
     }
     protected virtual ITargetable FindBestTarget(List<ITargetable> targets)
     {
@@ -56,6 +68,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         foreach (var target in targets)
         {
             if (!target.IsAlive) continue;
+            if (!target.IsUnit) continue;
 
             float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
             float score = 1f / (dist + 1f);
@@ -72,7 +85,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     protected void Attack()
     {
         if (!_canAttack) return;
-
+        
         _canAttack = false;
         _currentTarget.TakeDamage(_damage, this);
         StartCoroutine(WaitCoroutine());
