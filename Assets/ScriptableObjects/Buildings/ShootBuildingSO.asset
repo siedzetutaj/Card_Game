@@ -18,4 +18,4 @@ MonoBehaviour:
   OnEndFightEffects: []
   Damage: 999
   Range: 600
-  AttackSpeed: 0.5
+  AttackSpeed: 3

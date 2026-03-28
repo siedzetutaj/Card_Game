@@ -14,15 +14,11 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     public List<EnemieUnitsManager> EnemieUnitsManagers = new();
     public List<UnitsManager> PlayerUnitsManagers = new();
 
-    public List<EnemieUnitHandler> EnemieUnits = new();
-    public List<UnitHandler> PlayerUnits = new();
-
-    public List<ITargetable> PlayerBuildingsToTarget = new();
-    public List<ITargetable> EnemieBuildingsToTarget = new();
+    public List<ITargetable> EnemieTargets = new();
+    public List<ITargetable> PlayerTargets = new();
 
     public bool IsFight = false;
 
-    public CombatPhase CurrentPhase { get; private set; } = CombatPhase.None;
 
     [SerializeField] private int _turn = 0;
     private int _moneyAmount = 3;
@@ -32,9 +28,9 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     //temp solution
     private void Update()
     {
-        CheckCombatPhase();
-
-        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers.Count == 0) 
+        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers.Count == 0 
+            && ResourceManager.Instance.FindResource(ResourceType.food).Amount == 0
+            && EnemieResourceManager.Instance.FindResource(ResourceType.food).Amount == 0) 
         {
             OnDeathOfAllUnits();
         }
@@ -53,25 +49,25 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         foreach (var enemieUnitsManager in EnemieUnitsManagers)
         {
-            EnemieUnits.AddRange(enemieUnitsManager.EnemieUnits);
+            EnemieTargets.AddRange(enemieUnitsManager.EnemieUnits);
         }
         foreach (var playerUnitsManager in PlayerUnitsManagers)
         {
-            PlayerUnits.AddRange(playerUnitsManager.Units);
+            PlayerTargets.AddRange(playerUnitsManager.Units);
         }
     }
     private void DestroyAllUnits()
     {
-        PlayerUnits.RemoveAll(x => x == null);
+        PlayerTargets.RemoveAll(x => x == null);
         
-        foreach(UnitHandler playerUnits in PlayerUnits)
+        foreach(UnitHandler playerUnits in PlayerTargets)
         {
             playerUnits.DestroyUnit();
         }
         
-        EnemieUnits.RemoveAll(x => x == null);
+        EnemieTargets.RemoveAll(x => x == null);
         
-        foreach (UnitHandler enemieUnits in EnemieUnits)
+        foreach (UnitHandler enemieUnits in EnemieTargets)
         {
             //TODO: Deal damage to player base
             if (enemieUnits == null) continue;
@@ -110,7 +106,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         OnEndTurn?.Invoke();
         _deckManager.DiscardAllCardsInHand();
-        StartCoroutine(WaitForUnitsToSpawn());
+        IsFight = true;
     }
     public void FirstTurn()
     {
@@ -155,44 +151,14 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     {
         Debug.Log("Enemie Defeated");
     }
-    public void CheckCombatPhase()
-    {
-        EnemieUnits.RemoveAll(x => x == null);
-        PlayerUnits.RemoveAll(x => x == null);
-        PlayerBuildingsToTarget.RemoveAll(x => x == null);
-        EnemieBuildingsToTarget.RemoveAll(x => x == null);
-
-        if (CurrentPhase == CombatPhase.Units &&
-            (EnemieUnits.Count == 0 || PlayerUnits.Count == 0))
-        {
-            CurrentPhase = CombatPhase.Buildings;
-        }
-    }
     #endregion
     #region Utilities
     private void ClearLists()
     {
-        EnemieUnits.Clear();
-        PlayerUnits.Clear();
+        EnemieTargets.Clear();
+        PlayerTargets.Clear();
         PlayerUnitsManagers.Clear();
         EnemieUnitsManagers.Clear();
     }
     #endregion
-    IEnumerator WaitForUnitsToSpawn()
-    {
-
-        yield return null;
-        UnifyUnits();
-        CurrentPhase = CombatPhase.Units;
-        IsFight = true;
-
-        Debug.Log("End Turn");
-        //SpawnEnemieUnits();
-    }
-}
-public enum CombatPhase
-{
-    Units,
-    Buildings,
-    None
 }

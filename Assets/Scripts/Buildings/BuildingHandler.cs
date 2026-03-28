@@ -12,6 +12,7 @@ public class BuildingHandler : InteractableObject, ITargetable
         get => _targetAmount;
         set => _targetAmount = value;
     }
+    public bool IsUnit => false;
 
     public bool IsPlayerBuilding =true;
     
@@ -25,6 +26,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     private List<BuildingOnEndFightEffectSO> _onEndFightEffects = new();
 
     private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+
 
     protected int _targetAmount;
 
@@ -51,9 +53,9 @@ public class BuildingHandler : InteractableObject, ITargetable
         _onEndTurnEffects = new (buildingSO.OnEndTurnEffects);
         _onEndFightEffects = new (buildingSO.OnEndFightEffects);
         if(IsPlayerBuilding)
-            _gameLogicManager.PlayerBuildingsToTarget.Add(this);
+            _gameLogicManager.PlayerTargets.Add(this);
         else
-            _gameLogicManager.EnemieBuildingsToTarget.Add(this);
+            _gameLogicManager.EnemieTargets.Add(this);
     }
     protected override void OnObjectClicked()
     {
@@ -97,9 +99,9 @@ public class BuildingHandler : InteractableObject, ITargetable
     protected virtual void DestoryBuilding()
     {
         if(IsPlayerBuilding)
-            _gameLogicManager.PlayerBuildingsToTarget.Remove(this);
+            _gameLogicManager.PlayerTargets.Remove(this);
         else
-            _gameLogicManager.EnemieBuildingsToTarget.Remove(this);
+            _gameLogicManager.EnemieTargets.Remove(this);
         Destroy(gameObject);
     }
 }

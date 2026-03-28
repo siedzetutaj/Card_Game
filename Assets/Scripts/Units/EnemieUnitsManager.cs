@@ -15,24 +15,25 @@ public class EnemieUnitsManager : UnitsManager
     {
         var Enemieunit = unit as EnemieUnitHandler;
         EnemieUnits.Remove(Enemieunit);
-        if (EnemieUnits.Count == 0)
-        {
-            GameLogicManager gameLogicManager = GameLogicManager.Instance;
-            gameLogicManager.EnemieUnitsManagers.Remove(this);
+        //if (EnemieUnits.Count == 0)
+        //{
+        //    GameLogicManager gameLogicManager = GameLogicManager.Instance;
+        //    gameLogicManager.EnemieUnitsManagers.Remove(this);
 
-            if (gameLogicManager.EnemieUnitsManagers.Count == 0)
-                gameLogicManager.OnFightEnd(true);
+        //    if (gameLogicManager.EnemieUnitsManagers.Count == 0)
+        //        gameLogicManager.OnFightEnd(true);
 
-            Destroy(gameObject);
-        }
+        //    Destroy(gameObject);
+        //}
     }
-    protected override void CreateUnits(bool isPlayerUnit)
+    protected override void CreateUnit(bool isPlayerUnit)
     {
-        for (int i = 0; i < _unitData.UnitAmount; i++)
-        {
-            GameObject unit = Instantiate(_unitPrefab, transform);
-            unit.GetComponent<EnemieUnitHandler>().Inititalize(_unitData, isPlayerUnit, this);
-            EnemieUnits.Add(unit.GetComponent<EnemieUnitHandler>());
-        }
+        var food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
+        food.DecreaseAmount(UnitData.UnitFoodCost);
+        GameObject unit = Instantiate(_unitPrefab, transform);
+        var unitHandler = unit.GetComponent<UnitHandler>();
+        unitHandler.Inititalize(_unitData, isPlayerUnit, this);
+        EnemieUnits.Add(unit.GetComponent<EnemieUnitHandler>());
+        _gameLogicManager.EnemieTargets.Add(unitHandler);
     }
 }

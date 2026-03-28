@@ -9,14 +9,14 @@ public class EnemieBaseHandler : BaseHandler
     private void Start()
     {
         _isPlayerBase = false;
-        _gameLogicManager.EnemieBuildingsToTarget.Add(this);
+        _gameLogicManager.EnemieTargets.Add(this);
         _enemieManager.HealthPoints = health;
     }
     protected override void Retarget()
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _currentTarget = FindBestTarget(_gameLogicManager.PlayerUnits.Cast<ITargetable>().ToList());
+            _currentTarget = FindBestTarget(_gameLogicManager.PlayerTargets.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;
             return;
         }
