@@ -10,4 +10,6 @@ public class BuildingSO : ScriptableObject
 
     public List<BuildingOnEndTurnEffectSO> OnEndTurnEffects = new();
     public List<BuildingOnEndFightEffectSO> OnEndFightEffects = new();
+
+    //test czy git dziala
 }
