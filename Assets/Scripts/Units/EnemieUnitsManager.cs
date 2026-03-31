@@ -15,16 +15,18 @@ public class EnemieUnitsManager : UnitsManager
     {
         var Enemieunit = unit as EnemieUnitHandler;
         EnemieUnits.Remove(Enemieunit);
-        //if (EnemieUnits.Count == 0)
-        //{
-        //    GameLogicManager gameLogicManager = GameLogicManager.Instance;
-        //    gameLogicManager.EnemieUnitsManagers.Remove(this);
+        if (EnemieUnits.Count == 0)
+        {
+            var food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
+            if (food.Amount > 0) return;
+            GameLogicManager gameLogicManager = GameLogicManager.Instance;
+            gameLogicManager.EnemieUnitsManagers.Remove(this);
 
-        //    if (gameLogicManager.EnemieUnitsManagers.Count == 0)
-        //        gameLogicManager.OnFightEnd(true);
+            if (gameLogicManager.EnemieUnitsManagers.Count == 0)
+                gameLogicManager.OnFightEnd(true);
 
-        //    Destroy(gameObject);
-        //}
+            Destroy(gameObject);
+        }
     }
     protected override void CreateUnit(bool isPlayerUnit)
     {

@@ -28,7 +28,7 @@ public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
     //temp solution
     private void Update()
     {
-        if (IsFight && PlayerUnitsManagers.Count == 0 && EnemieUnitsManagers.Count == 0 
+        if (IsFight && PlayerTargets.Count == 0 && EnemieUnitsManagers.Count == 0 
             && ResourceManager.Instance.FindResource(ResourceType.food).Amount == 0
             && EnemieResourceManager.Instance.FindResource(ResourceType.food).Amount == 0) 
         {

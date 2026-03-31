@@ -30,16 +30,18 @@ public class UnitsManager : MonoBehaviour
     public virtual void OnUnitDeath(UnitHandler unit)
     {
         Units.Remove(unit);
-        //if(Units.Count == 0)
-        //{
-        //    GameLogicManager gameLogicManager = GameLogicManager.Instance;
-        //    gameLogicManager.PlayerUnitsManagers.Remove(this);
+        if (Units.Count == 0)
+        {
+            var food = ResourceManager.Instance.FindResource(ResourceType.food);
+            if (food.Amount > 0) return;
+            GameLogicManager gameLogicManager = GameLogicManager.Instance;
+            gameLogicManager.PlayerUnitsManagers.Remove(this);
 
-        //    if(gameLogicManager.PlayerUnitsManagers.Count == 0)
-        //        gameLogicManager.OnFightEnd(true);
+            if (gameLogicManager.PlayerUnitsManagers.Count == 0)
+                gameLogicManager.OnFightEnd(true);
 
-        //    Destroy(gameObject);   
-        //}
+            Destroy(gameObject);
+        }
     }
     
     IEnumerator SpawnUnits( bool isPlayerUnit)
