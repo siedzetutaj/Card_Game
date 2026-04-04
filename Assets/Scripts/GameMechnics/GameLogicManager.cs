@@ -26,7 +26,7 @@ using UnityEngine;
      
      tldr; mieć na uwadze te uwagi przy dodawaniu ficzerow, generalnie zasada jest taka ze jak
      implementacja czegos powoduje potrzeby modyfikacji duzej ilosci kodu (generalnie kod ktory trzeba modyfikowac jest zly //nie mylić z rozszerzalnym kodem) ale tez modyfikacji duzej ilosci innych miejsc w inncyh klasach
-     to trzeba do mnie napisac i wymyslimy jak zmienic 
+     to trzeba do mnie napisac i wymyslimy jak zmienic architekture 
  */
 public class GameLogicManager : MonoBehaviourSingleton<GameLogicManager>
 {
