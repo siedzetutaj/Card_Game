@@ -111,11 +111,13 @@ MonoBehaviour:
   _cardsInHand: []
   CardPrefab: {fileID: 2245718946013293043, guid: 0e8feb25010995a478faa0a1e7be58c0, type: 3}
   StartingDeck:
-  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
-  - {fileID: 11400000, guid: 88adc194bd10a964fa144e0d3f27029e, type: 2}
-  - {fileID: 11400000, guid: 88adc194bd10a964fa144e0d3f27029e, type: 2}
-  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
-  - {fileID: 11400000, guid: 4fc5222b3cee833489136ae332543bcd, type: 2}
+  - {fileID: 11400000, guid: 246418659458bfb4a8bfc3a4d72cc005, type: 2}
+  - {fileID: 11400000, guid: 246418659458bfb4a8bfc3a4d72cc005, type: 2}
+  - {fileID: 11400000, guid: 246418659458bfb4a8bfc3a4d72cc005, type: 2}
+  - {fileID: 11400000, guid: 432b41570ed0ccf4db4ec4eca40af0ce, type: 2}
+  - {fileID: 11400000, guid: 432b41570ed0ccf4db4ec4eca40af0ce, type: 2}
+  - {fileID: 11400000, guid: 8f196492b35cd2449af1262716bbf0ef, type: 2}
+  - {fileID: 11400000, guid: 8f196492b35cd2449af1262716bbf0ef, type: 2}
 --- !u!1 &5384495323005139874
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,8 +278,6 @@ MonoBehaviour:
   - {fileID: 688987933212323420}
   EnemieUnitsManagers: []
   PlayerUnitsManagers: []
-  EnemieUnits: []
-  PlayerUnits: []
   IsFight: 0
   _turn: 0
 --- !u!114 &2737076364111746360
