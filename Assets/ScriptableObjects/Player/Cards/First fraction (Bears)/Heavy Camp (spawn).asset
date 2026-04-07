@@ -18,6 +18,6 @@ MonoBehaviour:
   - Type: 0
     Cost: 1
   Description: Spawns slow but strong units
-  Sprite: {fileID: 1838123488402684654, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
+  Sprite: {fileID: 21300000, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
   Effects:
   - {fileID: 11400000, guid: 5f89ebbe78a06f0479af72c20c1a863a, type: 2}
