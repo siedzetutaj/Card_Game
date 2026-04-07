@@ -11,6 +11,7 @@ public class BuildingCardEffectSO : CardEffectSO
     public override void ApplyEffect(GameObject groundTile)
     {
         GameObject building = Instantiate(BuildingPrefab, groundTile.transform);
+        building.transform.localPosition = new Vector3(55, 30, 20);
         building.transform.localRotation = Quaternion.Inverse(groundTile.transform.parent.localRotation);
         building.GetComponent<BuildingHandler>().Initialize(BuildingSO);  
     }

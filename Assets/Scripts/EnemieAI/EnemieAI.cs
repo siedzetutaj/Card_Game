@@ -72,6 +72,7 @@ public class EnemieAI : MonoBehaviour
     private void SpawnBuildingHandler(EnemieGroundTileHandler tile, BuildingSO buildingSO)
     {
         GameObject buildingGO = Instantiate(SpawnBuildingPrefab, tile.transform.position, Quaternion.identity, tile.transform);
+        buildingGO.transform.localPosition = new Vector3(55, 30, 20);
         BuildingHandler buildingHandler = buildingGO.GetComponent<BuildingHandler>();
         buildingHandler.IsPlayerBuilding = false;
         buildingHandler.Initialize(buildingSO);

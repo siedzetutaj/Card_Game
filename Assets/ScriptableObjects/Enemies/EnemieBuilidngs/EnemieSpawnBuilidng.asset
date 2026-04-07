@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c22b7a6b51a3641a3d0d547b7c1ea7, type: 3}
   m_Name: EnemieSpawnBuilidng
   m_EditorClassIdentifier: Assembly-CSharp::EnemieBuildingSO
-  Sprite: {fileID: 1838123488402684654, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
+  Sprite: {fileID: 21300000, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
   health: 60
   OnEndTurnEffects:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
