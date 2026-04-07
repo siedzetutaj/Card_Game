@@ -11,6 +11,14 @@ public class EnemieUnitsManager : UnitsManager
     {
         UnitData = new UnitData(UnitSO.UnitData);
     }
+    private void OnDestroy()
+    {
+        GameLogicManager gameLogicManager = GameLogicManager.Instance;
+        gameLogicManager.EnemieUnitsManagers.Remove(this);
+
+        if (gameLogicManager.EnemieUnitsManagers.Count == 0)
+            gameLogicManager.OnFightEnd(true);
+    }
     public override void OnUnitDeath(UnitHandler unit)
     {
         var Enemieunit = unit as EnemieUnitHandler;
