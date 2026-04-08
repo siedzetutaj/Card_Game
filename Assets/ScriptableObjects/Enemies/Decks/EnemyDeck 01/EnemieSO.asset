@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb369d82bf74dee49bd2a2b1e4a6eb94, type: 3}
   m_Name: EnemieSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemieSO
+  Health: 200
+  StartingPower: 300
+  AdditionalPower: 300
   BuildingsToSpawn:
   - {fileID: 11400000, guid: a4ded2857116d9146a05ca3fab0cdede, type: 2}
+  - {fileID: 11400000, guid: 65396c2fc02e22d4d96d7005d8c83614, type: 2}
