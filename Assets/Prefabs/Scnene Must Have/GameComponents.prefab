@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7950eb8e1276131449825e8ef0c24996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemieAI
-  EnemieData: {fileID: 11400000, guid: 56be956ea46d3104095759caca070ff5, type: 2}
+  EnemieSO: {fileID: 11400000, guid: 56be956ea46d3104095759caca070ff5, type: 2}
   SpawnBuildingPrefab: {fileID: 2775292021146187962, guid: 6ca09e72d7542cd4cb960d5ed0d29bf2, type: 3}
   _groundGenerator: {fileID: 0}
 --- !u!1 &5043696096865158519
