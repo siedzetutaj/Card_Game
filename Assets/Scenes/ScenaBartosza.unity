@@ -137,15 +137,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2250
+      value: 2400
       objectReference: {fileID: 0}
     - target: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000008583069
+      value: -0.00002002716
       objectReference: {fileID: 0}
     - target: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: -0.062254764
       objectReference: {fileID: 0}
     - target: {fileID: 3476201162441030224, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_Value
@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6916222071318710260, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: _widthDis
-      value: 115
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 6916222071318710260, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: _basePosTF
@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: _maxColumnCount
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6916222071318710260, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
+      propertyPath: _connectionPrefab
+      value: 
+      objectReference: {fileID: 6377404640618937453, guid: 8d1664405f854234e9053e5f707d4a10, type: 3}
     - target: {fileID: 6916222071318710260, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: _mapRowParentPrefab
       value: 
