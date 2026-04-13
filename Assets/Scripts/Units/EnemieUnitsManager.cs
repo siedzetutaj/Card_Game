@@ -13,11 +13,9 @@ public class EnemieUnitsManager : UnitsManager
     }
     private void OnDestroy()
     {
-        GameLogicManager gameLogicManager = GameLogicManager.Instance;
-        gameLogicManager.EnemieUnitsManagers.Remove(this);
-
-        if (gameLogicManager.EnemieUnitsManagers.Count == 0)
-            gameLogicManager.OnFightEnd(true);
+        TurnManager turnManager = TurnManager.Instance;
+        if (turnManager == null) return;
+        turnManager.EnemieUnitsManagers.Remove(this);
     }
     public override void OnUnitDeath(UnitHandler unit)
     {
