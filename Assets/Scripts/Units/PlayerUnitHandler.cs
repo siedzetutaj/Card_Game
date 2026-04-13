@@ -12,7 +12,7 @@ public class PlayerUnitHandler : UnitHandler
     protected void Retarget()
     {
         _currentTarget = FindBestTarget(
-            _gameLogicManager.EnemieTargets.Cast<ITargetable>().ToList());
+            _turnManager.EnemieTargets.Cast<ITargetable>().ToList());
 
         Debug.Log($"Player unit retargeted to {_currentTarget}");
     }

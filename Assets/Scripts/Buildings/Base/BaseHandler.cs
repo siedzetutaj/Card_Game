@@ -26,7 +26,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
     }
     public bool IsAlly(bool isPlayerUnit) => isPlayerUnit == _isPlayerBase;
     private int _targetAmount;
-    protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    protected TurnManager _turnManager => TurnManager.Instance;
     protected ResourceManager _resourceManager => ResourceManager.Instance;
     protected ResourceHandler _populationResourceHandler => _resourceManager.FindResource(ResourceType.population);
 
@@ -35,7 +35,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
 
     protected void FixedUpdate()
     {
-        if (_gameLogicManager.IsFight == true) 
+        if (_turnManager.CurrentPhase is GamePhaseCombat) 
         {
             Retarget();
 

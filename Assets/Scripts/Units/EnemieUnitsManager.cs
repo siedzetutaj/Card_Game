@@ -19,11 +19,8 @@ public class EnemieUnitsManager : UnitsManager
         {
             var food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
             if (food.Amount > 0) return;
-            GameLogicManager gameLogicManager = GameLogicManager.Instance;
-            gameLogicManager.EnemieUnitsManagers.Remove(this);
-
-            if (gameLogicManager.EnemieUnitsManagers.Count == 0)
-                gameLogicManager.OnFightEnd(true);
+            TurnManager turnManager = TurnManager.Instance;
+            turnManager.EnemieUnitsManagers.Remove(this);
 
             Destroy(gameObject);
         }
@@ -36,6 +33,6 @@ public class EnemieUnitsManager : UnitsManager
         var unitHandler = unit.GetComponent<UnitHandler>();
         unitHandler.Inititalize(_unitData, isPlayerUnit, this);
         EnemieUnits.Add(unit.GetComponent<EnemieUnitHandler>());
-        _gameLogicManager.EnemieTargets.Add(unitHandler);
+        TurnManager.Instance.EnemieTargets.Add(unitHandler);
     }
 }

@@ -8,15 +8,15 @@ public class EnemieAI : MonoBehaviour
 
     [SerializeField] private GroundGenerator _groundGenerator;
     private List<EnemieGroundTileHandler> _tiles = new List<EnemieGroundTileHandler>();
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
-    //trzeba przypomnieæ sobie jak dzia³aj¹ tury
+    private TurnManager _turnManager => TurnManager.Instance;
+    
     private void OnEnable()
     {
-        _gameLogicManager.OnAllUnitsDead += TakeAction;
+        _turnManager.OnRoundEnd += TakeAction;
     }
     private void OnDisable()
     {
-        _gameLogicManager.OnAllUnitsDead -= TakeAction;
+        _turnManager.OnRoundEnd -= TakeAction;
     }
     private void Start()
     {

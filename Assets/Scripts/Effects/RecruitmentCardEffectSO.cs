@@ -13,6 +13,6 @@ public class RecruitmentCardEffectSO : CardEffectSO
 
         //GameObject unitsManager = Instantiate(_unitsManagerPrefab, spawnPoint);
         //unitsManager.GetComponent<UnitsManager>().Initialize(unitData, spawnPoint, true);
-        //GameLogicManager.Instance.PlayerUnitsManagers.Add(unitsManager.GetComponent<UnitsManager>());
+        //TurnManager.Instance.PlayerUnitsManagers.Add(unitsManager.GetComponent<UnitsManager>());
     }
 }
