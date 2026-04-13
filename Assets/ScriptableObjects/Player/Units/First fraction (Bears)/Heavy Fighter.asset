@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 957203b1c1722de43a611e7c18a46b26, type: 3}
-  m_Name: EnemieUnitSO
+  m_Name: Heavy Fighter
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   UnitData:
-    UnitSprite: {fileID: -4702544020559098553, guid: 4a6a14e1108bb1443936d3d700018ef4, type: 3}
-    UnitFoodCost: 1
-    UnitAmount: 10
-    UnitHealth: 20
-    UnitDamage: 4
-    UnitAttackSpeed: 1.6
+    UnitSprite: {fileID: 21300000, guid: 861057d657cf3e846a058bc8504d88f8, type: 3}
+    UnitFoodCost: 2
+    UnitAmount: 1
+    UnitHealth: 50
+    UnitDamage: 20
+    UnitAttackSpeed: 4
     UnitAttackRange: 5
-    UnitSpeed: 160
+    UnitSpeed: 100
     TargetAmount: 1
-    SpawnAfterSeconds: 3
+    SpawnAfterSeconds: 5
