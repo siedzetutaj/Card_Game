@@ -61,7 +61,7 @@ public class CardHandler : InteractableObject
         CardData.OnCardPlayed(interactiveObject);
 
         DeckManager.Instance.DiscardCard(this);
-        GameLogicManager.Instance.EndTurnCheck();
+        TurnManager.Instance.OnCardGuaranteedPlayed(this);
     }
     public virtual void DestroyCard()
     {

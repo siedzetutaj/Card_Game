@@ -6,7 +6,7 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
 
     private ResourceManager _resourceManager => ResourceManager.Instance;
     private HandController _handController => HandController.Instance;
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    private TurnManager _turnManager => TurnManager.Instance;
 
 
     [SerializeField] private List<CardData> _cardsInDeck = new();
@@ -24,6 +24,10 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         {
             _cardsInDeck.Add(new CardData(cardSO));
         }
+    }
+    private void Start()
+    {
+        _cardsInDrawPile = new List<CardData>(_cardsInDeck);
     }
     public void OnFirstTurn(int moneyAmount)
     {
@@ -125,5 +129,10 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
     public bool IsHandEmpty()
     {
         return _cardsInHand.Count == 0;
+    }
+    
+    public int GetHandCount()
+    {
+        return _cardsInHand.Count;
     }
 }

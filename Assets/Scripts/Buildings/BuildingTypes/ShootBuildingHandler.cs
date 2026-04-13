@@ -16,7 +16,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     private float _retargetCooldown = 2f;
     private bool _isInRange;
 
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    private TurnManager _turnManager => TurnManager.Instance;
     public override void Initialize(BuildingSO buildingSO)
     {
         base.Initialize(buildingSO);
@@ -29,7 +29,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private void FixedUpdate()
     {
-        if (_gameLogicManager.IsFight == true)
+        if (_turnManager.CurrentPhase is GamePhaseCombat)
         {
             Retarget();
 
@@ -47,7 +47,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _currentTarget = FindBestTarget(_gameLogicManager.EnemieTargets.Cast<ITargetable>().ToList());
+            _currentTarget = FindBestTarget(_turnManager.EnemieTargets.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;
             return;
         }

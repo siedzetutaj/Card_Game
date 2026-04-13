@@ -25,7 +25,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
 
     protected bool _isPlayerUnit;
     protected UnitsManager _unitsManager;
-    protected GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    protected TurnManager _turnManager => TurnManager.Instance;
 
 
     protected int _targetAmount;
@@ -159,9 +159,9 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
         if (_currentTarget != null)
             _currentTarget.TargetAmount--;
         if(_isPlayerUnit)
-            _gameLogicManager.PlayerTargets.Remove(this);
+            _turnManager.PlayerTargets.Remove(this);
         else
-            _gameLogicManager.EnemieTargets.Remove(this as EnemieUnitHandler);
+            _turnManager.EnemieTargets.Remove(this as EnemieUnitHandler);
         attacker.OnKill();
         DestroyUnit();
     }

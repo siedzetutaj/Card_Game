@@ -9,21 +9,20 @@ public class EnemieAI : MonoBehaviour
 
     [SerializeField] private GroundGenerator _groundGenerator;
     private List<EnemieGroundTileHandler> _tiles = new List<EnemieGroundTileHandler>();
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    private TurnManager _turnManager => TurnManager.Instance;
     
     private int _power;
     private float _powerScale;
     private int _maxHealth;
     private int _currentHealth;
 
-    //trzeba przypomnieæ sobie jak dzia³aj¹ tury
     private void OnEnable()
     {
-        _gameLogicManager.OnAllUnitsDead += TakeAction;
+        _turnManager.OnRoundEnd += TakeAction;
     }
     private void OnDisable()
     {
-        _gameLogicManager.OnAllUnitsDead -= TakeAction;
+        _turnManager.OnRoundEnd -= TakeAction;
     }
     private void Start()
     {
@@ -85,21 +84,6 @@ public class EnemieAI : MonoBehaviour
                 return item;
             }
         }
-        //int totalWeight = 0;
-        //foreach (var building in EnemieData.BuildingsToSpawn)
-        //{
-        //    totalWeight += building.SpawnChance;
-        //}
-        //int randomValue = Random.Range(0, totalWeight);
-        //int cumulativeWeight = 0;
-        //foreach (var building in EnemieData.BuildingsToSpawn)
-        //{
-        //    cumulativeWeight += building.SpawnChance;
-        //    if (randomValue < cumulativeWeight)
-        //    {
-        //        return building;
-        //    }
-        //}
         return null;
     }
     private void SpawnBuildingHandler(EnemieGroundTileHandler tile, BuildingSO buildingSO)

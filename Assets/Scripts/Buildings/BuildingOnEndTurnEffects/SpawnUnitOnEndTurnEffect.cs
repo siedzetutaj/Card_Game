@@ -43,7 +43,7 @@ public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
             UnitsManager manager = unitsManager.GetComponent<UnitsManager>();
             manager.Initialize(unitData, spawnPoint, true);
 
-            GameLogicManager.Instance.PlayerUnitsManagers.Add(manager);
+            TurnManager.Instance.PlayerUnitsManagers.Add(manager);
         }
         else
         {
@@ -53,7 +53,7 @@ public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
                 EnemieUnitsManager manager = unitsManager.GetComponent<EnemieUnitsManager>();
                 manager.Initialize(unitData, spawnPoint, false);
     
-                GameLogicManager.Instance.EnemieUnitsManagers.Add(manager);
+                TurnManager.Instance.EnemieUnitsManagers.Add(manager);
         }
     }
 }

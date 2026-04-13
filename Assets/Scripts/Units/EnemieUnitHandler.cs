@@ -12,7 +12,7 @@ public class EnemieUnitHandler : UnitHandler
     protected void Retarget()
     {
         _currentTarget = FindBestTarget(
-            _gameLogicManager.PlayerTargets.Cast<ITargetable>().ToList());
+            _turnManager.PlayerTargets.Cast<ITargetable>().ToList());
 
     }
 }

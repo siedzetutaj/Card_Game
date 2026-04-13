@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class UnitsManager : MonoBehaviour
     
     protected UnitData _unitData;
     public List<UnitHandler> Units = new();
-    public GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    public TurnManager _turnManager => TurnManager.Instance;
 
     public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
     {
@@ -25,7 +25,7 @@ public class UnitsManager : MonoBehaviour
         var unitHandler = unit.GetComponent<UnitHandler>();
         unitHandler.Inititalize(_unitData, isPlayerUnit, this);
         Units.Add(unit.GetComponent<UnitHandler>());
-        _gameLogicManager.PlayerTargets.Add(unitHandler);
+        _turnManager.PlayerTargets.Add(unitHandler);
     }
     public virtual void OnUnitDeath(UnitHandler unit)
     {
@@ -34,11 +34,8 @@ public class UnitsManager : MonoBehaviour
         {
             var food = ResourceManager.Instance.FindResource(ResourceType.food);
             if (food.Amount > 0) return;
-            GameLogicManager gameLogicManager = GameLogicManager.Instance;
-            gameLogicManager.PlayerUnitsManagers.Remove(this);
-
-            if (gameLogicManager.PlayerUnitsManagers.Count == 0)
-                gameLogicManager.OnFightEnd(true);
+            TurnManager turnManager = TurnManager.Instance;
+            turnManager.PlayerUnitsManagers.Remove(this);
 
             Destroy(gameObject);
         }

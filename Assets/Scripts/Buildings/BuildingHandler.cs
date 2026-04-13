@@ -25,7 +25,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     private List<BuildingOnEndTurnEffectSO> _onEndTurnEffects = new();
     private List<BuildingOnEndFightEffectSO> _onEndFightEffects = new();
 
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    private TurnManager _turnManager => TurnManager.Instance;
 
 
     protected int _targetAmount;
@@ -35,14 +35,14 @@ public class BuildingHandler : InteractableObject, ITargetable
         base.OnEnable();
 
         _selectedCard = SelectedCard.Instance;
-        _gameLogicManager.OnEndTurn += ApplyOnEndTurnEffects;
-        _gameLogicManager.OnEndFight += ApplyOnEndFightEffects;
+        _turnManager.OnCombatPhaseStart += ApplyOnEndTurnEffects;
+        _turnManager.OnCombatPhaseEnd += ApplyOnEndFightEffects;
     }
     protected override void OnDisable()
     {
         base.OnDisable();
-        _gameLogicManager.OnEndTurn -= ApplyOnEndTurnEffects;
-        _gameLogicManager.OnEndFight -= ApplyOnEndFightEffects;
+        _turnManager.OnCombatPhaseStart -= ApplyOnEndTurnEffects;
+        _turnManager.OnCombatPhaseEnd -= ApplyOnEndFightEffects;
 
     }
     public virtual void Initialize(BuildingSO buildingSO)
@@ -53,9 +53,9 @@ public class BuildingHandler : InteractableObject, ITargetable
         _onEndTurnEffects = new (buildingSO.OnEndTurnEffects);
         _onEndFightEffects = new (buildingSO.OnEndFightEffects);
         if(IsPlayerBuilding)
-            _gameLogicManager.PlayerTargets.Add(this);
+            _turnManager.PlayerTargets.Add(this);
         else
-            _gameLogicManager.EnemieTargets.Add(this);
+            _turnManager.EnemieTargets.Add(this);
     }
     protected override void OnObjectClicked()
     {
@@ -99,9 +99,9 @@ public class BuildingHandler : InteractableObject, ITargetable
     protected virtual void DestoryBuilding()
     {
         if(IsPlayerBuilding)
-            _gameLogicManager.PlayerTargets.Remove(this);
+            _turnManager.PlayerTargets.Remove(this);
         else
-            _gameLogicManager.EnemieTargets.Remove(this);
+            _turnManager.EnemieTargets.Remove(this);
         Destroy(gameObject);
     }
 }

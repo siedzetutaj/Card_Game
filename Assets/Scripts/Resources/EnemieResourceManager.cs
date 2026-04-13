@@ -8,7 +8,7 @@ public class EnemieResourceManager : MonoBehaviourSingleton<EnemieResourceManage
     private void OnEnable()
     {
         FindResource(ResourceType.food)?.SetAmount(8);
-        GameLogicManager.Instance.OnEndTurn += RefreshFood;
+        TurnManager.Instance.OnCombatPhaseStart += RefreshFood;
     }
 
     public ResourceHandler FindResource(ResourceType type)
