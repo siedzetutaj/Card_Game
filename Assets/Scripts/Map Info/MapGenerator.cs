@@ -25,6 +25,9 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
     [SerializeField] private RectTransform _mapRowParentPrefab;
     [SerializeField] private MapButton _buttonPrefab;
     [SerializeField] private RectTransform _connectionPrefab;
+    
+    [Header("Generation Rules")]
+    [SerializeField] private int aa;
 
     [ContextMenu("Generate Test Map")]
     public void GenerateTest()
@@ -45,8 +48,10 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
 
         for (int i = 1; i < _maxRowCount; i++)
             CreateRow(i);
-    }
 
+        
+    }
+#region Generation
     private void CreateFirstRow()
     {
         SpawnRowParent(0);
@@ -201,6 +206,10 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
         for (int r = 0; r < _maxRowCount; r++)
             _rows.Add(new MapRow());
     }
+#endregion
 
+#region Adding Events
+
+#endregion
     private int RandomDirection() => Random.Range(0,2) * 2 - 1;
 }

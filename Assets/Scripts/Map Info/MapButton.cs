@@ -16,7 +16,9 @@ public class MapConnection
 
 public class MapButton : MonoBehaviour
 {
-    [field: SerializeField] public Vector2Int Pos { get; set; }
+    //public MapEvent Event; zamiast przypisywania eventa przy generacji lepiej przypisac typ i losowac encounter w trakcie runa
+    public MapEventType EventType;
+    public Vector2Int Pos;
     public HashSet<int> PossibleConnections = new();
     public List<MapConnection> Connections = new();
 }

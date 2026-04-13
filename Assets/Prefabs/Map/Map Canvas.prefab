@@ -246,8 +246,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3923429738138202963}
   m_HandleRect: {fileID: 2298969473506785229}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999623
+  m_Value: 1
+  m_Size: 0.45
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -771,8 +771,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000027656555, y: 0.001666546}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: -0.000009536743, y: -0.0000047737567}
+  m_SizeDelta: {x: 0, y: 2400}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &7040301321282061493
 GameObject:
