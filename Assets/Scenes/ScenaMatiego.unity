@@ -146,6 +146,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+      propertyPath: StartingDeck.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+      propertyPath: 'StartingDeck.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
+    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+      propertyPath: 'StartingDeck.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
+    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+      propertyPath: 'StartingDeck.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
     - target: {fileID: 6080550397783419032, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
       propertyPath: m_SizeDelta.x
       value: 189.7895

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4652657781d5be4fa940b08c3e9b329, type: 3}
-  m_Name: CatapultEffect
+  m_Name: CatapultEffectSO
   m_EditorClassIdentifier: Assembly-CSharp::BuildingCardEffectSO
   BuildingSO: {fileID: 11400000, guid: e1d3f029ca7cf714ab5adf5ad8170fae, type: 2}
   BuildingPrefab: {fileID: 2775292021146187962, guid: 4f581282619332048b8191868eb8e6da, type: 3}

@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c975e3c1350534191d8342b0a2e2cb, type: 3}
-  m_Name: Farm (resources)
-  m_EditorClassIdentifier: Assembly-CSharp::CardSO
-  Name: Farm
-  Type: 0
-  Cost:
-  - Type: 0
-    Cost: 1
-  Description: Adds 5 food at the end of the turn
+  m_Script: {fileID: 11500000, guid: d8acdf1766ad7834eaadddd8e0b09577, type: 3}
+  m_Name: Farm
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingSO
   Sprite: {fileID: 21300000, guid: 908cf18dc89ff5a41b6c8a12502e270f, type: 3}
-  Effects:
-  - {fileID: 11400000, guid: 49f4436c7b04ffe4f98c860be3aa60b0, type: 2}
+  health: 60
+  OnEndTurnEffects: []
+  OnEndFightEffects:
+  - {fileID: 11400000, guid: 548fa7eee46d8884a8ea0cabfc4af003, type: 2}
