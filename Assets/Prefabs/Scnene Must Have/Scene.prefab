@@ -230,10 +230,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2322762003537528917, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 60241294985841731}
     - target: {fileID: 4221658678652391997, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1020520639806628540}
+      objectReference: {fileID: 60241294985841731}
     - target: {fileID: 6482115543434393934, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
       propertyPath: m_Camera
       value: 
@@ -477,17 +481,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
---- !u!114 &1020520639806628540 stripped
+--- !u!114 &60241294985841731 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7793048143825457125, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7122984600609743130, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
   m_PrefabInstance: {fileID: 7066123498172394841}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1bcfd9f6f289cc49bbb5d5205305041, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d42f5ff85e54f298a93535d3c6877ea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameLogicManager
+  m_EditorClassIdentifier: Assembly-CSharp::TurnManager
 --- !u!4 &7500017371568261302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 728039366220244463, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
