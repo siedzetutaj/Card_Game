@@ -11,6 +11,12 @@ public class UnitsManager : MonoBehaviour
     public List<UnitHandler> Units = new();
     public TurnManager _turnManager => TurnManager.Instance;
 
+    private void OnDestroy()
+    {
+        TurnManager turnManager = TurnManager.Instance;
+        if (turnManager == null) return;
+        turnManager.PlayerUnitsManagers.Remove(this);
+    }
     public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
     {
         _unitData = new UnitData(unitData);
