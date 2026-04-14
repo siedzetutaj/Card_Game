@@ -119,25 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1977984746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 948143603543483337, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-  m_PrefabInstance: {fileID: 3495717262012875694}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1977984748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977984746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d42f5ff85e54f298a93535d3c6877ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  EnemieUnitsManagers: []
-  PlayerUnitsManagers: []
 --- !u!1001 &3495717262012875694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,30 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: StartingDeck.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: 'StartingDeck.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
-    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: 'StartingDeck.Array.data[8]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
-    - target: {fileID: 5063095324681195687, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: 'StartingDeck.Array.data[9]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
-    - target: {fileID: 6080550397783419032, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 189.7895
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080550397783419032, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -314.4367
-      objectReference: {fileID: 0}
     - target: {fileID: 6709526236144306542, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -214,42 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene
       objectReference: {fileID: 0}
-    - target: {fileID: 7409731895227816358, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1977984748}
-    - target: {fileID: 7409731895227816358, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndTacticalPhaseRequest
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409731895227816358, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TurnManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8970858648755225550, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1977984748}
-    - target: {fileID: 8970858648755225550, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartGameManually
-      objectReference: {fileID: 0}
-    - target: {fileID: 8970858648755225550, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TurnManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5184740009691101281, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-    - {fileID: 1020520639806628540, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-    m_RemovedGameObjects:
-    - {fileID: 1537715376510118293, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-    - {fileID: 442428070085039691, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-    - {fileID: 2933664243060446971, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 948143603543483337, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1977984748}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

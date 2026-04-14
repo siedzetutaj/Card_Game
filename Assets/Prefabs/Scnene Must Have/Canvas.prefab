@@ -716,9 +716,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9194987959965957216}
-        m_TargetAssemblyTypeName: EndTurnButton, Assembly-CSharp
-        m_MethodName: OnEndTurnButtonPressed
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: EndTacticalPhaseRequest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2574,8 +2574,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameLogicManager, Assembly-CSharp
-        m_MethodName: FirstTurn
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: StartGameManually
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3799,7 +3799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 168.6629
+      value: 189.7895
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3835,7 +3835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -325
+      value: -314.4367
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_AnchoredPosition.y
