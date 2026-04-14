@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class MapConnection
@@ -21,4 +22,11 @@ public class MapButton : MonoBehaviour
     public Vector2Int Pos;
     public HashSet<int> PossibleConnections = new();
     public List<MapConnection> Connections = new();
+    [SerializeField] private Image _buttonImage;
+
+    public void UpdateButton(MapEventType newType, Sprite newSprite) //w przyszlosci mozna zmieniac grafiki, np ze gracz ukonczyl poziom
+    {
+        EventType = newType;
+        _buttonImage.sprite = newSprite;
+    }
 }

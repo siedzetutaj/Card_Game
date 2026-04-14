@@ -80,8 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   _maxRowCount: 15
   _maxColumnCount: 6
-  _heightDis: 150
-  _widthDis: 175
+  _heightDis: 175
+  _widthDis: 200
   _minButtonsPerRow: 2
   _additionalButtonChance: 5
   _testSeed: 100
@@ -90,7 +90,32 @@ MonoBehaviour:
   _mapRowParentPrefab: {fileID: 442286917952720456, guid: 16271f6e5fa4dcb49b75accda134a09a, type: 3}
   _buttonPrefab: {fileID: 2928947205747154925, guid: 29d59a8876423164c94c1d937eb97449, type: 3}
   _connectionPrefab: {fileID: 6377404640618937453, guid: 8d1664405f854234e9053e5f707d4a10, type: 3}
-  aa: 0
+  _rules:
+  - <Type>k__BackingField: 1
+    <HowMany>k__BackingField: 7
+    <MinRange>k__BackingField: 1
+    <MaxRange>k__BackingField: 15
+  - <Type>k__BackingField: 2
+    <HowMany>k__BackingField: 5
+    <MinRange>k__BackingField: 4
+    <MaxRange>k__BackingField: 15
+  - <Type>k__BackingField: 3
+    <HowMany>k__BackingField: 8
+    <MinRange>k__BackingField: 4
+    <MaxRange>k__BackingField: 15
+  _visuals:
+  - <Type>k__BackingField: 0
+    <BaseSprite>k__BackingField: {fileID: 4451259097468079114, guid: f46c95287b262854b8ecb3a61e931eef, type: 3}
+    <CompletedSprite>k__BackingField: {fileID: 0}
+  - <Type>k__BackingField: 1
+    <BaseSprite>k__BackingField: {fileID: 4451259097468079114, guid: 9a7302ab07f038c44a60ede818846589, type: 3}
+    <CompletedSprite>k__BackingField: {fileID: 0}
+  - <Type>k__BackingField: 2
+    <BaseSprite>k__BackingField: {fileID: 4451259097468079114, guid: c76ce38266da2ac44b7ea34e50c3d6a1, type: 3}
+    <CompletedSprite>k__BackingField: {fileID: 0}
+  - <Type>k__BackingField: 3
+    <BaseSprite>k__BackingField: {fileID: 4451259097468079114, guid: 92e961d68c997414a93822934b725e7d, type: 3}
+    <CompletedSprite>k__BackingField: {fileID: 0}
 --- !u!1 &7594692897899805617
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2212655239008424866, guid: 9e427b09cedf08043b5597b15f404495, type: 3}
       propertyPath: m_Value
-      value: 1.0006951
+      value: 1.0000002
       objectReference: {fileID: 0}
     - target: {fileID: 2290502912636705688, guid: 9e427b09cedf08043b5597b15f404495, type: 3}
       propertyPath: m_Pivot.x
@@ -258,11 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3929468215469350679, guid: 9e427b09cedf08043b5597b15f404495, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000017166138
-      objectReference: {fileID: 0}
-    - target: {fileID: 3929468215469350679, guid: 9e427b09cedf08043b5597b15f404495, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.91746926
+      value: 0.00000667572
       objectReference: {fileID: 0}
     - target: {fileID: 4942244789862200840, guid: 9e427b09cedf08043b5597b15f404495, type: 3}
       propertyPath: m_Name

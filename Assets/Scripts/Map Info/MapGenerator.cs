@@ -1,12 +1,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEditor;
 
 [System.Serializable]
 public class MapRow
 {
     public RectTransform Parent;
     public List<MapButton> Buttons = new();
+}
+
+[System.Serializable]
+public class MapRule
+{
+    [field: SerializeField] public MapEventType Type { get; private set; }
+    [field: SerializeField] public int HowMany { get; private set; }
+    [field: SerializeField] public int MinRange { get; private set; }
+    [field: SerializeField] public int MaxRange { get; private set; }
+}
+
+[System.Serializable]
+public class MapEventVisuals
+{
+    [field: SerializeField] public MapEventType Type { get; private set; }
+    [field: SerializeField] public Sprite BaseSprite { get; private set; }
+    [field: SerializeField] public Sprite CompletedSprite { get; private set; }
 }
 
 public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
@@ -21,17 +39,27 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
     [SerializeField] private int _testSeed;
     [SerializeField] private RectTransform _mapParent;
     [SerializeField] private List<MapRow> _rows = new();
+
     [Header("Prefabs")]
     [SerializeField] private RectTransform _mapRowParentPrefab;
     [SerializeField] private MapButton _buttonPrefab;
     [SerializeField] private RectTransform _connectionPrefab;
     
     [Header("Generation Rules")]
-    [SerializeField] private int aa;
+    [SerializeField] private List<MapRule> _rules = new();
+    [SerializeField] private List<MapEventVisuals> _visuals = new();
+
+
 
     [ContextMenu("Generate Test Map")]
     public void GenerateTest()
     {
+
+        #if UNITY_EDITOR
+        if (!Application.isPlaying)
+            return;
+
+        #endif
         GenerateMap(_testSeed);
     }
 
@@ -49,7 +77,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
         for (int i = 1; i < _maxRowCount; i++)
             CreateRow(i);
 
-        
+        AddMapEvents();
     }
 #region Generation
     private void CreateFirstRow()
@@ -209,6 +237,46 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
 #endregion
 
 #region Adding Events
+    private void AddMapEvents()
+    {
+        for (int i = 0; i < _rules.Count; i++)
+            AddRule(_rules[i]);
+    }
+
+    private void AddRule(MapRule newRule)
+    {
+        List<MapButton> buttons = new();
+        int minRange = newRule.MinRange >= 0 ? newRule.MinRange : 0;
+        int maxRange = newRule.MaxRange < _rows.Count ? newRule.MaxRange : _rows.Count;
+        for (int i = minRange; i < maxRange; i++)
+            for (int j = 0; j < _rows[i].Buttons.Count; j++)
+                if (_rows[i].Buttons[j].EventType == MapEventType.Fight)
+                    buttons.Add(_rows[i].Buttons[j]); 
+
+        int toSpawn = newRule.HowMany;
+
+        while (toSpawn > 0)
+        {
+            if (buttons.Count == 0)
+                return;
+
+            int randIdx = Random.Range(0, buttons.Count);
+            buttons[randIdx].UpdateButton(newRule.Type, GetMapEventSprite(newRule.Type));
+            
+            buttons.RemoveAt(randIdx);
+            toSpawn--;
+        }      
+    }
+
+    private Sprite GetMapEventSprite(MapEventType newType)
+    {
+        foreach(MapEventVisuals v in _visuals)
+        {
+            if (v.Type == newType)
+                return v.BaseSprite;
+        }
+        return null;
+    }
 
 #endregion
     private int RandomDirection() => Random.Range(0,2) * 2 - 1;
