@@ -132,8 +132,6 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
         if (best != null)
             best.TargetAmount++;
 
-        Debug.Log($"Best target for {gameObject.name} is {best.TargetTransform.name} with score {bestScore}");
-
         return best;
     }
     protected void RangeCheck()
@@ -184,7 +182,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     }
     public void Retaliation(ITargetable targetToRetaliate)
     {
-        if (targetToRetaliate != null && !_isInRange)
+        if (targetToRetaliate != null && !_isInRange && _currentTarget != null)
         {
             _currentTarget.TargetAmount--;
             _currentTarget = targetToRetaliate;
