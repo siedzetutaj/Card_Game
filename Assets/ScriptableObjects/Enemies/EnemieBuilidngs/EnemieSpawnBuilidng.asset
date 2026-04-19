@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
   OnEndFightEffects: []
   UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
-  SpawnCost: 100
+  BuildCost: 100
