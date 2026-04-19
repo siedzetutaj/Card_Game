@@ -49,11 +49,16 @@ public class UnitsManager : MonoBehaviour
     
     IEnumerator SpawnUnits( bool isPlayerUnit)
     {
-        var food = ResourceManager.Instance.FindResource(ResourceType.food);
+        ResourceHandler food = null;
+        if (isPlayerUnit)
+            food = ResourceManager.Instance.FindResource(ResourceType.food);
+        else
+            food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
+
         while (food.Amount >= _unitData.UnitFoodCost)
-        {
-            CreateUnit(isPlayerUnit);
-            yield return new WaitForSeconds(_unitData.SpawnAfterSeconds);
-        }
+            {
+                CreateUnit(isPlayerUnit);
+                yield return new WaitForSeconds(_unitData.SpawnAfterSeconds);
+            }
     }
 }

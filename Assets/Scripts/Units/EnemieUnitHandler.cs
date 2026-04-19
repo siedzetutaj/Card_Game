@@ -13,7 +13,6 @@ public class EnemieUnitHandler : UnitHandler
     {
         _currentTarget = FindBestTarget(
             _turnManager.PlayerTargets.Cast<ITargetable>().ToList());
-        Debug.Log($"Enemy unit retargeted to {_currentTarget}");
 
     }
 }
