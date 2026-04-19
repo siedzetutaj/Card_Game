@@ -29,9 +29,4 @@ public class MapButton : MonoBehaviour
         EventType = newType;
         _buttonImage.sprite = newSprite;
     }
-     
-    public void MoveTo()
-    {
-        MapController.Instance.MovePlayer(this);
-    }
 }
