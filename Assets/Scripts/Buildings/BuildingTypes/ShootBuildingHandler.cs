@@ -14,7 +14,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private float _retargetTimer;
     private float _retargetCooldown = 2f;
-    private bool _isInRange;
+    private RangeMarker _rangeMarker;
 
     private TurnManager _turnManager => TurnManager.Instance;
     public override void Initialize(BuildingSO buildingSO)
@@ -24,6 +24,8 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         ShootBuildingSO shootBuildingSO = buildingSO as ShootBuildingSO;
         _damage = shootBuildingSO.Damage;
         _range = shootBuildingSO.Range;
+        _rangeMarker = GetComponentInChildren<RangeMarker>();
+        _rangeMarker.SetRange(_range);
         _attackSpeed = shootBuildingSO.AttackSpeed;
     }
 
@@ -40,7 +42,16 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
                 Attack();
         }
     }
-
+    protected override void OnObjectClicked()
+    {
+        base.OnObjectClicked();
+        _rangeMarker.EnableVisiblity();
+    }
+    protected override void OnObjectMouseExit()
+    {
+        base.OnObjectMouseExit();
+        _rangeMarker.DisableVisiblity();
+    }
     private void Retarget()
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
