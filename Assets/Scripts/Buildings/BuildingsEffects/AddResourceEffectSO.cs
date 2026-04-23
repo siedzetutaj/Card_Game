@@ -1,12 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AddResource", menuName = "Scriptable Objects/Buildings/OnEndFight/AddResource")]
-public class AddResourceOnEndFightEffectSO : BuildingOnEndFightEffectSO
+[CreateAssetMenu(fileName = "AddResource", menuName = "Scriptable Objects/Buildings/Effects/AddResource")]
+public class AddResourceEffectSO : BuildingEffectSO
 {
     [SerializeField] private ResourceType _resourceType;
     [SerializeField] private int _amount;
 
-    public override void ApplyOnEndFightEffect(BuildingHandler buildingHandler)
+    public override void ApplyBuildingEffect(BuildingHandler buildingHandler)
     {
         ResourceHandler resource;
 
