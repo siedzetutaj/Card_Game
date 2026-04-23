@@ -11,6 +11,7 @@ public class GamePhaseTactical : GamePhase
         Debug.Log("--- FAZA TAKTYCZNA (Zagrania) ---");
         _cardsPlayedThisTurn = 0;
         // W tej fazie czekamy na akcje gracza (zagrywanie kart lub klikniecie przycisku końca)
+        manager.OnTacticalPhaseStart?.Invoke();
     }
 
     public override void OnCardPlayed(CardHandler card)
@@ -29,6 +30,7 @@ public class GamePhaseTactical : GamePhase
     {
         // Stary GameLogicManager.EndTurn() robił to przed walką - wyrzucamy pozostałe karty z ręki
         DeckManager.Instance.DiscardAllCardsInHand();
+        manager.OnTacticalPhaseEnd?.Invoke();
         Debug.Log("Koniec Fazy Taktycznej.");
     }
 }

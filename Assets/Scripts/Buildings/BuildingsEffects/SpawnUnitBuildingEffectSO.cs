@@ -2,13 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "SpawnUnit", menuName = "Scriptable Objects/Buildings/OnEndTurn/SpawnUnit")]
-public class SpawnUnitOnEndTurnEffectSO : BuildingOnEndTurnEffectSO
+[CreateAssetMenu(fileName = "SpawnUnit", menuName = "Scriptable Objects/Buildings/Effects/SpawnUnit")]
+public class SpawnUnitBuildingEffectSO : BuildingEffectSO
 {
     [SerializeField] private GameObject _playerUnitsManagerPrefab;
     [SerializeField] private GameObject _enemieUnitsManagerPrefab;
 
-    public override void ApplyOnEndTurnEffect(BuildingHandler buildingHandler)
+    public override void ApplyBuildingEffect(BuildingHandler buildingHandler)
     {
         SpawnBuildingHandler spawnBuildingHandler = buildingHandler as SpawnBuildingHandler;
         

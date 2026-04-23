@@ -22,8 +22,11 @@ public class BuildingHandler : InteractableObject, ITargetable
     protected int _health;
     private SelectedCard _selectedCard;
 
-    private List<BuildingOnEndTurnEffectSO> _onEndTurnEffects = new();
-    private List<BuildingOnEndFightEffectSO> _onEndFightEffects = new();
+    private List<BuildingEffectSO> _onBeginningTacticalEffects = new();
+    private List<BuildingEffectSO> _onEndTacticalEffects = new();
+
+    private List<BuildingEffectSO> _onBeginningCombatEffects = new();
+    private List<BuildingEffectSO> _onEndCombatEffects = new();
 
     private TurnManager _turnManager => TurnManager.Instance;
 
@@ -35,14 +38,20 @@ public class BuildingHandler : InteractableObject, ITargetable
         base.OnEnable();
 
         _selectedCard = SelectedCard.Instance;
-        _turnManager.OnCombatPhaseStart += ApplyOnEndTurnEffects;
-        _turnManager.OnCombatPhaseEnd += ApplyOnEndFightEffects;
+        _turnManager.OnTacticalPhaseStart += ApplyOnBeginningTacticalEffects;
+        _turnManager.OnTacticalPhaseEnd += ApplyOnEndTacticalEffects;
+        
+        _turnManager.OnCombatPhaseStart += ApplyOnBeginningCombatEffects;
+        _turnManager.OnCombatPhaseEnd += ApplyOnEndCombatEffects;
     }
     protected override void OnDisable()
     {
         base.OnDisable();
-        _turnManager.OnCombatPhaseStart -= ApplyOnEndTurnEffects;
-        _turnManager.OnCombatPhaseEnd -= ApplyOnEndFightEffects;
+        _turnManager.OnTacticalPhaseStart -= ApplyOnBeginningTacticalEffects;
+        _turnManager.OnTacticalPhaseEnd -= ApplyOnEndTacticalEffects;
+
+        _turnManager.OnCombatPhaseStart -= ApplyOnBeginningCombatEffects;
+        _turnManager.OnCombatPhaseEnd -= ApplyOnEndCombatEffects;
 
     }
     public virtual void Initialize(BuildingSO buildingSO)
@@ -50,8 +59,13 @@ public class BuildingHandler : InteractableObject, ITargetable
         _buildingSO = buildingSO;
         _image.sprite = buildingSO.Sprite;
         _health = buildingSO.health;
-        _onEndTurnEffects = new (buildingSO.OnEndTurnEffects);
-        _onEndFightEffects = new (buildingSO.OnEndFightEffects);
+
+        _onBeginningTacticalEffects = new (buildingSO.OnBeginningTacticalEffects);
+        _onEndTacticalEffects = new (buildingSO.OnEndTacticalEffects);
+
+        _onBeginningCombatEffects = new (buildingSO.OnBeginningCombatEffects);
+        _onEndCombatEffects = new (buildingSO.OnEndCombatEffects);
+
         if(IsPlayerBuilding)
             _turnManager.PlayerTargets.Add(this);
         else
@@ -69,18 +83,32 @@ public class BuildingHandler : InteractableObject, ITargetable
             card.OnCardPlayed(gameObject);
         }
     }
-    protected virtual void ApplyOnEndTurnEffects()
+    protected virtual void ApplyOnBeginningTacticalEffects()
     {
-        foreach (var effect in _onEndTurnEffects)
+        foreach (var effect in _onBeginningTacticalEffects)
         {
-            effect.ApplyOnEndTurnEffect(this);
+            effect.ApplyBuildingEffect(this);
         }
     }
-    protected virtual void ApplyOnEndFightEffects()
+    protected virtual void ApplyOnEndTacticalEffects()
     {
-        foreach (var effect in _onEndFightEffects)
+        foreach (var effect in _onEndTacticalEffects)
         {
-            effect.ApplyOnEndFightEffect(this);
+            effect.ApplyBuildingEffect(this);
+        }
+    }
+    protected virtual void ApplyOnBeginningCombatEffects()
+    {
+        foreach (var effect in _onBeginningCombatEffects)
+        {
+            effect.ApplyBuildingEffect(this);
+        }
+    }
+    protected virtual void ApplyOnEndCombatEffects()
+    {
+        foreach (var effect in _onEndCombatEffects)
+        {
+            effect.ApplyBuildingEffect(this);
         }
     }
     public void TakeDamage(int damage, IAttacker attacker)

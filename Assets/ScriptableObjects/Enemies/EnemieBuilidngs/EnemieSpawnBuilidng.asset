@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemieBuildingSO
   Sprite: {fileID: 21300000, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
   health: 60
-  OnEndTurnEffects:
+  OnBeginningTacticalEffects: []
+  OnEndTacticalEffects: []
+  OnBeginningCombatEffects:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
-  OnEndFightEffects: []
+  OnEndCombatEffects: []
   UnitSO: {fileID: 11400000, guid: c6903504ac45da2409f47b32198ea4b3, type: 2}
   BuildCost: 100
