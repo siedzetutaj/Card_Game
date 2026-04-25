@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class EnemieBaseHandler : BaseHandler
 {
-    public int health = 100;
     private EnemieManager _enemieManager=> EnemieManager.Instance;
-    public new bool IsAlive => health > 0;
     private void Start()
     {
         _isPlayerBase = false;
         _turnManager.EnemieTargets.Add(this);
-        _enemieManager.HealthPoints = health;
     }
     protected override void Retarget()
     {
@@ -27,9 +24,6 @@ public class EnemieBaseHandler : BaseHandler
     }
     public override void TakeDamage(int damage, IAttacker attacker)
     {
-        health -= damage;
-        _enemieManager.HealthPoints = health;
-        if (!IsAlive)
-            OnDeath(attacker);
+        _enemieManager.HealthPoints -= damage;
     }
 }
