@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AddFood
   m_EditorClassIdentifier: Assembly-CSharp::AddResourceOnEndFightEffectSO
   _resourceType: 2
-  _amount: 5
+  _amount: 6

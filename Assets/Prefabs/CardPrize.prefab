@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 2860406377175458373}
   - component: {fileID: 442014455025687831}
   - component: {fileID: 3780090140086904804}
+  - component: {fileID: 7258516509241272131}
   m_Layer: 5
   m_Name: CardPrize
   m_TagString: Untagged
@@ -453,6 +454,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73873a1a6916624dbb9f3f96b46d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
+--- !u!114 &7258516509241272131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245718946013293043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3f0eaf8034d74997d11829daab577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardPrizeDisplay
+  CardData:
+    Name: 
+    Type: 0
+    Cost: []
+    Description: 
+    Sprite: {fileID: 0}
+    Effects: []
+  _cardNameTmp: {fileID: 7225615685921837195}
+  _cardDescriptionTmp: {fileID: 2805159750341662912}
+  _cardImage: {fileID: 9154093259967610212}
 --- !u!1 &2829231394994430033
 GameObject:
   m_ObjectHideFlags: 0

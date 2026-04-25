@@ -14,10 +14,11 @@ public class EnemieAI : MonoBehaviour
     private int _power;
     private float _powerScale;
     private int _maxHealth;
-    private int _currentHealth;
+    public int CurrentHealth;
 
     private void OnEnable()
     {
+        EnemieManager.Instance.SetEnemyAI(this);
         _turnManager.OnRoundEnd += TakeAction;
     }
     private void OnDisable()
@@ -29,18 +30,22 @@ public class EnemieAI : MonoBehaviour
         _power = EnemieSO.StartingPower;
         _powerScale = EnemieSO.AdditionalPower;
         _maxHealth = EnemieSO.Health;
-        _currentHealth = _maxHealth;
+        CurrentHealth = _maxHealth;
+
         _groundGenerator.GroundTiles.ForEach(tile =>
         {
             EnemieGroundTileHandler handler = tile.GetComponent<EnemieGroundTileHandler>();
             if (handler != null)
                 _tiles.Add(handler);
         });
+
+        EnemieManager.Instance.HealthPoints = CurrentHealth;
+
         TakeAction();
     }
     private void TakeAction()
     {
-        float currentPower = _power + (_powerScale * (1 - (_currentHealth/_maxHealth)));
+        float currentPower = _power + (_powerScale * (1 - (CurrentHealth/_maxHealth)));
 
         while (currentPower > 0)
         {
