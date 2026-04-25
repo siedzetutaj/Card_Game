@@ -4,6 +4,6 @@ public class EndTurnButton : MonoBehaviour
 {
     public void OnEndTurnButtonPressed()
     {
-        GameLogicManager.Instance.EndTurn();
+        TurnManager.Instance.EndTacticalPhaseRequest();
     }
 }

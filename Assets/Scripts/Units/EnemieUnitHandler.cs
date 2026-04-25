@@ -1,10 +1,18 @@
+using System.Linq;
 using UnityEngine;
 
 public class EnemieUnitHandler : UnitHandler
 {
-    protected override void FindTarget()
+    protected override void FixedUpdate()
     {
-        _targetUnit = FindBestTarget(_gameLogicManager.PlayerUnits);
+        if(_currentTarget == null || !_currentTarget.IsAlive)  
+            Retarget();
+        base.FixedUpdate();
+    }
+    protected void Retarget()
+    {
+        _currentTarget = FindBestTarget(
+            _turnManager.PlayerTargets.Cast<ITargetable>().ToList());
 
     }
 }

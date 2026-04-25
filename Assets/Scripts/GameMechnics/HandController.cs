@@ -13,7 +13,6 @@ public class HandController : MonoBehaviourSingleton<HandController>
     {
         ArrangeCards();
     }
-
     void ArrangeCards()
     {
         int count = cards.Count;
@@ -40,13 +39,11 @@ public class HandController : MonoBehaviourSingleton<HandController>
             card.localRotation = Quaternion.Lerp(card.localRotation, targetRotation, Time.deltaTime * animationSpeed);
         }
     }
-
     public void AddCard(CardHandler card)
     {
         card.transform.SetParent(transform);
         cards.Add(card);
     }
-
     public void RemoveCard(CardHandler card)
     {
         cards.Remove(card);

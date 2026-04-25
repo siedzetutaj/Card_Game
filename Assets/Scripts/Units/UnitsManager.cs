@@ -1,42 +1,64 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitsManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _unitPrefab;
+    [SerializeField] protected GameObject _unitPrefab;
     
-    private UnitData _unitData;
+    protected UnitData _unitData;
     public List<UnitHandler> Units = new();
+    public TurnManager _turnManager => TurnManager.Instance;
 
-    public void Initialize(UnitData unitData, Transform spawnPoint, bool isPlayerUnit)
+    private void OnDestroy()
+    {
+        TurnManager turnManager = TurnManager.Instance;
+        if (turnManager == null) return;
+        turnManager.PlayerUnitsManagers.Remove(this);
+    }
+    public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
     {
         _unitData = new UnitData(unitData);
-
-        CreateUnits(isPlayerUnit);
+        transform.position = spawnPoint;
+        StartCoroutine(SpawnUnits(isPlayerUnit));
     }
-    private void CreateUnits(bool isPlayerUnit)
+    protected virtual void CreateUnit(bool isPlayerUnit)
     {
-        //TODO: Sekwencyjne ukladanie jednostek w formacje
-        for (int i =0; i< _unitData.UnitAmount; i++)
-        {
-            GameObject unit = Instantiate(_unitPrefab, transform);
-            unit.GetComponent<UnitHandler>().Inititalize(_unitData, isPlayerUnit,this);
-            Units.Add(unit.GetComponent<UnitHandler>());
-        }
-    }   
+        var food = ResourceManager.Instance.FindResource(ResourceType.food);
+        food.DecreaseAmount(_unitData.UnitFoodCost);
+        GameObject unit = Instantiate(_unitPrefab, transform);
+        var unitHandler = unit.GetComponent<UnitHandler>();
+        unitHandler.Inititalize(_unitData, isPlayerUnit, this);
+        Units.Add(unit.GetComponent<UnitHandler>());
+        _turnManager.PlayerTargets.Add(unitHandler);
+    }
     public virtual void OnUnitDeath(UnitHandler unit)
     {
         Units.Remove(unit);
-        if(Units.Count == 0)
+        if (Units.Count == 0)
         {
-            GameLogicManager gameLogicManager = GameLogicManager.Instance;
-            gameLogicManager.PlayerUnitsManagers.Remove(this);
+            var food = ResourceManager.Instance.FindResource(ResourceType.food);
+            if (food.Amount > 0) return;
+            TurnManager turnManager = TurnManager.Instance;
+            turnManager.PlayerUnitsManagers.Remove(this);
 
-            if(gameLogicManager.PlayerUnitsManagers.Count == 0)
-                gameLogicManager.OnFightEnd(true);
-
-            Destroy(gameObject);   
+            Destroy(gameObject);
         }
+    }
+    
+    IEnumerator SpawnUnits( bool isPlayerUnit)
+    {
+        ResourceHandler food = null;
+        if (isPlayerUnit)
+            food = ResourceManager.Instance.FindResource(ResourceType.food);
+        else
+            food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
+
+        while (food.Amount >= _unitData.UnitFoodCost)
+            {
+                CreateUnit(isPlayerUnit);
+                yield return new WaitForSeconds(_unitData.SpawnAfterSeconds);
+            }
     }
 }

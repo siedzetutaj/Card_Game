@@ -1,27 +1,35 @@
 
+using System.ComponentModel;
 using UnityEngine;
 
 [System.Serializable]
 public class UnitData
 {
     public Sprite UnitSprite;
-    public int UnitAmount;
+    public int UnitFoodCost;
     public int UnitHealth;
     public int UnitDamage;
-    public int UnitAttackSpeed;
+    [Description("the lower the faster")]
+    public float UnitAttackSpeed;
     public int UnitAttackRange;
     public int UnitSpeed;
-    [Range(0,1)]
-    public int SpawnPosionIndex;
+    public int TargetAmount;
+    public float SpawnAfterSeconds;
+    //[Range(0,1)]
+   // public int SpawnPosionIndex;
     public UnitData(UnitData unitData)
     {
+        if(unitData == null) 
+            return;
         UnitSprite = unitData.UnitSprite;
-        UnitAmount = unitData.UnitAmount;
+        UnitFoodCost = unitData.UnitFoodCost;
         UnitHealth = unitData.UnitHealth;
         UnitDamage = unitData.UnitDamage;
         UnitAttackSpeed = unitData.UnitAttackSpeed;
         UnitAttackRange = unitData.UnitAttackRange;
         UnitSpeed = unitData.UnitSpeed;
-        SpawnPosionIndex = unitData.SpawnPosionIndex;
+        TargetAmount = unitData.TargetAmount;
+        SpawnAfterSeconds = unitData.SpawnAfterSeconds;
+       // SpawnPosionIndex = unitData.SpawnPosionIndex;
     }
 }

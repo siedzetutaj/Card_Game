@@ -12,13 +12,20 @@ public class AddResourcesButton : MonoBehaviour
     {
         var money = _resourceManager.FindResource(ResourceType.money);
         if(money != null)
-            money.SetAmount(money.GetAmount()+10);
+            money.IncreaseAmount(10);
 
         var population = _resourceManager.FindResource(ResourceType.population) as ResourceWithLimitHandler;
         if(population != null)
         {
-            population.Limit += 10;
-            population.SetAmount(population.GetAmount() + 10);
+            population.Limit += 100;
+            population.IncreaseAmount(100);
+        }
+
+        var food = _resourceManager.FindResource(ResourceType.food) as ResourceWithLimitHandler;
+        if (food != null)
+        {
+            food.Limit = 10;
+            food.SetAmount(10);
         }
 
     }

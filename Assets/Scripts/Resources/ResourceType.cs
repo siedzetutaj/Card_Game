@@ -2,5 +2,6 @@
 public enum ResourceType
 {
     money,
-    population
+    population,
+    food
 }

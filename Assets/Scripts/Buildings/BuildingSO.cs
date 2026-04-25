@@ -1,14 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingSO", menuName = "Scriptable Objects/BuildingSO")]
+[CreateAssetMenu(fileName = "BaseBuildingSO", menuName = "Scriptable Objects/Buildings/Type/Base")]
 public class BuildingSO : ScriptableObject
 {
+    [Header("Base")]
     public Sprite Sprite;
+    public int health;
+    [Header("Tactical Effects")]
+    public List<BuildingEffectSO> OnBeginningTacticalEffects = new();
+    public List<BuildingEffectSO> OnEndTacticalEffects = new();
+    [Header("Combat Effects")]
+    public List<BuildingEffectSO> OnBeginningCombatEffects = new();
+    public List<BuildingEffectSO> OnEndCombatEffects = new();
 
-    public UnitSO UnitSO;
-
-    /*TODO:
-     * potem trzeba wykminic jak dorobic inne efekty budynkow
-     * 
-     */
+    //test czy git dziala
 }

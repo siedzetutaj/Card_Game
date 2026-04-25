@@ -6,7 +6,7 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
 
     private ResourceManager _resourceManager => ResourceManager.Instance;
     private HandController _handController => HandController.Instance;
-    private GameLogicManager _gameLogicManager => GameLogicManager.Instance;
+    private TurnManager _turnManager => TurnManager.Instance;
 
 
     [SerializeField] private List<CardData> _cardsInDeck = new();
@@ -24,6 +24,10 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         {
             _cardsInDeck.Add(new CardData(cardSO));
         }
+    }
+    private void Start()
+    {
+        _cardsInDrawPile = new List<CardData>(_cardsInDeck);
     }
     public void OnFirstTurn(int moneyAmount)
     {
@@ -62,7 +66,7 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
         }
         _cardsInDeck.Remove(cardData);
     }
-    public void DrawCards(int amount = 3)
+    public void DrawCards(int amount = 5)
     {
         for(int i = 0; i < amount; i++)
         {
@@ -71,8 +75,11 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
                 _cardsInDrawPile = new List<CardData>(_cardsInDiscardPile);
                 _cardsInDiscardPile.Clear();
             }
-            if (_cardsInDrawPile.Count == 0) Debug.Log("No Cards");
-
+            if (_cardsInDrawPile.Count == 0)
+            { 
+                Debug.Log("No Cards");
+                break; 
+            }
             int randomIndex = Random.Range(0, _cardsInDrawPile.Count);
             CardData drawnCard = _cardsInDrawPile[randomIndex];
             _cardsInDrawPile.RemoveAt(randomIndex);
@@ -122,5 +129,10 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
     public bool IsHandEmpty()
     {
         return _cardsInHand.Count == 0;
+    }
+    
+    public int GetHandCount()
+    {
+        return _cardsInHand.Count;
     }
 }

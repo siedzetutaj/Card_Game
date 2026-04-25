@@ -8,6 +8,12 @@ public class InteractableObject : MonoBehaviour
         gameObject.GetComponent<ClickableObject>().OnMouseEnter += OnObjectMouseEnter;
         gameObject.GetComponent<ClickableObject>().OnMouseExit += OnObjectMouseExit;
     }
+    protected virtual void OnDisable()
+    {
+        gameObject.GetComponent<ClickableObject>().OnClick -= OnObjectClicked;
+        gameObject.GetComponent<ClickableObject>().OnMouseEnter -= OnObjectMouseEnter;
+        gameObject.GetComponent<ClickableObject>().OnMouseExit -= OnObjectMouseExit;
+    }
     protected virtual void OnObjectClicked()
     {
 
