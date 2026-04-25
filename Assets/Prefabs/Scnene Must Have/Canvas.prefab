@@ -716,9 +716,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9194987959965957216}
-        m_TargetAssemblyTypeName: EndTurnButton, Assembly-CSharp
-        m_MethodName: OnEndTurnButtonPressed
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: EndTacticalPhaseRequest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   _resourceHandlers:
   - {fileID: 6822908449657273291}
   - {fileID: 8294445628931354174}
-  - {fileID: 3519652113170873829}
+  - {fileID: 2103981066932465962}
 --- !u!1 &5270877884967017505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,8 +2574,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameLogicManager, Assembly-CSharp
-        m_MethodName: FirstTurn
+        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+        m_MethodName: StartGameManually
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2822,7 +2822,7 @@ GameObject:
   - component: {fileID: 6230850110836177764}
   - component: {fileID: 5164595605029620205}
   - component: {fileID: 8922088443701606638}
-  - component: {fileID: 3519652113170873829}
+  - component: {fileID: 2103981066932465962}
   m_Layer: 5
   m_Name: Food
   m_TagString: Untagged
@@ -2889,7 +2889,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3519652113170873829
+--- !u!114 &2103981066932465962
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2898,9 +2898,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8965919228837940571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205a851e0242a514d845d8b5c58451e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ed00463f53198a4daf52aa2d59a4207, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResourceWithLimitHandler
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceHandler
   _amountText: {fileID: 9084625582508471798}
   _resourceType: 2
 --- !u!1 &9010706335827924113
@@ -2968,7 +2968,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/0
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -2995,7 +2995,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46
+  m_fontSize: 58.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3799,7 +3799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 168.6629
+      value: 189.7895
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3835,7 +3835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -325
+      value: -314.4367
       objectReference: {fileID: 0}
     - target: {fileID: 5029276806804730797, guid: f91694c8eee63e54e9e1bf9d8d1383bd, type: 3}
       propertyPath: m_AnchoredPosition.y

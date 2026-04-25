@@ -14,7 +14,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     private float _retargetTimer;
     private float _retargetCooldown = 2f;
-    private bool _isInRange;
+    private RangeMarker _rangeMarker;
 
     private TurnManager _turnManager => TurnManager.Instance;
     public override void Initialize(BuildingSO buildingSO)
@@ -24,6 +24,8 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         ShootBuildingSO shootBuildingSO = buildingSO as ShootBuildingSO;
         _damage = shootBuildingSO.Damage;
         _range = shootBuildingSO.Range;
+        _rangeMarker = GetComponentInChildren<RangeMarker>();
+        _rangeMarker.SetRange(_range);
         _attackSpeed = shootBuildingSO.AttackSpeed;
     }
 
@@ -35,14 +37,21 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
             if (_currentTarget == null || _currentTarget.Equals(null)) 
                 return;
-            
-            RangeCheck();
 
-            if (_canAttack && _isInRange)
+            if (_canAttack && RangeCheck(_currentTarget))
                 Attack();
         }
     }
-
+    protected override void OnObjectClicked()
+    {
+        base.OnObjectClicked();
+        _rangeMarker.EnableVisiblity();
+    }
+    protected override void OnObjectMouseExit()
+    {
+        base.OnObjectMouseExit();
+        _rangeMarker.DisableVisiblity();
+    }
     private void Retarget()
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
@@ -52,13 +61,13 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
             return;
         }
     }
-    protected void RangeCheck()
+    protected bool RangeCheck(ITargetable target)
     {
-        Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
+        Vector2 distance = Vector2.Distance(transform.position, target.TargetTransform.position) * Vector2.one;
         if (distance.magnitude > _range)
-            _isInRange = false;
+            return false;
         else
-            _isInRange = true;
+            return true;
     }
     protected virtual ITargetable FindBestTarget(List<ITargetable> targets)
     {
@@ -69,6 +78,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         {
             if (!target.IsAlive) continue;
             if (!target.IsUnit) continue;
+            if (RangeCheck(target)) continue;
 
             float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
             float score = 1f / (dist + 1f);

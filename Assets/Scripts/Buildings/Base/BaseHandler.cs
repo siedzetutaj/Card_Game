@@ -12,7 +12,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
     protected ITargetable _currentTarget;
     protected bool _canAttack = true;
 
-    protected float _retargetTimer;
+    protected float _retargetTimer = 0f;
     protected float _retargetCooldown = 2f;
     public bool IsUnit => false; 
     protected bool _isInRange = false;
@@ -42,9 +42,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
             if (_currentTarget == null || _currentTarget.Equals(null)) 
                 return;
             
-            RangeCheck();
-
-            if (_canAttack && _isInRange)
+            if (_canAttack && RangeCheck(_currentTarget))
                 Attack();
         }
     }
@@ -61,6 +59,7 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
         {
             if (!target.IsAlive) continue;
             if (!target.IsUnit) continue;
+            if (RangeCheck(target)) continue;
 
             float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
             float score = 1f / (dist + 1f);
@@ -74,13 +73,13 @@ public class BaseHandler : MonoBehaviour, ITargetable, IAttacker
 
         return best;
     }
-    protected void RangeCheck()
+    protected bool RangeCheck(ITargetable target)
     {
-        Vector2 distance = Vector2.Distance(transform.position, _currentTarget.TargetTransform.position) * Vector2.one;
+        Vector2 distance = Vector2.Distance(transform.position, target.TargetTransform.position) * Vector2.one;
         if (distance.magnitude > _range)
-            _isInRange = false;
+            return false;
         else
-            _isInRange = true;
+            return true;
     }
     protected void Attack()
     {

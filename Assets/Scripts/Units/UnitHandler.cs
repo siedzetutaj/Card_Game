@@ -107,12 +107,13 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
             if (target == null) continue;
 
             float sqrDist = (target.TargetTransform.position - transform.position).magnitude;
-            float distanceScore = 1f / (sqrDist + 1f) * 100; // closer = higher score 
+            float distanceScore = 1f / (sqrDist + 1f) * 200; // closer = higher score 
             float targetPenalty = target.TargetAmount * 0.1f; // more targets = worse 
+            float bonusToUnits = 0;
+            if (target is UnitHandler unitTarget) bonusToUnits = 1; 
 
             float randomness = Random.Range(0f, 0.02f); // natural variation 
-            float score = distanceScore - targetPenalty + randomness;
-
+            float score = distanceScore - targetPenalty + randomness + bonusToUnits;
             if (score > bestScore)
             {
                 bestScore = score;
@@ -123,13 +124,14 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
         {
             best.TargetAmount++;
 
-            if (best is UnitHandler bestUnit && bestUnit._currentTarget == null)
+            if (best is UnitHandler bestUnit)
             {
-                bestUnit._currentTarget = this;
+                bestUnit.Retaliation(this);
             }
         }
         if (best != null)
             best.TargetAmount++;
+
         return best;
     }
     protected void RangeCheck()
@@ -180,7 +182,7 @@ public class UnitHandler : MonoBehaviour, IAttacker, ITargetable
     }
     public void Retaliation(ITargetable targetToRetaliate)
     {
-        if (targetToRetaliate != null && !_isInRange)
+        if (targetToRetaliate != null && !_isInRange && _currentTarget != null)
         {
             _currentTarget.TargetAmount--;
             _currentTarget = targetToRetaliate;

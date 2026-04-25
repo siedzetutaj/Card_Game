@@ -9,8 +9,12 @@ public class TurnManager : MonoBehaviourSingleton<TurnManager>
     public const int MAX_ACTION_POINTS = 3;
     public const int ROUND_START_FOOD = 100;
 
+    public Action OnTacticalPhaseStart;
+    public Action OnTacticalPhaseEnd;
+
     public Action OnCombatPhaseStart;
     public Action OnCombatPhaseEnd;
+
     public Action OnRoundEnd;
 
 

@@ -14,7 +14,7 @@ public class EnemieBaseHandler : BaseHandler
     }
     protected override void Retarget()
     {
-        if (_currentTarget == null || _retargetTimer <= 0f)
+        if ((Object)_currentTarget == null || _retargetTimer <= 0f)
         {
             _currentTarget = FindBestTarget(_turnManager.PlayerTargets.Cast<ITargetable>().ToList());
             _retargetTimer = _retargetCooldown;

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class GamePhaseCombat : GamePhase
@@ -15,9 +16,7 @@ public class GamePhaseCombat : GamePhase
         // To jest przeniesione ze starego GameLogicManager.
         // Pozwala zachować dotychczasową logikę wykrywania końca walki,
         // ale sprawdzanie nie zużywa zasobów poza tą Fazą
-        if (manager.PlayerTargets.Count == 0 && manager.EnemieUnitsManagers.Count == 0 
-            && ResourceManager.Instance.FindResource(ResourceType.food)?.Amount == 0
-            && EnemieResourceManager.Instance.FindResource(ResourceType.food)?.Amount == 0) 
+        if (manager.PlayerUnitsManagers.Count == 0 && manager.EnemieUnitsManagers.Count == 0)
         {
             manager.ChangePhase(new GamePhaseEnd(manager));
         }

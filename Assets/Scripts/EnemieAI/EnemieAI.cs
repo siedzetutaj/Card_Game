@@ -50,7 +50,7 @@ public class EnemieAI : MonoBehaviour
             var buildingToSpawn = GetBuildingToSpawn(currentPower);
             if (buildingToSpawn == null)
                 return;
-            currentPower -= buildingToSpawn.SpawnCost;
+            currentPower -= buildingToSpawn.BuildCost;
             randomTile.IsOccupied = true;
             SpawnBuildingHandler(randomTile, buildingToSpawn);
         }
@@ -79,7 +79,7 @@ public class EnemieAI : MonoBehaviour
 
         foreach (EnemieBuildingSO item in shuffledBuildingList)
         {
-            if(item.SpawnCost <= power)
+            if(item.BuildCost <= power)
             {
                 return item;
             }

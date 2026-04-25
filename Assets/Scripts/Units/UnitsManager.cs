@@ -11,6 +11,12 @@ public class UnitsManager : MonoBehaviour
     public List<UnitHandler> Units = new();
     public TurnManager _turnManager => TurnManager.Instance;
 
+    private void OnDestroy()
+    {
+        TurnManager turnManager = TurnManager.Instance;
+        if (turnManager == null) return;
+        turnManager.PlayerUnitsManagers.Remove(this);
+    }
     public void Initialize(UnitData unitData, Vector3 spawnPoint, bool isPlayerUnit)
     {
         _unitData = new UnitData(unitData);
@@ -43,11 +49,16 @@ public class UnitsManager : MonoBehaviour
     
     IEnumerator SpawnUnits( bool isPlayerUnit)
     {
-        var food = ResourceManager.Instance.FindResource(ResourceType.food);
+        ResourceHandler food = null;
+        if (isPlayerUnit)
+            food = ResourceManager.Instance.FindResource(ResourceType.food);
+        else
+            food = EnemieResourceManager.Instance.FindResource(ResourceType.food);
+
         while (food.Amount >= _unitData.UnitFoodCost)
-        {
-            CreateUnit(isPlayerUnit);
-            yield return new WaitForSeconds(_unitData.SpawnAfterSeconds);
-        }
+            {
+                CreateUnit(isPlayerUnit);
+                yield return new WaitForSeconds(_unitData.SpawnAfterSeconds);
+            }
     }
 }

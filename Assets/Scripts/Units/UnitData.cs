@@ -7,7 +7,6 @@ public class UnitData
 {
     public Sprite UnitSprite;
     public int UnitFoodCost;
-    public int UnitAmount;
     public int UnitHealth;
     public int UnitDamage;
     [Description("the lower the faster")]
@@ -24,7 +23,6 @@ public class UnitData
             return;
         UnitSprite = unitData.UnitSprite;
         UnitFoodCost = unitData.UnitFoodCost;
-        UnitAmount = unitData.UnitAmount;
         UnitHealth = unitData.UnitHealth;
         UnitDamage = unitData.UnitDamage;
         UnitAttackSpeed = unitData.UnitAttackSpeed;
