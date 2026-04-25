@@ -7,34 +7,33 @@ public class SpawnUnitBuildingEffectSO : BuildingEffectSO
 {
     [SerializeField] private GameObject _playerUnitsManagerPrefab;
     [SerializeField] private GameObject _enemieUnitsManagerPrefab;
+    [SerializeField] private UnitSO _unitSO;
 
     public override void ApplyBuildingEffect(BuildingHandler buildingHandler)
     {
-        SpawnBuildingHandler spawnBuildingHandler = buildingHandler as SpawnBuildingHandler;
-        
         if (buildingHandler.IsPlayerBuilding)
         {
 
             var food = ResourceManager.Instance.FindResource(ResourceType.food);
-            int foodCost = spawnBuildingHandler.UnitData.UnitFoodCost;
+            int foodCost = _unitSO.UnitData.UnitFoodCost;
             if (food.Amount >= foodCost)
             {
                 food.DecreaseAmount(foodCost);
-                SpawnUnits(spawnBuildingHandler);
+                SpawnUnits(buildingHandler);
             }
         }
         else
         {
-            SpawnUnits(spawnBuildingHandler);
+            SpawnUnits(buildingHandler);
         }
     }
-    private void SpawnUnits(SpawnBuildingHandler spawnBuildingHandler)
+    private void SpawnUnits(BuildingHandler buildingHandler)
     {
-        UnitData unitData = spawnBuildingHandler.UnitData;
+        UnitData unitData = _unitSO.UnitData;
 
-        Vector3 buildingPos = spawnBuildingHandler.transform.position;
+        Vector3 buildingPos = buildingHandler.transform.position;
         Vector3 spawnPoint = new Vector3(buildingPos.x + Random.Range(-10, 10), buildingPos.y + Random.Range(-10, 10), 0);
-        if (spawnBuildingHandler.IsPlayerBuilding)
+        if (buildingHandler.IsPlayerBuilding)
         {
 
             Transform parentTransform = PlayerUnitsManagers.Instance.transform;
@@ -47,7 +46,7 @@ public class SpawnUnitBuildingEffectSO : BuildingEffectSO
         }
         else
         {
-                Transform parentTransform = spawnBuildingHandler.transform;
+                Transform parentTransform = buildingHandler.transform;
                 GameObject unitsManager = Instantiate(_enemieUnitsManagerPrefab, parentTransform);
     
                 EnemieUnitsManager manager = unitsManager.GetComponent<EnemieUnitsManager>();

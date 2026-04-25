@@ -3,12 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShootBuilding", menuName = "Scriptable Objects/Buildings/Effects/ShootBuilding")]
 public class ShootBuildingEffectSO : BuildingEffectSO
 {
-    //TODO:
-    //Prefab pocisku
-    //Targetowanie przeciwnikow
+    [SerializeField] private int _damage;
+    [SerializeField] private int _range;
+    [SerializeField] private float _attackSpeed;
 
     public override void ApplyBuildingEffect(BuildingHandler buildingHandler)
     {
-        ShootBuildingHandler shootBuildingHandler = buildingHandler as ShootBuildingHandler;
+        BuildingShooter shooter = buildingHandler.GetComponent<BuildingShooter>();
+        if (shooter == null)
+        {
+            shooter = buildingHandler.gameObject.AddComponent<BuildingShooter>();
+        }
+        shooter.Setup(_damage, _range, _attackSpeed, buildingHandler);
     }
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnUnitOnEndTurnEffect
   _playerUnitsManagerPrefab: {fileID: 1267755960122152951, guid: 53296200a666e9741a73d74619cecbdc, type: 3}
   _enemieUnitsManagerPrefab: {fileID: 1267755960122152951, guid: e10e53513d816a04a97181872b2469a0, type: 3}
+  _unitSO: {fileID: 11400000, guid: 499611f81014a24499e40df9abd99db3, type: 2}

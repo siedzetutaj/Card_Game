@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShootBuildingHandler : BuildingHandler, IAttacker
+public class BuildingShooter : MonoBehaviour, IAttacker
 {
-    public int _damage;
-    public int _range;
-    public float _attackSpeed;
+    private int _damage;
+    private int _range;
+    private float _attackSpeed;
 
     private ITargetable _currentTarget;
     private bool _canAttack = true;
@@ -15,18 +15,22 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     private float _retargetTimer;
     private float _retargetCooldown = 2f;
     private RangeMarker _rangeMarker;
+    private BuildingHandler _buildingHandler;
 
     private TurnManager _turnManager => TurnManager.Instance;
-    public override void Initialize(BuildingSO buildingSO)
+
+    public void Setup(int damage, int range, float attackSpeed, BuildingHandler handler)
     {
-        base.Initialize(buildingSO);
-        
-        ShootBuildingSO shootBuildingSO = buildingSO as ShootBuildingSO;
-        _damage = shootBuildingSO.Damage;
-        _range = shootBuildingSO.Range;
-        _rangeMarker = GetComponentInChildren<RangeMarker>();
-        _rangeMarker.SetRange(_range);
-        _attackSpeed = shootBuildingSO.AttackSpeed;
+        _damage = damage;
+        _range = range;
+        _attackSpeed = attackSpeed;
+        _buildingHandler = handler;
+
+        _rangeMarker = GetComponentInChildren<RangeMarker>(true);
+        if (_rangeMarker != null)
+        {
+            _rangeMarker.SetRange(_range);
+        }
     }
 
     private void FixedUpdate()
@@ -42,33 +46,28 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
                 Attack();
         }
     }
-    protected override void OnObjectClicked()
-    {
-        base.OnObjectClicked();
-        _rangeMarker.EnableVisiblity();
-    }
-    protected override void OnObjectMouseExit()
-    {
-        base.OnObjectMouseExit();
-        _rangeMarker.DisableVisiblity();
-    }
+
     private void Retarget()
     {
         if (_currentTarget == null || _retargetTimer <= 0f)
         {
-            _currentTarget = FindBestTarget(_turnManager.EnemieTargets.Cast<ITargetable>().ToList());
+            List<ITargetable> targets = _buildingHandler.IsPlayerBuilding ? 
+                _turnManager.EnemieTargets.Cast<ITargetable>().ToList() : 
+                _turnManager.PlayerTargets.Cast<ITargetable>().ToList();
+
+            _currentTarget = FindBestTarget(targets);
             _retargetTimer = _retargetCooldown;
             return;
         }
+        _retargetTimer -= Time.fixedDeltaTime;
     }
+
     protected bool RangeCheck(ITargetable target)
     {
         Vector2 distance = Vector2.Distance(transform.position, target.TargetTransform.position) * Vector2.one;
-        if (distance.magnitude > _range)
-            return false;
-        else
-            return true;
+        return distance.magnitude <= _range;
     }
+
     protected virtual ITargetable FindBestTarget(List<ITargetable> targets)
     {
         ITargetable best = null;
@@ -78,7 +77,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
         {
             if (!target.IsAlive) continue;
             if (!target.IsUnit) continue;
-            if (RangeCheck(target)) continue;
+            if (!RangeCheck(target)) continue;
 
             float dist = Vector3.Distance(transform.position, target.TargetTransform.position);
             float score = 1f / (dist + 1f);
@@ -92,6 +91,7 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
         return best;
     }
+
     protected void Attack()
     {
         if (!_canAttack) return;
@@ -103,7 +103,6 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
 
     IEnumerator WaitCoroutine()
     {
-        _canAttack = false;
         yield return new WaitForSeconds(_attackSpeed);
         _canAttack = true;
     }
@@ -111,5 +110,18 @@ public class ShootBuildingHandler : BuildingHandler, IAttacker
     public void OnKill()
     {
         _currentTarget = null;
+    }
+
+    // These were in ShootBuildingHandler to enable/disable range marker
+    public void EnableRangeMarker()
+    {
+        if (_rangeMarker == null) _rangeMarker = GetComponentInChildren<RangeMarker>(true);
+        if (_rangeMarker != null) _rangeMarker.EnableVisiblity();
+    }
+
+    public void DisableRangeMarker()
+    {
+        if (_rangeMarker == null) _rangeMarker = GetComponentInChildren<RangeMarker>(true);
+        if (_rangeMarker != null) _rangeMarker.DisableVisiblity();
     }
 }

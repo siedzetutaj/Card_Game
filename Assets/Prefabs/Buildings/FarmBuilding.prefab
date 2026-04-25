@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3416668592925590475}
   - component: {fileID: 6218492578504785518}
   m_Layer: 5
-  m_Name: Building
+  m_Name: FarmBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,3 +103,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingHandler
   IsPlayerBuilding: 1
   _image: {fileID: 1518759267219015283}
+  _buildingSO: {fileID: 11400000, guid: 21aca0b78a42a6144bd5c978dc05da4e, type: 2}
+  _health: 0
