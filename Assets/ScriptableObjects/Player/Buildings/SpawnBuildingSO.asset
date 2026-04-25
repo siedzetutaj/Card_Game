@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a583b4493edf274cbaf06b2853c5a31, type: 3}
+  m_Script: {fileID: 11500000, guid: d8acdf1766ad7834eaadddd8e0b09577, type: 3}
   m_Name: SpawnBuildingSO
   m_EditorClassIdentifier: Assembly-CSharp::SpawnBuildingSO
-  Sprite: {fileID: 677503446813500721, guid: 908cf18dc89ff5a41b6c8a12502e270f, type: 3}
-  health: 60
-  OnEndTurnEffects:
+  Sprite: {fileID: 21300000, guid: bc0a8fb364d365349bf9c35474947d48, type: 3}
+  health: 100
+  OnBeginningBuildingEffects: []
+  OnBeginningTacticalEffects: []
+  OnEndTacticalEffects: []
+  OnBeginningCombatEffects:
   - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
-  OnEndFightEffects: []
-  UnitSO: {fileID: 11400000, guid: 4e491874b50700b4ba8f3386d0560ac2, type: 2}
+  OnEndCombatEffects: []

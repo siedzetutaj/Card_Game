@@ -18,8 +18,8 @@ public class BuildingHandler : InteractableObject, ITargetable
     
     [SerializeField] private Image _image;
 
-    protected BuildingSO _buildingSO;
-    protected int _health;
+    [SerializeField] protected BuildingSO _buildingSO;
+    [SerializeField] protected int _health;
     private SelectedCard _selectedCard;
 
     private List<BuildingEffectSO> _onBeginningTacticalEffects = new();
@@ -66,6 +66,11 @@ public class BuildingHandler : InteractableObject, ITargetable
         _onBeginningCombatEffects = new (buildingSO.OnBeginningCombatEffects);
         _onEndCombatEffects = new (buildingSO.OnEndCombatEffects);
 
+        foreach (var effect in buildingSO.OnBeginningBuildingEffects)
+        {
+            effect.ApplyBuildingEffect(this);
+        }
+
         if(IsPlayerBuilding)
             _turnManager.PlayerTargets.Add(this);
         else
@@ -81,6 +86,19 @@ public class BuildingHandler : InteractableObject, ITargetable
         {
             CardHandler card = SelectedCard.Instance.Card;
             card.OnCardPlayed(gameObject);
+        }
+
+        if (TryGetComponent<BuildingShooter>(out var shooter))
+        {
+            shooter.EnableRangeMarker();
+        }
+    }
+    protected override void OnObjectMouseExit()
+    {
+        base.OnObjectMouseExit();
+        if (TryGetComponent<BuildingShooter>(out var shooter))
+        {
+            shooter.DisableRangeMarker();
         }
     }
     protected virtual void ApplyOnBeginningTacticalEffects()

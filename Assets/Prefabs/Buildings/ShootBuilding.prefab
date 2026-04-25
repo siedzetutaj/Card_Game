@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5213272286298686074}
   - component: {fileID: 1518759267219015283}
   - component: {fileID: 3416668592925590475}
-  - component: {fileID: 28060844490610494}
+  - component: {fileID: -9121749430415695199}
   m_Layer: 5
   m_Name: ShootBuilding
   m_TagString: Untagged
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73873a1a6916624dbb9f3f96b46d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
---- !u!114 &28060844490610494
+--- !u!114 &-9121749430415695199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,14 +99,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2775292021146187962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beeea9c0c7072804eb7f297a47bccb9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ea4c9948b6122246bf26e71399d4911, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShootBuildingHandler
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHandler
   IsPlayerBuilding: 1
   _image: {fileID: 1518759267219015283}
-  _damage: 0
-  _range: 0
-  _attackSpeed: 0
+  _buildingSO: {fileID: 11400000, guid: 542bc2926a216524d8ed52a5919ac751, type: 2}
+  _health: 0
 --- !u!1001 &4270743023199904214
 PrefabInstance:
   m_ObjectHideFlags: 0
