@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f48b403ab8b064481a98648d92988c, type: 3}
+  m_Name: AdditionalCardsPoolSO
+  m_EditorClassIdentifier: Assembly-CSharp::AdditionalCardsPoolSO
+  AdditionalCardsPool:
+  - {fileID: 11400000, guid: 246418659458bfb4a8bfc3a4d72cc005, type: 2}
+  - {fileID: 11400000, guid: a659089acaf8eeb41831d5ddde35242f, type: 2}
+  - {fileID: 11400000, guid: 432b41570ed0ccf4db4ec4eca40af0ce, type: 2}
+  - {fileID: 11400000, guid: 8f196492b35cd2449af1262716bbf0ef, type: 2}
