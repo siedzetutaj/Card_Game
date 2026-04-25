@@ -26,7 +26,7 @@ public class BuildingShooter : MonoBehaviour, IAttacker
         _attackSpeed = attackSpeed;
         _buildingHandler = handler;
 
-        _rangeMarker = GetComponentInChildren<RangeMarker>();
+        _rangeMarker = GetComponentInChildren<RangeMarker>(true);
         if (_rangeMarker != null)
         {
             _rangeMarker.SetRange(_range);
@@ -115,11 +115,13 @@ public class BuildingShooter : MonoBehaviour, IAttacker
     // These were in ShootBuildingHandler to enable/disable range marker
     public void EnableRangeMarker()
     {
+        if (_rangeMarker == null) _rangeMarker = GetComponentInChildren<RangeMarker>(true);
         if (_rangeMarker != null) _rangeMarker.EnableVisiblity();
     }
 
     public void DisableRangeMarker()
     {
+        if (_rangeMarker == null) _rangeMarker = GetComponentInChildren<RangeMarker>(true);
         if (_rangeMarker != null) _rangeMarker.DisableVisiblity();
     }
 }

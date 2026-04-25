@@ -78,6 +78,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     }
     protected override void OnObjectClicked()
     {
+        base.OnObjectClicked();
 
         bool canCardBePlayed = (_selectedCard.Card != null &&
             _selectedCard.Card.CardType == CardType.Recruitment);

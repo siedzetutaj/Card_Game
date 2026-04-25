@@ -9,7 +9,11 @@ public class ShootBuildingEffectSO : BuildingEffectSO
 
     public override void ApplyBuildingEffect(BuildingHandler buildingHandler)
     {
-        BuildingShooter shooter = buildingHandler.gameObject.AddComponent<BuildingShooter>();
+        BuildingShooter shooter = buildingHandler.GetComponent<BuildingShooter>();
+        if (shooter == null)
+        {
+            shooter = buildingHandler.gameObject.AddComponent<BuildingShooter>();
+        }
         shooter.Setup(_damage, _range, _attackSpeed, buildingHandler);
     }
 }
