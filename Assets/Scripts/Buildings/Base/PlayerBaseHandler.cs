@@ -19,7 +19,7 @@ public class PlayerBaseHandler : BaseHandler
     }
     public override void OnDeath(IAttacker attacker)
     {
-        Debug.Log("Game Over");
+        LoseScreen.Instance.ShowLoseScreen();
     }
     public override void TakeDamage(int damage, IAttacker attacker)
     {

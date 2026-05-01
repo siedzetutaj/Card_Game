@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8acdf1766ad7834eaadddd8e0b09577, type: 3}
   m_Name: Heavy Camp
   m_EditorClassIdentifier: Assembly-CSharp::SpawnBuildingSO
-  Sprite: {fileID: 21300000, guid: 343f98f5384b374429e174ca7b3496dd, type: 3}
+  Sprite: {fileID: 21300000, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
   health: 100
   OnBeginningBuildingEffects: []
   OnBeginningTacticalEffects: []
   OnEndTacticalEffects: []
   OnBeginningCombatEffects:
-  - {fileID: 11400000, guid: 10566ee4dc6077e40b6d6503dc392b10, type: 2}
+  - {fileID: 11400000, guid: f69e578a9585732429f4040fc56e8a90, type: 2}
   OnEndCombatEffects: []
