@@ -27,7 +27,7 @@ public class MapEventVisuals
     [field: SerializeField] public Sprite CompletedSprite { get; private set; }
 }
 
-public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
+public class MapGenerator : MonoBehaviour
 {
     [Header("Generation Info")]
     [SerializeField] private int _maxRowCount;
@@ -49,12 +49,15 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
     [SerializeField] private List<MapRule> _rules = new();
     [SerializeField] private List<MapEventVisuals> _visuals = new();
 
+    //Properties
+    public RectTransform MapParent { get => _mapParent; }
+    public List<MapRow> Rows { get => _rows; }
+
 
 
     [ContextMenu("Generate Test Map")]
     public void GenerateTest()
     {
-
         #if UNITY_EDITOR
         if (!Application.isPlaying)
             return;
@@ -79,6 +82,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
 
         AddMapEvents();
     }
+
 #region Generation
     private void CreateFirstRow()
     {
@@ -128,7 +132,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
 
     private void AddRandomConnection(int i, HashSet<int> uniqueButtons, List<MapButton> mb)
     {
-        int randPos = mb[i].Pos.x + Random.Range(-1, 2);
+        int randPos = mb[i].PosID.x + Random.Range(-1, 2);
         randPos = Mathf.Clamp(randPos, 0, _maxColumnCount - 1);
 
         uniqueButtons.Add(randPos);
@@ -152,7 +156,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
 
             newButton.transform.localPosition = new Vector3(newX, 0);
             
-            newButton.Pos = new Vector2Int(buttonsToSpawn[i], curRow);
+            newButton.PosID = new Vector2Int(buttonsToSpawn[i], curRow);
             _rows[curRow].Buttons.Add(newButton);        
         } 
     }
@@ -166,7 +170,7 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
         {
             foreach (int x in mb[i].PossibleConnections)
             {
-                MapButton newButton = _rows[curRow].Buttons.Find(a => a.Pos.x == x);
+                MapButton newButton = _rows[curRow].Buttons.Find(a => a.PosID.x == x);
 
                 if (newButton == null)
                     continue;
@@ -279,5 +283,17 @@ public class MapGenerator : MonoBehaviourSingleton<MapGenerator>
     }
 
 #endregion
+
+    public MapButton GetMapButton(Vector2Int pos)
+    {
+        if (pos.y < 0 || pos.y >= _rows.Count || pos.x < 0 || pos.x >= _maxColumnCount)
+            return null;
+
+        foreach(MapButton mb in _rows[pos.y].Buttons)
+            if (mb.PosID == pos)
+                return mb;
+
+        return null;
+    }
     private int RandomDirection() => Random.Range(0,2) * 2 - 1;
 }
