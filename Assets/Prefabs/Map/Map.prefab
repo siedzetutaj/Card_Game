@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc571ddafa42c6439c5afa878d82902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  _maxRowCount: 15
+  _maxRowCount: 10
   _maxColumnCount: 6
   _heightDis: 175
   _widthDis: 200
@@ -93,7 +93,7 @@ MonoBehaviour:
   _rules:
   - <Type>k__BackingField: 1
     <HowMany>k__BackingField: 7
-    <MinRange>k__BackingField: 1
+    <MinRange>k__BackingField: 0
     <MaxRange>k__BackingField: 15
   - <Type>k__BackingField: 2
     <HowMany>k__BackingField: 5
@@ -101,7 +101,7 @@ MonoBehaviour:
     <MaxRange>k__BackingField: 15
   - <Type>k__BackingField: 3
     <HowMany>k__BackingField: 8
-    <MinRange>k__BackingField: 4
+    <MinRange>k__BackingField: 0
     <MaxRange>k__BackingField: 15
   _visuals:
   - <Type>k__BackingField: 0

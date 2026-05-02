@@ -21,10 +21,10 @@ public class RewardsManager : MonoBehaviourSingleton<RewardsManager>
     private void Start()
     {
         UpdateRewardsManager(AdditionalCardsPoolSO);
-        ToggleRewardsUI(false);
+        ToggleUI(false);
     }
 
-    private void ToggleRewardsUI(bool isOn)
+    private void ToggleUI(bool isOn)
     {
         _rewardsScreen.SetActive(isOn);
     }
@@ -40,7 +40,7 @@ public class RewardsManager : MonoBehaviourSingleton<RewardsManager>
     public void ShowCardRewards(System.Action newOnRewardChosen)
     {
         _onRewardChosen = newOnRewardChosen;
-        ToggleRewardsUI(true);
+        ToggleUI(true);
         ResetCardRewards();
         GenerateCardRewards(3);
     }
@@ -74,6 +74,6 @@ public class RewardsManager : MonoBehaviourSingleton<RewardsManager>
     public void InvokeOnRewardChosen()
     {
         _onRewardChosen?.Invoke();
-        ToggleRewardsUI(false);
+        ToggleUI(false);
     }
 }

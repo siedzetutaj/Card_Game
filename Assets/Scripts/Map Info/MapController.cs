@@ -89,8 +89,11 @@ public class MapController : MonoBehaviourSingleton<MapController>
     public void MovePlayer(MapButton mb)
     {
         Debug.Log("Moving Player");
+
         PlayerPosID = mb.PosID;
-        ChangeState(MapState.MovingPlayer);        
+
+        ChangeState(MapState.MovingPlayer); 
+
         Tween.LocalPosition(_playerImage.transform, mb.transform.parent.localPosition + 
             mb.transform.localPosition, 1f, useUnscaledTime: true)
             .OnComplete(ActivateEvent);
@@ -99,23 +102,24 @@ public class MapController : MonoBehaviourSingleton<MapController>
     public void ActivateEvent()
     {
         Debug.Log("Activating Event");
+
         ChangeState(MapState.PlayingEvent);
 
         MapButton mb = GetCurrentMapButton();
 
-        //tutaj testowo zostawie zeby zawsze byla walka
-        TurnManager.Instance.StartGameManually();
-
         switch (mb.EventType)
         {
             case MapEventType.Fight:
-                //TurnManager.Instance.StartGameManually();
+                TurnManager.Instance.StartGameManually();
                 break;
             case MapEventType.Card:
+                RewardsManager.Instance.ShowCardRewards(() => ChangeState(MapState.ChoosingEvent));
                 break;
             case MapEventType.Shop:
+                TurnManager.Instance.StartGameManually();
                 break;
             case MapEventType.Story:
+                StoryEventManager.Instance.ActivateStory();
                 break;
         }
     }
