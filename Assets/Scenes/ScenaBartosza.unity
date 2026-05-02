@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &1419941014 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-  m_PrefabInstance: {fileID: 1503043173270903864}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1503043173270903864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,15 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.000022888184
       objectReference: {fileID: 0}
     - target: {fileID: 1729762931532691173, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00006973699
-      objectReference: {fileID: 0}
-    - target: {fileID: 1737002763511904083, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1200
+      value: -0.0005493164
       objectReference: {fileID: 0}
     - target: {fileID: 3476201162441030224, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_Size
@@ -162,18 +153,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3561934108547309119, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3642723957057784804, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3642723957057784804, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3642723957057784804, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4104896910712048711, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
@@ -220,28 +199,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
-    - target: {fileID: 4151179423137342784, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: <ContentParent>k__BackingField
-      value: 
-      objectReference: {fileID: 1419941014}
     - target: {fileID: 5593912047290353179, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5593912047290353179, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5593912047290353179, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5911335331728707653, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5911335331728707653, guid: 9526de85715ad544aaee080cbc0b024d, type: 3}
-      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -262,6 +225,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 398415659097387484, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1569792465725751795, guid: eba9c0b1fb263d1439bf9da873540be0, type: 3}
       propertyPath: m_IsActive
       value: 0

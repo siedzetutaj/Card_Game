@@ -52,7 +52,7 @@ public class MapGenerator : MonoBehaviour
     //Properties
     public RectTransform MapParent { get => _mapParent; }
     public List<MapRow> Rows { get => _rows; }
-
+    public float BaseHeight { get => _maxRowCount * _heightDis; }
 
 
     [ContextMenu("Generate Test Map")]

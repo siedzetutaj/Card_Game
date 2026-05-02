@@ -55,7 +55,6 @@ public class DeckManager : MonoBehaviourSingleton<DeckManager>
             return;
         }
         _cardsInDeck.Add(cardData);
-
     }
     public void RemoveCardFromDeck(CardData cardData)
     {

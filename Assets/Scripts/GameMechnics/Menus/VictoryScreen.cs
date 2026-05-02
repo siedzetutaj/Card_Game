@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class VictoryScreen : MonoBehaviourSingleton<VictoryScreen>
 {
-    /*Wyœwietlenie kart 
-     * Trzeba zrobiæ pule kart, z której bêdzie sie losowaæ
+    /*Wyï¿½wietlenie kart 
+     * Trzeba zrobiï¿½ pule kart, z ktï¿½rej bï¿½dzie sie losowaï¿½
      * 
      */
     [SerializeField] private GameObject _victoryScreen;
@@ -22,9 +22,18 @@ public class VictoryScreen : MonoBehaviourSingleton<VictoryScreen>
     [ContextMenu("Show Victory Screen")]
     public void ShowVictoryScreen()
     {
+        //testowe resetowanie gry
+        TurnManager.Instance.OnVictory();
+        //zmiencie na lepsze
+
         Time.timeScale = 0f;
         _victoryScreen.SetActive(true);
         GenerateCards();
+    }
+
+    public void HideVictoryScreen()
+    {
+        _victoryScreen.SetActive(false);
     }
 
     private void GenerateCards()

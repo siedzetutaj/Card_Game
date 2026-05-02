@@ -68,4 +68,14 @@ public class TurnManager : MonoBehaviourSingleton<TurnManager>
         PlayerUnitsManagers.Clear();
         EnemieUnitsManagers.Clear();
     }
+
+    //testowe - zmiencie to zeby nie bylo chamska implementacja xd
+    public void OnVictory()
+    {
+        foreach(ITargetable it in PlayerTargets)
+            Destroy(it.TargetTransform.gameObject);
+        foreach(ITargetable it in EnemieTargets)
+            Destroy(it.TargetTransform.gameObject);
+        ClearLists();
+    }
 }

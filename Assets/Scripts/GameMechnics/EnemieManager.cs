@@ -16,7 +16,7 @@ public class EnemieManager : MonoBehaviourSingleton<EnemieManager>
             _enemieAI.CurrentHealth = value;
             if (_healthPoints <= 0)
             {
-                Debug.Log("Enemie Defeated! Player Wins!");
+                Debug.Log("Enemie Defeated! Player Wins!"); //bartek: bedziemy kiedys zmieniac enemie na enemy xddd?
                 VictoryScreen.Instance.ShowVictoryScreen();
             }
         }
