@@ -41,6 +41,7 @@ public class MapController : MonoBehaviourSingleton<MapController>
         if (State != MapState.Disabled)
             return;
 
+        MapCanvas.SetActive(true); //music to byc tutaj, bo inaczej cos sie psuje
         Generator.GenerateMap(Random.Range(0,100000)); //zmienic w przyszlosci
 
         PlayerPosID = new Vector2Int(0,-1);

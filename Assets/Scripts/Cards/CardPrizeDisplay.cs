@@ -22,8 +22,7 @@ public class CardPrizeDisplay : InteractableObject
     {
         Debug.Log("Card Prize Clicked, map should open");
         DeckManager.Instance.AddCardToDeck(CardData);
-        VictoryScreen.Instance.HideVictoryScreen();      
-        MapController.Instance.ChangeState(MapState.ChoosingEvent);
+        RewardsManager.Instance.InvokeOnRewardChosen();
     }
 
 }

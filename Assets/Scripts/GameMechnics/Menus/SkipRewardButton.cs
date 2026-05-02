@@ -6,6 +6,6 @@ public class SkipRewardButton : MonoBehaviour
     {
         //Po klikni�ciu powinno przenie�� gracza do mapy z wyborem kolejnego spotaknia
         Debug.Log("Reward skipped!");
-        MapController.Instance.ChangeState(MapState.ChoosingEvent);
+        RewardsManager.Instance.InvokeOnRewardChosen();
     }
 }
