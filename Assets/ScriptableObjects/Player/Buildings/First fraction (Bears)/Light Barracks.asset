@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8acdf1766ad7834eaadddd8e0b09577, type: 3}
   m_Name: Light Barracks
   m_EditorClassIdentifier: Assembly-CSharp::SpawnBuildingSO
-  Sprite: {fileID: 21300000, guid: bd2fe468eb5beed41931b161e63799fd, type: 3}
+  Sprite: {fileID: 21300000, guid: bc0a8fb364d365349bf9c35474947d48, type: 3}
   health: 100
   OnBeginningBuildingEffects: []
   OnBeginningTacticalEffects: []

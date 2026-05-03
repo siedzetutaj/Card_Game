@@ -16,8 +16,10 @@ public class EnemieManager : MonoBehaviourSingleton<EnemieManager>
             _enemieAI.CurrentHealth = value;
             if (_healthPoints <= 0)
             {
-                Debug.Log("Enemie Defeated! Player Wins!");
-                VictoryScreen.Instance.ShowVictoryScreen();
+                Debug.Log("Enemie Defeated! Player Wins!"); 
+                TurnManager.Instance.OnVictory();
+                RewardsManager.Instance.ShowCardRewards(
+                    () => MapController.Instance.ChangeState(MapState.ChoosingEvent));
             }
         }
     }

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a087d99f4caff97438d1064b3cacfbc2, type: 3}
+  m_Name: SpawnLightUnit
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnUnitOnEndTurnEffect
+  _playerUnitsManagerPrefab: {fileID: 1267755960122152951, guid: 53296200a666e9741a73d74619cecbdc, type: 3}
+  _enemieUnitsManagerPrefab: {fileID: 1267755960122152951, guid: e10e53513d816a04a97181872b2469a0, type: 3}
+  _unitSO: {fileID: 11400000, guid: 499611f81014a24499e40df9abd99db3, type: 2}

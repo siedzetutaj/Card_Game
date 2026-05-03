@@ -1026,6 +1026,11 @@ PrefabInstance:
       addedObject: {fileID: 7390265985041760044}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
+--- !u!1 &368430856593294542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4896628525622613309, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
+  m_PrefabInstance: {fileID: 5109540872543703539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &398415659097387484 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4859323200393011247, guid: f9bc1352e0ed8d44d87c4b3f7f27354b, type: 3}
@@ -1201,8 +1206,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7067868849646017653, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8417982238281556730}
   m_SourcePrefab: {fileID: 100100000, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
+--- !u!1 &7305875495072044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7067868849646017653, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}
+  m_PrefabInstance: {fileID: 7066123498172394841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8417982238281556730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7305875495072044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23e1c7e418cef540958fef76cbcb57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoseScreen
+  _loseScreen: {fileID: 368430856593294542}
 --- !u!114 &60241294985841731 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7122984600609743130, guid: 6bde198796ceca14aa4421efa1db260b, type: 3}

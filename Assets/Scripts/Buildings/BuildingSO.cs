@@ -16,6 +16,9 @@ public class BuildingSO : ScriptableObject
     [Header("Combat Effects")]
     public List<BuildingEffectSO> OnBeginningCombatEffects = new();
     public List<BuildingEffectSO> OnEndCombatEffects = new();
+    [Header("Special Effects")]
+    public List<BuildingEffectSO> OnDeathEffects = new();
+
 
     //test czy git dziala
 }

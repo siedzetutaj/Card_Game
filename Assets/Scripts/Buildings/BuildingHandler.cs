@@ -28,6 +28,8 @@ public class BuildingHandler : InteractableObject, ITargetable
     private List<BuildingEffectSO> _onBeginningCombatEffects = new();
     private List<BuildingEffectSO> _onEndCombatEffects = new();
 
+    private List<BuildingEffectSO> _onDeathEffects = new();
+
     private TurnManager _turnManager => TurnManager.Instance;
 
 
@@ -130,6 +132,13 @@ public class BuildingHandler : InteractableObject, ITargetable
             effect.ApplyBuildingEffect(this);
         }
     }
+    protected virtual void ApplyOnDeathEffects()
+    {
+        foreach (var effect in _onDeathEffects)
+        {
+            effect.ApplyBuildingEffect(this);
+        }
+    }
     public void TakeDamage(int damage, IAttacker attacker)
     {
         Debug.Log(_health);
@@ -140,6 +149,7 @@ public class BuildingHandler : InteractableObject, ITargetable
 
     public void OnDeath(IAttacker attacker)
     {
+        ApplyOnDeathEffects();
         attacker.OnKill();
         DestoryBuilding();
     }

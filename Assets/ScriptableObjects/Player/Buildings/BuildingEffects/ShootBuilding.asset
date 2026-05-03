@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ShootBuilding
   m_EditorClassIdentifier: Assembly-CSharp::ShootBuildingEffectSO
   _damage: 10
-  _range: 200
-  _attackSpeed: 10
+  _range: 500
+  _attackSpeed: 3
