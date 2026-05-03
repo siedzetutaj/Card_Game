@@ -72,11 +72,6 @@ public class BuildingHandler : InteractableObject, ITargetable
         {
             effect.ApplyBuildingEffect(this);
         }
-
-        if(IsPlayerBuilding)
-            _turnManager.PlayerTargets.Add(this);
-        else
-            _turnManager.EnemieTargets.Add(this);
     }
     protected override void OnObjectClicked()
     {
@@ -120,6 +115,13 @@ public class BuildingHandler : InteractableObject, ITargetable
     }
     protected virtual void ApplyOnBeginningCombatEffects()
     {
+        if (IsPlayerBuilding)
+            if (!_turnManager.PlayerTargets.Contains(this))
+                _turnManager.PlayerTargets.Add(this);
+        else
+            if (!_turnManager.EnemieTargets.Contains(this))
+                _turnManager.EnemieTargets.Add(this);
+
         foreach (var effect in _onBeginningCombatEffects)
         {
             effect.ApplyBuildingEffect(this);
