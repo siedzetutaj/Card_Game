@@ -116,11 +116,9 @@ public class BuildingHandler : InteractableObject, ITargetable
     protected virtual void ApplyOnBeginningCombatEffects()
     {
         if (IsPlayerBuilding)
-            if (!_turnManager.PlayerTargets.Contains(this))
-                _turnManager.PlayerTargets.Add(this);
+            _turnManager.PlayerTargets.Add(this);   
         else
-            if (!_turnManager.EnemieTargets.Contains(this))
-                _turnManager.EnemieTargets.Add(this);
+            _turnManager.EnemieTargets.Add(this);
 
         foreach (var effect in _onBeginningCombatEffects)
         {
