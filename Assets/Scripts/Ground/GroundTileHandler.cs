@@ -21,6 +21,7 @@ public class GroundTileHandler : InteractableObject
         {
             CardHandler card = SelectedCard.Instance.Card;
             card.OnCardPlayed(gameObject);
+            _isOccupied = true;
         }
     }
     protected override void OnObjectMouseEnter()
