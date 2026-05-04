@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff217ddb24fb134d830dfb93a09d766, type: 3}
   m_Name: ShootBuilding
   m_EditorClassIdentifier: Assembly-CSharp::ShootBuildingEffectSO
-  _damage: 10
+  _damage: 50
   _range: 500
-  _attackSpeed: 3
+  _attackSpeed: 0.1

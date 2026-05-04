@@ -61,6 +61,7 @@ MonoBehaviour:
   EnemieSO: {fileID: 11400000, guid: 56be956ea46d3104095759caca070ff5, type: 2}
   SpawnBuildingPrefab: {fileID: 2775292021146187962, guid: 6ca09e72d7542cd4cb960d5ed0d29bf2, type: 3}
   _groundGenerator: {fileID: 0}
+  CurrentHealth: 0
 --- !u!1 &5043696096865158519
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 570488587314854453}
   - component: {fileID: 6156644102172883711}
+  - component: {fileID: 2924299341908296771}
   m_Layer: 0
   m_Name: Menus
   m_TagString: Untagged
@@ -209,10 +211,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78e4f5c9988e144c9b876c0dd435437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoryScreen
-  _cardPrizePanel: {fileID: 0}
-  _cardPrizePrefab: {fileID: 2245718946013293043, guid: b8ba7b844a9c44e4b8030df34059d628, type: 3}
-  CardPool: []
-  AdditionalCardsPoolSO: {fileID: 11400000, guid: 97368350134085b4d9fd3264a36f93fa, type: 2}
+--- !u!114 &2924299341908296771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7067868849646017653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23e1c7e418cef540958fef76cbcb57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoseScreen
+  _loseScreen: {fileID: 0}
 --- !u!1 &8009531503356645008
 GameObject:
   m_ObjectHideFlags: 0
