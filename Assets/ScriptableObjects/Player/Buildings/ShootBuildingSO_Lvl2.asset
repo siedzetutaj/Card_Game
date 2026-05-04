@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8acdf1766ad7834eaadddd8e0b09577, type: 3}
-  m_Name: ShootBuildingSO
+  m_Name: ShootBuildingSO_Lvl2
   m_EditorClassIdentifier: Assembly-CSharp::ShootBuildingSO
   Sprite: {fileID: 21300000, guid: 343f98f5384b374429e174ca7b3496dd, type: 3}
   health: 100
-  NextLevelPrefab: {fileID: 11400000, guid: c4b263e5928bb4aeca310c5ee23b5908, type: 2}
-  BaseBuildingSO: {fileID: 11400000}
+  NextLevelPrefab: {fileID: 11400000, guid: 30430de7c016f46639c8b0d0c03aad12, type: 2}
+  BaseBuildingSO: {fileID: 11400000, guid: 542bc2926a216524d8ed52a5919ac751, type: 2}
   OnBeginningBuildingEffects: []
   OnBeginningTacticalEffects: []
   OnEndTacticalEffects: []

@@ -91,6 +91,36 @@ public class BuildingHandler : InteractableObject, ITargetable
             card.OnCardPlayed(gameObject);
         }
 
+        bool canBuildingBeUpgraded = (_selectedCard.Card != null &&
+            _selectedCard.Card.CardType == CardType.Building &&
+            _buildingSO.NextLevelPrefab != null);
+
+        if (canBuildingBeUpgraded)
+        {
+            BuildingCardEffectSO cardEffect = null;
+            foreach (var effect in _selectedCard.Card.CardData.Effects)
+            {
+                if (effect is BuildingCardEffectSO bce)
+                {
+                    cardEffect = bce;
+                    break;
+                }
+            }
+            
+            if (cardEffect != null)
+            {
+                BuildingSO cardBuildingSO = cardEffect.BuildingSO;
+                BuildingSO myBase = _buildingSO.BaseBuildingSO != null ? _buildingSO.BaseBuildingSO : _buildingSO;
+                BuildingSO cardBase = cardBuildingSO.BaseBuildingSO != null ? cardBuildingSO.BaseBuildingSO : cardBuildingSO;
+                
+                if (myBase == cardBase)
+                {
+                    CardHandler card = SelectedCard.Instance.Card;
+                    card.OnCardPlayed(gameObject);
+                }
+            }
+        }
+
         if (TryGetComponent<BuildingShooter>(out var shooter))
         {
             shooter.EnableRangeMarker();
@@ -160,5 +190,40 @@ public class BuildingHandler : InteractableObject, ITargetable
         else
             _turnManager.EnemieTargets.Remove(this);
         Destroy(gameObject);
+    }
+
+    public void Upgrade()
+    {
+        if (_buildingSO.NextLevelPrefab == null) return;
+
+        // Apply new SO
+        _buildingSO = _buildingSO.NextLevelPrefab;
+        
+        // Update graphics
+        if (_buildingSO.Sprite != null)
+        {
+            _image.sprite = _buildingSO.Sprite;
+        }
+
+        // Increase health by the difference, or just set it? Let's add the new health value.
+        // Actually, if level 2 has 200 health and level 1 had 100, we add 100 to current health.
+        // But for simplicity, we can just add the base health of the new level, or set to new max.
+        // Let's assume the SO defines the TOTAL health for that level.
+        // So we heal by the difference. But what if we just add the level's health?
+        // Let's set the health to the new SO's health.
+        _health = _buildingSO.health; // A full heal + upgrade.
+
+        // Re-apply beginning building effects (e.g., to update Shooter stats)
+        foreach (var effect in _buildingSO.OnBeginningBuildingEffects)
+        {
+            effect.ApplyBuildingEffect(this);
+        }
+        
+        // Re-initialize lists for tactical and combat effects
+        _onBeginningTacticalEffects = new(_buildingSO.OnBeginningTacticalEffects);
+        _onEndTacticalEffects = new(_buildingSO.OnEndTacticalEffects);
+        _onBeginningCombatEffects = new(_buildingSO.OnBeginningCombatEffects);
+        _onEndCombatEffects = new(_buildingSO.OnEndCombatEffects);
+        _onDeathEffects = new(_buildingSO.OnDeathEffects);
     }
 }

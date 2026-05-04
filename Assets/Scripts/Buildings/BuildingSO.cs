@@ -7,6 +7,11 @@ public class BuildingSO : ScriptableObject
     [Header("Base")]
     public Sprite Sprite;
     public int health;
+
+    [Header("Upgrades")]
+    public BuildingSO NextLevelPrefab;
+    public BuildingSO BaseBuildingSO;
+
     [Header("Beginning Effects")]
     public List<BuildingEffectSO> OnBeginningBuildingEffects = new();
 
