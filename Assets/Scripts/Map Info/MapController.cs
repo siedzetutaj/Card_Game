@@ -116,7 +116,7 @@ public class MapController : MonoBehaviourSingleton<MapController>
                 RewardsManager.Instance.ShowCardRewards(() => ChangeState(MapState.ChoosingEvent));
                 break;
             case MapEventType.Shop:
-                TurnManager.Instance.StartGameManually();
+                ShopManager.Instance.ShowCardRewards(null);
                 break;
             case MapEventType.Story:
                 StoryEventManager.Instance.ActivateStory();
