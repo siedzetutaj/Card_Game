@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 {
     //Constant variables
-    private const float TIME_FOR_TRANSITION = 0.75f;
+    private const float TIME_FOR_TRANSITION = 1f;
 
     //Editor-assigned variables
     [SerializeField] private GameObject _transitionGO;
@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     [SerializeField] private bool _isLoading = false;
 
     //Other variables
-    private string _nextSceneName;
+    [SerializeField] private string _nextSceneName;
 
     //Properties
     public string CurrentSceneName => SceneManager.GetActiveScene().name;
@@ -33,23 +33,27 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
     {
         _transitionGO.SetActive(true);
 
-        if (!isHidingScreen)
+        if (isHidingScreen)
         {
-            _transitionAnim.SetBool("Check", !isHidingScreen);
-            yield return new WaitForSeconds(TIME_FOR_TRANSITION);
+            _transitionAnim.SetBool("Check", isHidingScreen);
+            yield return new WaitForSecondsRealtime(TIME_FOR_TRANSITION);
             nextAction?.Invoke();
         }
         else
         {
             nextAction?.Invoke();
-            yield return new WaitForSeconds(TIME_FOR_TRANSITION);
-            _transitionAnim.SetBool("Check", !isHidingScreen);
+            
+            yield return new WaitForSecondsRealtime(TIME_FOR_TRANSITION);
+            _transitionAnim.SetBool("Check", isHidingScreen);
         }
     }
 
-    private void HandleLoadingAsynchronously() => StartCoroutine(LoadAsynchronously());
+    private void HandleLoadingAsynchronously()
+    {
+        StartCoroutine(LoadAsynchronously());
+    }
 
-    public void LoadLevel(string newSceneName)
+    public void LoadScene(string newSceneName)
     {
         if (_isLoading) return;
 
@@ -66,8 +70,10 @@ public class SceneLoader : MonoBehaviourSingletonPersistent<SceneLoader>
 
         while (!operation.isDone)
             yield return null;
+            
+        
 
-        HandleMenuTransition(false, null);
+        HandleMenuTransition(false);
 
         _isLoading = false;                   
     }
