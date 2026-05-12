@@ -15,7 +15,9 @@ public class BuildingHandler : InteractableObject, ITargetable
     public bool IsUnit => false;
 
     public bool IsPlayerBuilding =true;
-    
+    public int Health => _health;
+    public event System.Action<int> OnHealthChanged;
+
     [SerializeField] private Image _image;
 
     [SerializeField] protected BuildingSO _buildingSO;
@@ -67,6 +69,8 @@ public class BuildingHandler : InteractableObject, ITargetable
 
         _onBeginningCombatEffects = new (buildingSO.OnBeginningCombatEffects);
         _onEndCombatEffects = new (buildingSO.OnEndCombatEffects);
+
+        _onDeathEffects = new (buildingSO.OnDeathEffects);
 
         foreach (var effect in buildingSO.OnBeginningBuildingEffects)
         {
@@ -173,6 +177,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     {
         Debug.Log(_health);
         _health -= damage;
+        OnHealthChanged?.Invoke(_health);
         if (!IsAlive)
             OnDeath(attacker);
     }
@@ -196,30 +201,20 @@ public class BuildingHandler : InteractableObject, ITargetable
     {
         if (_buildingSO.NextLevelPrefab == null) return;
 
-        // Apply new SO
         _buildingSO = _buildingSO.NextLevelPrefab;
         
-        // Update graphics
         if (_buildingSO.Sprite != null)
         {
             _image.sprite = _buildingSO.Sprite;
         }
+        
+        _health = _buildingSO.health; 
 
-        // Increase health by the difference, or just set it? Let's add the new health value.
-        // Actually, if level 2 has 200 health and level 1 had 100, we add 100 to current health.
-        // But for simplicity, we can just add the base health of the new level, or set to new max.
-        // Let's assume the SO defines the TOTAL health for that level.
-        // So we heal by the difference. But what if we just add the level's health?
-        // Let's set the health to the new SO's health.
-        _health = _buildingSO.health; // A full heal + upgrade.
-
-        // Re-apply beginning building effects (e.g., to update Shooter stats)
         foreach (var effect in _buildingSO.OnBeginningBuildingEffects)
         {
             effect.ApplyBuildingEffect(this);
         }
         
-        // Re-initialize lists for tactical and combat effects
         _onBeginningTacticalEffects = new(_buildingSO.OnBeginningTacticalEffects);
         _onEndTacticalEffects = new(_buildingSO.OnEndTacticalEffects);
         _onBeginningCombatEffects = new(_buildingSO.OnBeginningCombatEffects);
