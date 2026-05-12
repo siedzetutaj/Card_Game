@@ -39,8 +39,6 @@ public class EnemieAI : MonoBehaviour
                 _tiles.Add(handler);
         });
 
-        EnemieManager.Instance.HealthPoints = CurrentHealth;
-
         TakeAction();
     }
     private void TakeAction()

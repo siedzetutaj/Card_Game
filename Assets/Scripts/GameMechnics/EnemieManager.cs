@@ -5,26 +5,25 @@ public class EnemieManager : MonoBehaviourSingleton<EnemieManager>
 {
     [SerializeField] private TextMeshProUGUI _healthPointsText;
     private EnemieAI _enemieAI;
-    private int _healthPoints;
-    public int HealthPoints
-    {
-        get => _healthPoints;
-        set
-        {
-            _healthPointsText.text = value.ToString();
-            _healthPoints = value;
-            _enemieAI.CurrentHealth = value;
-            if (_healthPoints <= 0)
-            {
-                Debug.Log("Enemie Defeated! Player Wins!"); 
-                TurnManager.Instance.OnVictory();
-                RewardsManager.Instance.ShowCardRewards(
-                    () => MapController.Instance.ChangeState(MapState.ChoosingEvent));
-            }
-        }
-    }
+
     public void SetEnemyAI(EnemieAI enemieAI)
     {
         _enemieAI = enemieAI;
-    }   
+    }
+
+    public void BindToBase(BuildingHandler baseHandler)
+    {
+        _healthPointsText.text = baseHandler.Health.ToString();
+        if (_enemieAI != null)
+            _enemieAI.CurrentHealth = baseHandler.Health;
+
+        baseHandler.OnHealthChanged += UpdateHealthDisplay;
+    }
+
+    private void UpdateHealthDisplay(int currentHealth)
+    {
+        _healthPointsText.text = currentHealth.ToString();
+        if (_enemieAI != null)
+            _enemieAI.CurrentHealth = currentHealth;
+    }
 }

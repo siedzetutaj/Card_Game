@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5213272286298686074}
   - component: {fileID: 1518759267219015283}
   - component: {fileID: 3416668592925590475}
-  - component: {fileID: 7525377176437290451}
+  - component: {fileID: 506031464263776337}
   m_Layer: 5
   m_Name: EnemieBase
   m_TagString: Untagged
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73873a1a6916624dbb9f3f96b46d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
---- !u!114 &7525377176437290451
+--- !u!114 &506031464263776337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,11 +98,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2775292021146187962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf68683c47b20941a4128c366a7e685, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ea4c9948b6122246bf26e71399d4911, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemieBaseHandler
-  _damage: 9999
-  _range: 200
-  _attackSpeed: 3
-  _isPlayerBase: 1
-  health: 1000
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHandler
+  IsPlayerBuilding: 0
+  _image: {fileID: 1518759267219015283}
+  _buildingSO: {fileID: 11400000, guid: 507111c320aa14409ad73601a7304817, type: 2}
+  _health: 0
