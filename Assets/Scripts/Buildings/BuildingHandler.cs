@@ -34,8 +34,17 @@ public class BuildingHandler : InteractableObject, ITargetable
 
     private TurnManager _turnManager => TurnManager.Instance;
 
-
     protected int _targetAmount;
+    private bool _initialized;
+
+    protected virtual void Start()
+    {
+        if (!_initialized && _buildingSO != null)
+        {
+            Initialize(_buildingSO);
+        }
+    }
+
 
     protected override void OnEnable()
     {
@@ -60,6 +69,7 @@ public class BuildingHandler : InteractableObject, ITargetable
     }
     public virtual void Initialize(BuildingSO buildingSO)
     {
+        _initialized = true;
         _buildingSO = buildingSO;
         _image.sprite = buildingSO.Sprite;
         _health = buildingSO.health;
