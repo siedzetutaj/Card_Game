@@ -16,7 +16,8 @@ MonoBehaviour:
   health: 0
   NextLevelPrefab: {fileID: 0}
   BaseBuildingSO: {fileID: 0}
-  OnBeginningBuildingEffects: []
+  OnBeginningBuildingEffects:
+  - {fileID: 11400000, guid: 8f4dc12ccddc84393a30d804f7724347, type: 2}
   OnBeginningTacticalEffects: []
   OnEndTacticalEffects:
   - {fileID: 11400000, guid: d476f51ef7e48478184b61cf0622184c, type: 2}
